@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="facebook-domain-verification" content="EAAMr7dge3BMBQ9eEA92O8WOUptaiyuDSxYekULTva7SNm0DdxPK3NkQSkqxkuQkRZBTlHXDi2RGc6k8dWBl7XG7IZAaynVUF9qKA4x70nxH1WhwCDDnUxm8oJovm3LAlmgZAJFPkNmqtc6BTQ05co70rYStjWjSm4ZAKfIZCyvE1KUTnlXmZC0y6oWLMuPVJlhJQZDZD" />
+    <script>
+      // Prevent "Cannot set property fetch of #<Window> which has only a getter" error
+      // caused by tracking scripts (like FB Pixel) trying to monkey-patch fetch in an iframe.
+      try {
+        if (window.fetch) {
+          const originalFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: function() { return originalFetch; },
+            set: function(newFetch) {
+              Object.defineProperty(window, 'fetch', {
+                value: newFetch,
+                writable: true,
+                configurable: true,
+                enumerable: true
+              });
+            }
+          });
+        }
+      } catch (e) {
+        console.error('Failed to make fetch writable:', e);
+      }
+    </script>
+    <script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0&appId=1707703070196851"></script>
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1707703070196851');
+    fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
+    <!-- UTMify scripts commented out to prevent window.fetch override error in iframe
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-xcod-sck
+      data-utmify-prevent-subids
+      async
+      defer
+    ></script>
+    <script>
+      window.pixelId = "6998eb1a96fdc279f961b5a4";
+      var a = document.createElement("script");
+      a.setAttribute("async", "");
+      a.setAttribute("defer", "");
+      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+      document.head.appendChild(a);
+    </script>
+    -->
+    <title>My Google AI Studio App</title>
+  </head>
+  <body>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1707703070196851&ev=PageView&noscript=1"
+    /></noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
