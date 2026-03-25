@@ -810,7 +810,7 @@ const PreviewSection = () => {
         <div className="relative w-full max-w-sm mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-[#0D3B5E] aspect-[9/16] flex items-center justify-center">
           <video 
             ref={videoRef}
-            src="https://files.catbox.moe/dpp9hm.mp4"
+            src="https://file.garden/abrFdPrpWxJegn2H/0319%20(1)(1).mp4"
             className="absolute inset-0 w-full h-full object-cover"
             autoPlay
             muted
