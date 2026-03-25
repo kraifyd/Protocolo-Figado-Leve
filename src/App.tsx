@@ -770,6 +770,9 @@ const PreviewSection = () => {
   useEffect(() => {
     // Force play on mount to handle strict mobile browser autoplay policies
     if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.playsInline = true;
       videoRef.current.play().catch(error => {
         console.log("Autoplay prevented by browser:", error);
       });
@@ -811,11 +814,10 @@ const PreviewSection = () => {
             className="absolute inset-0 w-full h-full object-cover"
             autoPlay
             muted
-            defaultMuted
             loop
             playsInline
             controls
-            preload="metadata"
+            preload="auto"
           />
         </div>
 
