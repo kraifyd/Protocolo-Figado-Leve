@@ -188,7 +188,7 @@ const NotificationPopup = () => {
 const TopBanner = () => (
   <div className="bg-[#0D3B5E] text-white py-2.5 px-4 text-center text-[10px] font-bold flex items-center justify-center gap-2 uppercase tracking-tight">
     <Zap size={12} className="text-[#F5A623] fill-[#F5A623]" />
-    <span>Oferta exclusiva: 60% de desconto hoje</span>
+    <span>SE SEU EXAME APONTOU GORDURA NO FÍGADO, ESSA PÁGINA É PARA VOCÊ</span>
     <Zap size={12} className="text-[#F5A623] fill-[#F5A623]" />
   </div>
 );
