@@ -6,13 +6,30 @@
   --font-jakarta: 'Plus Jakarta Sans', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
 html, body {
   scrollbar-width: none;
   -ms-overflow-style: none;
+  overscroll-behavior-y: none;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html::-webkit-scrollbar, body::-webkit-scrollbar {
   display: none;
+}
+
+button, a {
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 @layer utilities {

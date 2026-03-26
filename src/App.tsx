@@ -791,21 +791,7 @@ const PreviewSection = () => {
       }
     };
 
-    // Usar IntersectionObserver para dar play apenas quando o vídeo aparecer na tela
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          attemptPlay();
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.5 } // Dispara quando 50% do vídeo estiver visível
-    );
-
-    observer.observe(video);
-
-    return () => observer.disconnect();
+    attemptPlay();
   }, []);
 
   const features = [
@@ -846,6 +832,8 @@ const PreviewSection = () => {
             loop
             playsInline
             preload="auto"
+            onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
+            onCanPlay={(e) => e.currentTarget.play().catch(() => {})}
           />
         </div>
 
