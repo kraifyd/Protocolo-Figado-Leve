@@ -984,7 +984,7 @@ const BonusSection = () => {
                 PLANO ALIMENTAR<br/>ANTI-INFLAMAÇÃO<br/>
                 <span className="text-[#1A9E8F]">30 DIAS GUIADOS</span>
               </h3>
-              <img src="https://i.ibb.co/W4GjzVXW/bonus1.png" alt="Plano Alimentar Anti-Inflamação" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
+              <img src="https://i.ibb.co/R4MpWtJP/Chat-GPT-Image-26-de-mar-de-2026-12-01-39.png" alt="Plano Alimentar Anti-Inflamação" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
