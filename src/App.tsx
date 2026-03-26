@@ -1594,9 +1594,7 @@ const UpsellPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = 0;
-    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
 
   const handleDecline = () => {
