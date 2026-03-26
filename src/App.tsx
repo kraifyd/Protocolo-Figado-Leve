@@ -6,6 +6,7 @@ import {
   ShieldCheck, 
   Zap, 
   ArrowRight,
+  ArrowDown,
   Lock,
   Check, 
   Gift, 
@@ -16,6 +17,7 @@ import {
   Mail,
   Smartphone,
   X,
+  XCircle,
   PlayCircle,
   Calendar,
   Headphones,
@@ -25,7 +27,14 @@ import {
   CalendarCheck,
   AlertCircle,
   Activity,
-  Globe
+  Globe,
+  Shield,
+  RefreshCw,
+  Leaf,
+  HelpCircle,
+  MessageCircle,
+  AlertTriangle,
+  Instagram
 } from 'lucide-react';
 
 declare global {
@@ -242,10 +251,24 @@ const Hero = () => (
         </div>
       </div>
 
-      <div className="mb-5">
-        <p className="text-sm text-red-500 font-bold line-through mb-0.5">DE R$ 67</p>
-        <p className="text-sm text-[#4B5563] font-bold mb-0.5">POR APENAS</p>
-        <p className="text-6xl md:text-7xl font-black text-[#1A9E8F] tracking-tighter">R$ 10</p>
+      <div className="mb-8 flex flex-col items-center">
+        <div className="flex items-center justify-center gap-2 text-3xl md:text-4xl font-bold mb-1">
+          <span className="text-black">DE</span>
+          <span className="text-red-600 relative">
+            R$ 67
+            <span className="absolute left-[-5%] top-1/2 w-[110%] h-[4px] bg-red-600 -translate-y-1/2"></span>
+          </span>
+        </div>
+        <p className="text-2xl md:text-3xl text-black font-light mb-4 uppercase tracking-wide">
+          POR APENAS
+        </p>
+        
+        <div className="w-full max-w-[320px] h-[4px] bg-[#1A9E8F] shadow-[0_0_20px_rgba(26,158,143,0.6)] mb-2"></div>
+        
+        <div className="flex items-start justify-center text-[#1A9E8F] leading-none">
+          <span className="text-4xl md:text-5xl font-bold mt-4 md:mt-6 mr-1">R$</span>
+          <span className="text-[120px] md:text-[150px] font-black tracking-tighter leading-none">10</span>
+        </div>
       </div>
 
       <button 
@@ -687,18 +710,6 @@ const SolutionSection = () => {
             </div>
           ))}
         </div>
-
-        <button 
-          id="cta-solution"
-          onClick={() => {
-            trackEvent('InitiateCheckout', { content_name: 'Solution CTA' });
-            document.getElementById('bonus-section')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="w-full max-w-md mx-auto bg-[#1A9E8F] hover:bg-[#1A9E8F] text-white font-bold py-5 px-6 rounded-full shadow-[0_8px_0_#137A6E] transition-all active:translate-y-1 active:shadow-none flex items-center justify-center gap-3 uppercase text-sm animate-cta-pulse"
-        >
-          QUERO CUIDAR DO MEU FÍGADO AGORA
-          <ArrowRight size={18} strokeWidth={3} />
-        </button>
       </div>
     </section>
   );
@@ -1109,7 +1120,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
             className="h-48 md:h-60 mx-auto -mt-10 -mb-10 object-contain"
             referrerPolicy="no-referrer"
           />
-          <h2 className="text-[#F5A623] text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+          <h2 className="text-white text-3xl md:text-5xl font-bold mb-6 tracking-tight">
             + 10 BÔNUS ESPECIAIS!
           </h2>
           <p className="text-white/80 font-medium text-base md:text-lg">
@@ -1120,7 +1131,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto items-center">
           
           {/* Plano Básico */}
-          <div className="lg:col-span-5 bg-white rounded-[2rem] shadow-sm p-8 flex flex-col text-left relative opacity-90 hover:opacity-100 transition-opacity">
+          <div id="offer-basic" className="lg:col-span-5 bg-white rounded-[2rem] shadow-sm p-8 flex flex-col text-left relative opacity-90 hover:opacity-100 transition-opacity scroll-mt-24">
             <div className="mb-6 text-center">
               <h3 className="text-[#0D3B5E] font-bold text-2xl mb-4 uppercase tracking-tight">PLANO BÁSICO</h3>
               
@@ -1131,12 +1142,23 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                 referrerPolicy="no-referrer"
               />
 
-              <div className="flex flex-col items-center">
-                <span className="text-[#EF4444] line-through text-lg font-bold">DE: R$57</span>
-                <span className="text-[#4B5563] text-sm font-medium">POR APENAS</span>
-                <div className="flex items-start text-[#F5A623]">
-                  <span className="text-2xl font-bold mt-1 mr-1">R$</span>
-                  <span className="text-6xl font-black tracking-tighter">10</span>
+              <div className="flex flex-col items-center mb-2">
+                <div className="flex items-center justify-center gap-2 text-xl md:text-2xl font-bold mb-1">
+                  <span className="text-black">DE</span>
+                  <span className="text-red-600 relative">
+                    R$ 57
+                    <span className="absolute left-[-5%] top-1/2 w-[110%] h-[3px] bg-red-600 -translate-y-1/2"></span>
+                  </span>
+                </div>
+                <p className="text-lg md:text-xl text-black font-light mb-3 uppercase tracking-wide">
+                  POR APENAS
+                </p>
+                
+                <div className="w-full max-w-[200px] h-[3px] bg-[#1A9E8F] shadow-[0_0_15px_rgba(26,158,143,0.6)] mb-2"></div>
+                
+                <div className="flex items-start justify-center text-[#1A9E8F] leading-none">
+                  <span className="text-3xl md:text-4xl font-bold mt-2 md:mt-3 mr-1">R$</span>
+                  <span className="text-[80px] md:text-[100px] font-black tracking-tighter leading-none">10</span>
                 </div>
               </div>
             </div>
@@ -1166,9 +1188,9 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                   "Bônus 9 — Áudios Curtos de Reprogramação Anti-Radicalismo",
                   "Bônus 10 — Mini Guia: Sono, Estresse e Gordura no Fígado"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2 text-gray-400">
-                    <X size={18} className="text-gray-300 shrink-0 mt-0.5" strokeWidth={2} />
-                    <span className="text-sm line-through">{item}</span>
+                  <li key={i} className="flex items-start gap-2 text-[#F87171]">
+                    <XCircle size={18} fill="#F87171" stroke="white" className="shrink-0 mt-0.5" />
+                    <span className="text-sm line-through decoration-[#F87171]">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -1181,22 +1203,36 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={onBasicClick}
-                className="w-full block text-center bg-[#F5A623] text-white py-4 rounded-xl font-bold text-base uppercase shadow-lg hover:bg-[#E09612] transition-colors mb-4"
+                className="w-full block text-center bg-[#1A9E8F] text-white py-4 rounded-xl font-bold text-base uppercase shadow-lg hover:bg-[#158578] transition-colors mb-4"
               >
                 COMPRAR O BÁSICO E RECEBER AGORA!
               </a>
-              <p className="text-[10px] text-[#4B5563] text-center leading-tight">
-                ACESSO GARANTIDO E IMEDIATO NO E-MAIL CADASTRADO OU <span className="font-bold text-[#F5A623]">SEU DINHEIRO DE VOLTA</span>
-                <br /><br />
-                Temos uma <span className="font-bold text-[#EF4444]">SUPER OFERTA</span> que se encaixa ainda mais com o seu perfil!
-                <br />
-                <span className="text-lg">⬇️</span>
-              </p>
+              
+              <div className="mt-6 text-center">
+                <p className="text-[14px] md:text-[16px] text-[#8c8c8c] font-black italic uppercase leading-tight tracking-tight">
+                  ACESSO PARA BAIXAR O APP GARANTIDO<br/>
+                  E IMEDIATO NO E-MAIL CADASTRADO OU<br/>
+                  SEU DINHEIRO DE VOLTA
+                </p>
+                
+                <hr className="my-5 border-t-2 border-gray-300" />
+                
+                <p className="text-[16px] md:text-[18px] text-[#8c8c8c] font-bold leading-tight mb-4">
+                  Temos uma <span className="text-[#E53935]">SUPER OFERTA</span> que se encaixa<br/>
+                  ainda mais com o seu perfil
+                </p>
+                
+                <div className="flex justify-center">
+                  <div className="bg-[#E53935] rounded-full p-2">
+                    <ArrowDown size={24} className="text-white" strokeWidth={3} />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Plano Completo */}
-          <div className="lg:col-span-7 bg-black rounded-[2.5rem] border-[4px] border-white p-8 md:p-10 flex flex-col text-left relative shadow-[0_20px_50px_rgba(245,166,35,0.2)] z-10 transform lg:scale-105">
+          <div id="offer-complete" className="lg:col-span-7 bg-black rounded-[2.5rem] border-[4px] border-white p-8 md:p-10 flex flex-col text-left relative shadow-[0_20px_50px_rgba(245,166,35,0.2)] z-10 transform lg:scale-105 scroll-mt-24">
             <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#EF4444] text-white font-bold text-xs md:text-sm px-6 py-2 rounded-full uppercase tracking-wider shadow-md whitespace-nowrap flex items-center gap-2">
               🔥 MAIS VENDIDO
             </div>
@@ -1205,11 +1241,11 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
               <h3 className="text-white font-black text-3xl md:text-4xl tracking-tight mb-1 uppercase">
                 PLANO COMPLETO
               </h3>
-              <p className="text-[#F5A623] font-bold text-sm md:text-base mb-4">
+              <p className="text-white font-bold text-sm md:text-base mb-4">
                 Protocolo Fígado Leve + 10 Bônus Especiais!
               </p>
               
-              <p className="text-[#F5A623] font-bold text-base md:text-lg mb-6">
+              <p className="text-white font-bold text-base md:text-lg mb-6">
                 95% DAS PESSOAS OPTAM POR ESTA OFERTA!
               </p>
 
@@ -1220,12 +1256,23 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                 referrerPolicy="no-referrer"
               />
 
-              <div className="flex flex-col items-center justify-center bg-[#1A1A1A] rounded-2xl py-6 border border-white/20">
-                <span className="text-[#EF4444] line-through text-lg font-bold mb-1">DE: R$297</span>
-                <span className="text-gray-300 text-sm font-medium uppercase tracking-wider mb-1">POR APENAS</span>
-                <div className="flex items-start text-[#F5A623] leading-none">
-                  <span className="text-4xl font-bold mt-1 mr-1">R$</span>
-                  <span className="text-8xl font-black tracking-tighter">37</span>
+              <div className="flex flex-col items-center justify-center bg-transparent py-2">
+                <div className="flex items-center justify-center gap-2 text-xl md:text-2xl font-bold mb-1">
+                  <span className="text-[#8c8c8c]">DE</span>
+                  <span className="text-[#8c8c8c] relative">
+                    R$ 297
+                    <span className="absolute left-[-5%] top-1/2 w-[110%] h-[3px] bg-[#8c8c8c] -translate-y-1/2"></span>
+                  </span>
+                </div>
+                <p className="text-lg md:text-xl text-[#e5e5e5] font-light mb-3 uppercase tracking-wide">
+                  POR APENAS
+                </p>
+                
+                <div className="w-full max-w-[300px] h-[2px] bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)] mb-2"></div>
+                
+                <div className="flex items-start justify-center text-white leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">
+                  <span className="text-3xl md:text-4xl font-bold mt-2 md:mt-3 mr-1">R$</span>
+                  <span className="text-[80px] md:text-[120px] font-black tracking-tighter leading-none">37</span>
                 </div>
               </div>
             </div>
@@ -1286,12 +1333,18 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                 COMPRAR O COMPLETO E RECEBER AGORA!
               </a>
               
-              <div className="text-center space-y-4">
-                <p className="text-xs text-gray-300 leading-tight">
-                  ACESSO GARANTIDO E IMEDIATO NO E-MAIL CADASTRADO OU <span className="font-bold text-[#F5A623]">SEU DINHEIRO DE VOLTA!</span>
+              <div className="mt-6 text-center">
+                <p className="text-[14px] md:text-[16px] text-[#E2FF00] font-black italic uppercase leading-tight tracking-tight">
+                  ACESSO PARA BAIXAR O APP GARANTIDO<br/>
+                  E IMEDIATO NO E-MAIL CADASTRADO OU<br/>
+                  SEU DINHEIRO DE VOLTA!
                 </p>
-                <p className="text-sm font-bold text-[#EF4444] animate-pulse">
-                  APROVEITE AGORA: ÚLTIMO DIA! <span className="font-medium text-gray-300">Você não verá essa oportunidade em outro momento!</span>
+                
+                <hr className="my-5 border-t-2 border-white" />
+                
+                <p className="text-[16px] md:text-[18px] text-white leading-tight mb-4 animate-pulse">
+                  <span className="font-black">APROVEITE AGORA:</span> ÚLTIMO DIA! Você não verá<br/>
+                  essa oportunidade em outro momento!
                 </p>
               </div>
             </div>
@@ -1305,31 +1358,33 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
 const Guarantee = () => {
   return (
     <section className="py-20 px-6 bg-[#F5F7F6] relative overflow-hidden">
-      <div className="max-w-[680px] mx-auto text-center relative z-10 flex flex-col items-center">
-        <div className="relative mb-8">
-          <div className="bg-white p-5 rounded-full shadow-[0_8px_24px_rgba(26,158,143,0.25)]">
-            <ShieldCheck size={72} strokeWidth={1} className="text-[#1A9E8F]" />
-            <div className="absolute inset-0 flex items-center justify-center pt-1.5">
-              <span className="text-white font-bold text-xl">7</span>
-            </div>
+      <div className="max-w-[700px] mx-auto text-center relative z-10 flex flex-col items-center">
+        <div className="mb-6">
+          <div className="bg-[#E5EBE8] w-20 h-20 rounded-full flex items-center justify-center">
+            <Shield size={36} strokeWidth={2} className="text-[#0A3622]" />
           </div>
         </div>
 
-        <div className="inline-block bg-[#1A9E8F] text-white text-xs font-bold px-6 py-2 rounded-full uppercase tracking-wider mb-8 shadow-sm">
-          🛡️ <span className="font-black">Garantia Incondicional de 7 Dias</span>
-        </div>
-
-        <h2 className="text-[#0D3B5E] text-3xl md:text-5xl font-bold mb-8 tracking-tight leading-tight">
-          Você não tem nada a perder. Só a ganhar.
+        <h2 className="text-[#0A3622] text-3xl md:text-[32px] font-bold mb-6 tracking-tight">
+          Garantia Incondicional de 7 Dias
         </h2>
 
-        <div className="text-[#4B5563] text-base md:text-lg leading-relaxed space-y-6 mb-10 font-medium">
-          <p>
-            Se por qualquer motivo você não ficar satisfeito com o Protocolo Fígado Leve, basta enviar um e-mail em até 7 dias após a compra e devolvemos <span className="font-bold text-black">100% do seu dinheiro</span>.
-          </p>
-          <p className="font-bold text-[#0D3B5E] text-xl">
-            Sem perguntas, sem burocracia.
-          </p>
+        <p className="text-[#5A6B68] text-[17px] leading-relaxed mb-8 font-medium">
+          Se por qualquer motivo você não ficar satisfeito com o material, basta enviar um e-<br className="hidden md:block" />
+          mail em até 7 dias após a compra e devolvemos <span className="font-bold text-[#0A3622]">100% do seu dinheiro</span>. Sem<br className="hidden md:block" />
+          perguntas, sem burocracia.
+        </p>
+
+        <div className="flex items-center justify-center gap-4 text-[#3A6B68] font-medium text-sm">
+          <div className="flex items-center gap-2">
+            <RefreshCw size={16} />
+            <span>Reembolso rápido</span>
+          </div>
+          <span className="text-[#3A6B68] opacity-50 text-xs">•</span>
+          <div className="flex items-center gap-2">
+            <Shield size={16} />
+            <span>Sem risco</span>
+          </div>
         </div>
       </div>
     </section>
@@ -1340,11 +1395,11 @@ const FAQ = () => {
   const faqData = [
     { 
       question: "O programa é indicado para qualquer grau de gordura no fígado?", 
-      answer: "O Fígado Leve™ foi desenvolvido para pessoas que receberam diagnóstico de gordura no fígado, independente do grau, e querem organizar a alimentação de forma prática e sustentável. Em casos mais avançados, recomendamos manter o acompanhamento médico paralelo." 
+      answer: "O Fígado Leve foi desenvolvido para pessoas que receberam diagnóstico de gordura no fígado, independente do grau, e querem organizar a alimentação de forma prática e sustentável. Em casos mais avançados, recomendamos manter o acompanhamento médico paralelo." 
     },
     { 
       question: "Preciso de acompanhamento médico para seguir o plano?", 
-      answer: "O Fígado Leve™ é um programa de organização alimentar educacional e não substitui o acompanhamento médico. Ele complementa as orientações do seu médico com um plano prático para o dia a dia — dando a direção concreta que muitas vezes falta após a consulta." 
+      answer: "O Fígado Leve é um programa de organização alimentar educacional e não substitui o acompanhamento médico. Ele complementa as orientações do seu médico com um plano prático para o dia a dia — dando a direção concreta que muitas vezes falta após a consulta." 
     },
     { 
       question: "É difícil de seguir no dia a dia?", 
@@ -1355,20 +1410,20 @@ const FAQ = () => {
       answer: "Imediatamente após a confirmação do pagamento você recebe o acesso por e-mail. Todo o conteúdo é digital e pode ser acessado pelo celular, tablet ou computador — a qualquer hora e em qualquer lugar." 
     },
     { 
-      question: "A garantia de 30 dias vale mesmo?", 
-      answer: "Vale 100%. Se por qualquer motivo você não ficar satisfeito(a), é só entrar em contato dentro de 30 dias e devolvemos o valor integral. Sem questionamentos, sem burocracia." 
+      question: "A garantia de 7 dias vale mesmo?", 
+      answer: "Vale 100%. Se por qualquer motivo você não ficar satisfeito, é só entrar em contato dentro de 7 dias e devolvemos o valor integral. Sem questionamentos, sem burocracia." 
     }
   ];
 
   return (
-    <section className="py-20 px-6 bg-white relative overflow-hidden">
+    <section className="py-20 px-6 bg-[#FFFFFF] relative overflow-hidden font-poppins">
       <div className="max-w-[780px] mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-block bg-[#1A9E8F] text-white text-[10px] font-bold px-5 py-1.5 rounded-none uppercase tracking-[0.2em] mb-6">
+          <div className="inline-block bg-[#1A9E8F] text-white text-sm font-bold px-4 py-1.5 rounded uppercase tracking-wider mb-6">
             TIRE SUAS DÚVIDAS
           </div>
-          <h2 className="text-[#0D3B5E] text-3xl md:text-5xl font-bold mb-4 tracking-tight">Perguntas Frequentes</h2>
-          <p className="text-[#4B5563] font-semibold text-sm">Respondemos as dúvidas mais comuns de quem está considerando começar.</p>
+          <h2 className="text-[#0D3B5E] text-3xl md:text-4xl font-bold mb-4">Perguntas Frequentes</h2>
+          <p className="text-gray-500 font-normal text-base md:text-lg">Respondemos as dúvidas mais comuns de quem está considerando começar.</p>
         </div>
 
         <div className="space-y-4">
@@ -1384,18 +1439,18 @@ const FAQ = () => {
 const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className={`bg-white rounded-[16px] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border-l-[3px] transition-all duration-300 ${isOpen ? 'border-[#1A9E8F]' : 'border-transparent'}`}>
+    <div className={`bg-white rounded-[12px] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border-l-[3px] transition-all duration-300 ${isOpen ? 'border-[#1A9E8F]' : 'border-transparent'}`}>
       <button 
         onClick={() => setIsOpen(!isOpen)} 
-        className="w-full p-5 md:p-6 flex justify-between items-center text-left focus:outline-none"
+        className="w-full p-6 flex justify-between items-center text-left focus:outline-none"
       >
-        <span className="font-bold text-[#0D3B5E] text-base md:text-lg pr-4">{question}</span>
+        <span className="font-semibold text-[#0D3B5E] text-base md:text-lg pr-4">{question}</span>
         <span className={`text-[#1A9E8F] transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-45' : ''}`}>
-           <Plus size={20} />
+           <Plus size={24} />
         </span>
       </button>
       <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[500px]' : 'max-h-0'}`}>
-        <div className="px-5 md:px-6 pb-6 text-[#4B5563] font-semibold text-sm md:text-base leading-relaxed">
+        <div className="px-6 pb-6 pt-2 text-gray-600 font-normal text-base leading-relaxed">
           {answer}
         </div>
       </div>
@@ -1403,241 +1458,353 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
   );
 };
 
-const Disclaimer = () => (
-  <section className="bg-[#F5F7F6] py-12 px-6 border-t border-[#E5E7EB] font-poppins">
-    <div className="max-w-5xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-8 text-center">
-        {/* Bloco 1 */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#E5E7EB]/50 flex flex-col items-center gap-3 max-w-sm">
-          <div className="flex items-center gap-2 text-[#0D3B5E]">
-            <AlertCircle size={20} className="text-[#1A9E8F]" />
-            <h4 className="font-bold text-sm uppercase tracking-wider">Aviso importante</h4>
-          </div>
-          <p className="text-[#4B5563] text-xs leading-relaxed font-medium">
-            Este conteúdo não substitui o acompanhamento médico profissional. Consulte sempre seu médico para diagnósticos e tratamentos.
-          </p>
+const CTASection = ({ 
+  onBasicClick,
+  basicText = "Plano Básico — R$10",
+  completeText = "Plano Completo — R$37",
+  completeLink = "#offer-complete",
+  onCompleteClick
+}: { 
+  onBasicClick: (e: React.MouseEvent) => void;
+  basicText?: string;
+  completeText?: string;
+  completeLink?: string;
+  onCompleteClick?: (e: React.MouseEvent) => void;
+}) => {
+  return (
+    <section className="py-20 px-6 bg-[#FDFDFD] relative overflow-hidden font-poppins text-center">
+      <div className="max-w-[800px] mx-auto flex flex-col items-center">
+        <div className="inline-flex items-center gap-2 bg-[#E63946] text-white text-xs font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
+          <Clock size={14} />
+          <span>ÚLTIMA CHANCE</span>
         </div>
 
-        {/* Bloco 2 */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#E5E7EB]/50 flex flex-col items-center gap-3 max-w-sm">
-          <div className="flex items-center gap-2 text-[#0D3B5E]">
-            <Activity size={20} className="text-[#1A9E8F]" />
-            <h4 className="font-bold text-sm uppercase tracking-wider">Sobre os resultados</h4>
-          </div>
-          <p className="text-[#4B5563] text-xs leading-relaxed font-medium">
-            Os resultados podem variar de pessoa para pessoa. Este produto não oferece garantias de resultados específicos.
-          </p>
+        <h2 className="text-[#0D3B5E] text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight">
+          Não deixe o problema evoluir.
+        </h2>
+        
+        <h3 className="text-[#1A9E8F] text-2xl md:text-3xl font-bold italic mb-6">
+          Comece hoje.
+        </h3>
+
+        <p className="text-[#4B5563] text-base md:text-lg leading-relaxed mb-10 max-w-[700px]">
+          Acesse agora o Fígado Leve e tenha finalmente a direção que faltava para cuidar do seu fígado com segurança, clareza e sem radicalismo.
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-[600px] mb-6">
+          <a 
+            href="#offer-basic"
+            onClick={onBasicClick}
+            className="w-full sm:w-1/2 bg-[#1A9E8F] text-white py-4 rounded-xl font-bold text-base hover:bg-[#148275] transition-colors"
+          >
+            {basicText}
+          </a>
+          <a 
+            href={completeLink}
+            onClick={onCompleteClick}
+            className="w-full sm:w-1/2 bg-[#F59E0B] text-white py-4 rounded-xl font-bold text-base hover:bg-[#D97706] transition-colors flex items-center justify-center gap-2"
+          >
+            {completeText} <ArrowRight size={18} />
+          </a>
+        </div>
+
+        <div className="text-[#4B5563] text-xs font-medium">
+          Acesso imediato • Garantia de 7 dias • Pagamento 100% seguro
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
-const Footer = () => (
-  <footer className="bg-[#0D3B5E] text-white py-10 px-6 relative z-10 font-poppins">
-    <div className="max-w-5xl mx-auto flex flex-col items-center justify-center">
-      <div className="text-white/60 text-xs font-medium text-center">
-        © 2025 Fígado Leve™ — Todos os direitos reservados
+const SupportSection = () => {
+  return (
+    <section className="py-20 px-6 bg-[#F5F7F6] relative overflow-hidden font-poppins text-center border-t border-[#E5EBE8]">
+      <div className="max-w-[600px] mx-auto flex flex-col items-center">
+        <div className="mb-6">
+          <div className="bg-[#E5EBE8] w-16 h-16 rounded-full flex items-center justify-center">
+            <HelpCircle size={32} strokeWidth={2} className="text-[#0A3622]" />
+          </div>
+        </div>
+
+        <h2 className="text-[#0A3622] text-3xl font-bold mb-4 tracking-tight">
+          Ainda tem dúvidas?
+        </h2>
+
+        <p className="text-[#5A6B68] text-base leading-relaxed mb-8">
+          Fique à vontade para nos chamar antes de comprar. Nossa equipe está pronta<br className="hidden md:block" />
+          para te ajudar com qualquer dúvida.
+        </p>
+
+        <a 
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 px-8 rounded-xl font-bold text-base hover:bg-[#20BD5A] transition-colors"
+        >
+          <MessageCircle size={20} />
+          Falar com Suporte no WhatsApp
+        </a>
       </div>
-    </div>
-  </footer>
-);
+    </section>
+  );
+};
 
-const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; onClose: () => void; onContinueBasic: () => void }) => {
+const DisclaimerAndFooter = () => {
+  return (
+    <footer className="bg-white py-12 px-6 font-poppins border-t border-[#E5EBE8]">
+      <div className="max-w-[800px] mx-auto flex flex-col items-center">
+        
+        <div className="bg-[#F0F4F2] rounded-xl p-6 md:p-8 w-full mb-8 flex flex-col sm:flex-row gap-4">
+          <div className="shrink-0 mt-1">
+            <AlertTriangle size={24} className="text-[#5A6B68]" />
+          </div>
+          <div className="text-left">
+            <h4 className="font-bold text-[#0A3622] text-sm mb-3">Aviso Importante</h4>
+            <ul className="space-y-2 text-[#5A6B68] text-xs leading-relaxed">
+              <li>• Este conteúdo é exclusivamente educativo e informativo.</li>
+              <li>• O uso das informações é de total responsabilidade do comprador.</li>
+              <li>• Este material não substitui orientação médica ou profissional.</li>
+              <li>• O produto não possui vínculo com nenhuma instituição governamental.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center gap-6 text-[#5A6B68] text-sm font-medium mb-8">
+          <a href="#" className="flex items-center gap-2 hover:text-[#0A3622] transition-colors">
+            <MessageCircle size={18} />
+            Falar com suporte
+          </a>
+          <span className="text-[#E5EBE8]">•</span>
+          <a href="#" className="flex items-center gap-2 hover:text-[#0A3622] transition-colors">
+            <Instagram size={18} />
+            Seguir no Instagram
+          </a>
+        </div>
+
+        <div className="text-[#8A9B98] text-xs text-center">
+          © 2026 Protocolo Figado Leve. Todos os direitos reservados.
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+const UpsellPage = () => {
   const [step, setStep] = useState(1);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      setStep(1);
-    }
-  }, [isOpen]);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = 0;
     }
-  }, [step, isOpen]);
-
-  if (!isOpen) return null;
+  }, [step]);
 
   const handleDecline = () => {
     if (step === 1) {
       setStep(2);
     } else {
-      onContinueBasic();
+      window.location.href = 'https://pay.wiapy.com/HrqBTS9Tk';
+      trackEvent('Purchase', { value: 10.00, currency: 'BRL', content_name: 'Plano Básico' });
     }
   };
 
   return (
-    <AnimatePresence mode="wait">
+    <div className="min-h-screen bg-white selection:bg-[#1A9E8F]/10 antialiased overflow-x-hidden no-scrollbar font-poppins">
       <div 
         ref={scrollRef}
-        className="fixed inset-0 z-[100] flex items-start md:items-center justify-center p-4 bg-black/95 backdrop-blur-sm overflow-y-auto no-scrollbar pt-8 md:pt-4"
+        className="w-full flex items-start justify-center p-4 bg-black/95 pt-8 md:pt-12 pb-16"
       >
-        <motion.div 
-          key={step}
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="w-full max-w-2xl relative my-4 md:my-8 flex flex-col items-center"
-        >
-          {/* Close Button */}
-          <button 
-            onClick={onClose}
-            className="absolute -top-12 right-0 text-white hover:text-gray-300 z-20 p-2"
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={step}
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="w-full max-w-2xl relative my-4 md:my-8 flex flex-col items-center scroll-mt-24"
+            id="offer-complete-upsell"
           >
-            <X size={32} />
-          </button>
-
-          {/* Header Section */}
-          <div className="w-full text-center mb-10 flex flex-col items-center px-4">
-            <h2 className="text-[#E2FF00] text-2xl md:text-4xl font-black mb-8 uppercase tracking-wide">
-              {step === 1 ? 'ESPERA!' : 'ÚLTIMA CHANCE!'}
-            </h2>
-            <p className="text-white text-2xl md:text-4xl font-bold mb-10 leading-snug max-w-3xl">
-              Não tome essa decisão antes de conferir essa <span className="text-[#E2FF00]">SUPER CONDIÇÃO ESPECIAL</span> que preparamos para você.
-            </p>
-            <p className="text-[#E2FF00] font-black text-2xl md:text-4xl uppercase tracking-widest">
-              (APENAS HOJE)
-            </p>
-          </div>
-
-          {/* Exact copy of Plano Completo card */}
-          <div className="bg-black rounded-[2.5rem] border-[4px] border-white p-8 md:p-10 flex flex-col text-left relative shadow-[0_20px_50px_rgba(245,166,35,0.2)] z-10 w-full">
-            <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#EF4444] text-white font-bold text-xs md:text-sm px-6 py-2 rounded-full uppercase tracking-wider shadow-md whitespace-nowrap flex items-center gap-2">
-              🔥 MAIS VENDIDO
+            {/* Header Section */}
+            <div className="w-full text-center mb-10 flex flex-col items-center px-4">
+              <h2 className="text-[#E2FF00] text-2xl md:text-4xl font-black mb-8 uppercase tracking-wide">
+                {step === 1 ? 'ESPERA!' : 'ÚLTIMA CHANCE!'}
+              </h2>
+              <p className="text-white text-2xl md:text-4xl font-bold mb-10 leading-snug max-w-3xl">
+                Não tome essa decisão antes de conferir essa <span className="text-[#E2FF00]">SUPER CONDIÇÃO ESPECIAL</span> que preparamos para você.
+              </p>
+              <p className="text-[#E2FF00] font-black text-2xl md:text-4xl uppercase tracking-widest">
+                (APENAS HOJE)
+              </p>
             </div>
 
-            <div className="text-center mb-6 mt-2">
-              <h3 className="text-white font-black text-3xl md:text-4xl tracking-tight mb-1 uppercase">
-                PLANO COMPLETO
-              </h3>
-              <p className="text-[#F5A623] font-bold text-sm md:text-base mb-4">
-                Protocolo Fígado Leve + 10 Bônus Especiais!
-              </p>
+            {/* Exact copy of Plano Completo card */}
+            <div className="bg-black rounded-[2.5rem] border-[4px] border-white p-8 md:p-10 flex flex-col text-left relative shadow-[0_20px_50px_rgba(245,166,35,0.2)] z-10 w-full">
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#EF4444] text-white font-bold text-xs md:text-sm px-6 py-2 rounded-full uppercase tracking-wider shadow-md whitespace-nowrap flex items-center gap-2">
+                🔥 MAIS VENDIDO
+              </div>
+
+              <div className="text-center mb-6 mt-2">
+                <h3 className="text-white font-black text-3xl md:text-4xl tracking-tight mb-1 uppercase">
+                  PLANO COMPLETO
+                </h3>
+                <p className="text-white font-bold text-sm md:text-base mb-4">
+                  Protocolo Fígado Leve + 10 Bônus Especiais!
+                </p>
+                
+                <p className="text-white font-bold text-base md:text-lg mb-6">
+                  95% DAS PESSOAS OPTAM POR ESTA OFERTA!
+                </p>
+
+                <img 
+                  src="https://i.ibb.co/7tgGXrVb/bundle-hero.png" 
+                  alt="Bundle Protocolo Fígado Leve" 
+                  className="w-full max-w-[550px] mx-auto mb-6 drop-shadow-2xl scale-105"
+                  referrerPolicy="no-referrer"
+                />
+
+                <div className="flex flex-col items-center justify-center bg-transparent py-2">
+                  <div className="flex items-center justify-center gap-2 text-xl md:text-2xl font-bold mb-1">
+                    <span className="text-[#8c8c8c]">DE</span>
+                    <span className="text-[#8c8c8c] relative">
+                      R$ 297
+                      <span className="absolute left-[-5%] top-1/2 w-[110%] h-[3px] bg-[#8c8c8c] -translate-y-1/2"></span>
+                    </span>
+                  </div>
+                  <p className="text-lg md:text-xl text-[#e5e5e5] font-light mb-3 uppercase tracking-wide">
+                    POR APENAS
+                  </p>
+                  
+                  <div className="w-full max-w-[300px] h-[2px] bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)] mb-2"></div>
+                  
+                  <div className="flex items-start justify-center text-white leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">
+                    <span className="text-3xl md:text-4xl font-bold mt-2 md:mt-3 mr-1">R$</span>
+                    {step === 1 ? (
+                      <span className="text-[80px] md:text-[120px] font-black tracking-tighter leading-none">27</span>
+                    ) : (
+                      <span className="text-[80px] md:text-[120px] font-black tracking-tighter leading-none">19<span className="text-5xl md:text-7xl">,90</span></span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-6 mb-8">
+                {/* Top Section - Green Checks */}
+                <ul className="space-y-3">
+                  {[
+                    "Protocolo Fígado Leve", 
+                    "Pagamento Único", 
+                    "30 dias de Garantia", 
+                    "Acesso Vitalício"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle2 size={20} className="text-[#1A9E8F] shrink-0 mt-0.5" />
+                      <span className="text-white font-bold text-sm md:text-base">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <hr className="border-white/20" />
+
+                {/* Bottom Section - Yellow Checks */}
+                <ul className="space-y-3">
+                  {[
+                    "Plano Alimentar Anti-Inflamação 30 Dias Guiados",
+                    "Guia Simplificado de Interpretação dos Exames do Fígado",
+                    "Cardápio de Emergência 7 Dias de Desinflamação",
+                    "Lista Inteligente de Substituições Alimentares",
+                    "Guia dos 15 Alimentos que Mais Inflamam o Fígado",
+                    "Tabela Visual de Combinações Alimentares Anti-Inflamação",
+                    "Checklist Diário do Método 3R",
+                    "Planner Semanal do Fígado Leve",
+                    "Áudios Curtos de Reprogramação Anti-Radicalismo",
+                    "Mini Guia: Sono, Estresse e Gordura no Fígado"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle2 size={20} className="text-[#F5A623] shrink-0 mt-0.5" />
+                      <span className="text-white font-bold text-sm md:text-base">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               
-              <p className="text-[#F5A623] font-bold text-base md:text-lg mb-6">
-                95% DAS PESSOAS OPTAM POR ESTA OFERTA!
-              </p>
+              <div className="mt-auto">
+                <a 
+                  id="checkout-completo-upsell"
+                  href={step === 1 ? "https://pay.wiapy.com/iBpg-3qq7" : "https://pay.wiapy.com/75EIStgfs"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent('Purchase_Upsell', { value: step === 1 ? 27.00 : 19.90, currency: 'BRL', content_name: `Plano Completo Upsell Step ${step}` })}
+                  className="w-full block text-center bg-[#1A9E8F] text-white py-5 rounded-2xl font-black text-lg md:text-xl uppercase shadow-[0_10px_30px_rgba(26,158,143,0.3)] hover:bg-[#158578] transition-all animate-cta-pulse mb-6"
+                >
+                  COMPRAR O COMPLETO E RECEBER AGORA!
+                </a>
+                
+                <div className="mt-6 text-center mb-6">
+                  <p className="text-[14px] md:text-[16px] text-[#E2FF00] font-black italic uppercase leading-tight tracking-tight">
+                    ACESSO PARA BAIXAR O APP GARANTIDO<br/>
+                    E IMEDIATO NO E-MAIL CADASTRADO OU<br/>
+                    SEU DINHEIRO DE VOLTA!
+                  </p>
+                  
+                  <hr className="my-5 border-t-2 border-white" />
+                  
+                  <p className="text-[16px] md:text-[18px] text-white leading-tight mb-4 animate-pulse">
+                    <span className="font-black">APROVEITE AGORA:</span> ÚLTIMO DIA! Você não verá<br/>
+                    essa oportunidade em outro momento!
+                  </p>
+                </div>
 
-              <img 
-                src="https://i.ibb.co/7tgGXrVb/bundle-hero.png" 
-                alt="Bundle Protocolo Fígado Leve" 
-                className="w-full max-w-[550px] mx-auto mb-6 drop-shadow-2xl scale-105"
-                referrerPolicy="no-referrer"
-              />
-
-              <div className="flex flex-col items-center justify-center bg-[#1A1A1A] rounded-2xl py-6 border border-white/20">
-                <span className="text-[#EF4444] line-through text-lg font-bold mb-1">DE: R$297</span>
-                <span className="text-gray-300 text-sm font-medium uppercase tracking-wider mb-1">POR APENAS</span>
-                <div className="flex items-start text-[#F5A623] leading-none">
-                  <span className="text-4xl font-bold mt-1 mr-1">R$</span>
-                  {step === 1 ? (
-                    <span className="text-8xl font-black tracking-tighter">27</span>
-                  ) : (
-                    <span className="text-8xl font-black tracking-tighter">19<span className="text-5xl">,90</span></span>
-                  )}
+                <div className="text-center border-t border-white/20 pt-6">
+                  <button 
+                    onClick={handleDecline}
+                    className="text-gray-400 text-sm font-bold underline hover:text-white transition-colors"
+                  >
+                    Não, quero continuar com o básico.
+                  </button>
                 </div>
               </div>
             </div>
-
-            <div className="space-y-6 mb-8">
-              {/* Top Section - Green Checks */}
-              <ul className="space-y-3">
-                {[
-                  "Protocolo Fígado Leve", 
-                  "Pagamento Único", 
-                  "30 dias de Garantia", 
-                  "Acesso Vitalício"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-[#1A9E8F] shrink-0 mt-0.5" />
-                    <span className="text-white font-bold text-sm md:text-base">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <hr className="border-white/20" />
-
-              {/* Bottom Section - Yellow Checks */}
-              <ul className="space-y-3">
-                {[
-                  "Plano Alimentar Anti-Inflamação 30 Dias Guiados",
-                  "Guia Simplificado de Interpretação dos Exames do Fígado",
-                  "Cardápio de Emergência 7 Dias de Desinflamação",
-                  "Lista Inteligente de Substituições Alimentares",
-                  "Guia dos 15 Alimentos que Mais Inflamam o Fígado",
-                  "Tabela Visual de Combinações Alimentares Anti-Inflamação",
-                  "Checklist Diário do Método 3R",
-                  "Planner Semanal do Fígado Leve",
-                  "Áudios Curtos de Reprogramação Anti-Radicalismo",
-                  "Mini Guia: Sono, Estresse e Gordura no Fígado"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-[#F5A623] shrink-0 mt-0.5" />
-                    <span className="text-white font-bold text-sm md:text-base">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div className="mt-auto">
-              <a 
-                id="checkout-completo-upsell"
-                href={step === 1 ? "https://pay.wiapy.com/iBpg-3qq7" : "https://pay.wiapy.com/75EIStgfs"}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackEvent('Purchase_Upsell', { value: step === 1 ? 27.00 : 19.90, currency: 'BRL', content_name: `Plano Completo Upsell Step ${step}` })}
-                className="w-full block text-center bg-[#1A9E8F] text-white py-5 rounded-2xl font-black text-lg md:text-xl uppercase shadow-[0_10px_30px_rgba(26,158,143,0.3)] hover:bg-[#158578] transition-all animate-cta-pulse mb-6"
-              >
-                COMPRAR O COMPLETO E RECEBER AGORA!
-              </a>
-              
-              <div className="text-center space-y-4 mb-6">
-                <p className="text-xs text-gray-300 leading-tight">
-                  ACESSO GARANTIDO E IMEDIATO NO E-MAIL CADASTRADO OU <span className="font-bold text-[#F5A623]">SEU DINHEIRO DE VOLTA!</span>
-                </p>
-                <p className="text-sm font-bold text-[#EF4444] animate-pulse">
-                  APROVEITE AGORA: ÚLTIMO DIA! <span className="font-medium text-gray-300">Você não verá essa oportunidade em outro momento!</span>
-                </p>
-              </div>
-
-              <div className="text-center border-t border-white/20 pt-6">
-                <button 
-                  onClick={handleDecline}
-                  className="text-gray-400 text-sm font-bold underline hover:text-white transition-colors"
-                >
-                  Não, quero continuar com o básico.
-                </button>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </div>
-    </AnimatePresence>
+
+      <HowYouGetDivider />
+      <HowYouGetSteps />
+      <BenefitsAndAvoidanceSection />
+      <PreviewSection />
+      <Guarantee />
+      <FAQ />
+      <CTASection 
+        onBasicClick={(e) => { e.preventDefault(); handleDecline(); }}
+        basicText="Continuar com o Básico"
+        completeText={`Plano Completo — R$${step === 1 ? '27' : '19,90'}`}
+        completeLink="#offer-complete-upsell"
+        onCompleteClick={() => {}}
+      />
+      <SupportSection />
+      <DisclaimerAndFooter />
+    </div>
   );
 };
 
 // --- Main App Component ---
 
 export default function App() {
-  const [isUpsellOpen, setIsUpsellOpen] = useState(false);
+  const [isUpsellRoute, setIsUpsellRoute] = useState(false);
+
+  useEffect(() => {
+    if (window.location.pathname === '/upsell') {
+      setIsUpsellRoute(true);
+    }
+  }, []);
 
   const handleBasicClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    setIsUpsellOpen(true);
     trackEvent('Click_Basic_Checkout');
-  };
-
-  const handleContinueBasic = () => {
-    setIsUpsellOpen(false);
-    window.open('https://pay.wiapy.com/HrqBTS9Tk', '_blank');
-    trackEvent('Purchase', { value: 10.00, currency: 'BRL', content_name: 'Plano Básico' });
+    window.open('/upsell', '_blank');
   };
 
   useEffect(() => {
@@ -1645,6 +1812,10 @@ export default function App() {
       localStorage.setItem('user_id', 'user_' + Math.random().toString(36).substring(2, 15));
     }
   }, []);
+
+  if (isUpsellRoute) {
+    return <UpsellPage />;
+  }
 
   return (
     <div className="min-h-screen bg-white selection:bg-[#1A9E8F]/10 antialiased overflow-x-hidden no-scrollbar font-poppins">
@@ -1676,15 +1847,11 @@ export default function App() {
         <PreviewSection />
         <Guarantee />
         <FAQ />
-        <Disclaimer />
+        <CTASection onBasicClick={handleBasicClick} />
+        <SupportSection />
       </main>
 
-      <Footer />
-      <UpsellModal 
-        isOpen={isUpsellOpen} 
-        onClose={() => setIsUpsellOpen(false)} 
-        onContinueBasic={handleContinueBasic} 
-      />
+      <DisclaimerAndFooter />
     </div>
   );
 }
