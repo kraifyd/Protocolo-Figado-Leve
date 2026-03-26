@@ -784,6 +784,8 @@ const TargetAudienceSection = () => {
 
 const PreviewSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -797,13 +799,46 @@ const PreviewSection = () => {
     const attemptPlay = async () => {
       try {
         await video.play();
+        setIsPlaying(true);
       } catch (error) {
         console.log("Autoplay bloqueado pelo navegador:", error);
+        setIsPlaying(false);
       }
     };
 
+    // Tentar tocar imediatamente
     attemptPlay();
+
+    // Tentar tocar quando o usuário interagir com a página (ajuda com bloqueios de autoplay)
+    const handleInteraction = () => {
+      if (video.paused) {
+        attemptPlay();
+      }
+    };
+
+    document.addEventListener('touchstart', handleInteraction, { once: true });
+    document.addEventListener('click', handleInteraction, { once: true });
+    document.addEventListener('scroll', handleInteraction, { once: true });
+
+    return () => {
+      document.removeEventListener('touchstart', handleInteraction);
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('scroll', handleInteraction);
+    };
   }, []);
+
+  const handleVideoClick = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play()
+          .then(() => setIsPlaying(true))
+          .catch(console.error);
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
 
   const features = [
     "Módulos explicativos",
@@ -833,18 +868,33 @@ const PreviewSection = () => {
         </div>
 
         {/* Video Player */}
-        <div className="relative w-full max-w-sm mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-black">
+        <div 
+          className="relative w-full max-w-sm mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-black cursor-pointer group"
+          onClick={handleVideoClick}
+        >
+          {!isPlaying && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
+              <div className="w-16 h-16 bg-[#1A9E8F] rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+                <div className="w-0 h-0 border-t-8 border-t-transparent border-l-[12px] border-l-white border-b-8 border-b-transparent ml-1"></div>
+              </div>
+            </div>
+          )}
           <video 
             ref={videoRef}
             src="https://file.garden/abrFdPrpWxJegn2H/0319%20(1)(1343).mp4"
-            className="w-full h-auto pointer-events-none -mt-[12%]"
+            className="w-full h-auto -mt-[12%]"
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
-            onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
-            onCanPlay={(e) => e.currentTarget.play().catch(() => {})}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            onLoadedData={(e) => {
+              setIsLoaded(true);
+              e.currentTarget.play().catch(() => setIsPlaying(false));
+            }}
+            onCanPlay={(e) => e.currentTarget.play().catch(() => setIsPlaying(false))}
           />
         </div>
 
