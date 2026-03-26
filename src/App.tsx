@@ -209,7 +209,7 @@ const Hero = () => (
       
       <div className="w-full max-w-3xl mx-auto -mt-8 -mb-14 md:-mt-16 md:-mb-24 relative z-0 pointer-events-none">
         <img 
-          src="https://i.ibb.co/xt2kdTDm/mockup-3d-profundo-premium.png" 
+          src="https://i.ibb.co/v639D7ZD/mockup-estudio-infinito-premium.png" 
           alt="Programa Fígado Leve" 
           className="w-full h-auto block mx-auto drop-shadow-2xl hover:scale-105 transition-transform duration-500 pointer-events-auto px-5" 
         />
@@ -1127,7 +1127,7 @@ const BonusSection = () => {
 
 const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }) => {
   return (
-    <section className="py-24 px-6 bg-[#0D3B5E] relative overflow-hidden font-poppins" id="offer">
+    <section className="py-24 px-6 bg-[#8c8c8c] relative overflow-hidden font-poppins" id="offer">
       <div className="max-w-6xl mx-auto text-center relative z-10">
         <div className="mb-12">
           <p className="text-white text-xl md:text-2xl mb-4">
@@ -1150,12 +1150,12 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto items-center">
           
           {/* Plano Básico */}
-          <div className="lg:col-span-5 bg-white rounded-[2rem] shadow-sm p-8 flex flex-col text-left relative opacity-90 hover:opacity-100 transition-opacity border border-[#E5E7EB]">
+          <div className="lg:col-span-5 bg-white rounded-[2rem] shadow-sm p-8 flex flex-col text-left relative opacity-90 hover:opacity-100 transition-opacity">
             <div className="mb-6 text-center">
               <h3 className="text-[#0D3B5E] font-bold text-2xl mb-4 uppercase tracking-tight">PLANO BÁSICO</h3>
               
               <img 
-                src="https://i.ibb.co/xt2kdTDm/mockup-3d-profundo-premium.png" 
+                src="https://i.ibb.co/v639D7ZD/mockup-estudio-infinito-premium.png" 
                 alt="Mockup Protocolo Fígado Leve" 
                 className="w-full max-w-[200px] mx-auto mb-6 drop-shadow-xl"
                 referrerPolicy="no-referrer"
@@ -1211,7 +1211,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={onBasicClick}
-                className="w-full block text-center bg-[#F5A623] text-white py-4 rounded-xl font-bold text-base uppercase shadow-lg hover:bg-[#E09612] transition-all transform hover:scale-[1.02] mb-4"
+                className="w-full block text-center bg-[#F5A623] text-white py-4 rounded-xl font-bold text-base uppercase shadow-lg hover:bg-[#E09612] transition-colors mb-4"
               >
                 COMPRAR O BÁSICO E RECEBER AGORA!
               </a>
@@ -1226,13 +1226,13 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
           </div>
 
           {/* Plano Completo */}
-          <div className="lg:col-span-7 bg-white rounded-[2.5rem] border-[4px] border-[#F5A623] p-8 md:p-10 flex flex-col text-left relative shadow-[0_20px_50px_rgba(245,166,35,0.2)] z-10 transform lg:scale-105">
+          <div className="lg:col-span-7 bg-black rounded-[2.5rem] border-[4px] border-white p-8 md:p-10 flex flex-col text-left relative shadow-[0_20px_50px_rgba(245,166,35,0.2)] z-10 transform lg:scale-105">
             <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#EF4444] text-white font-bold text-xs md:text-sm px-6 py-2 rounded-full uppercase tracking-wider shadow-md whitespace-nowrap flex items-center gap-2">
               🔥 MAIS VENDIDO
             </div>
 
             <div className="text-center mb-6 mt-2">
-              <h3 className="text-[#0D3B5E] font-black text-3xl md:text-4xl tracking-tight mb-1 uppercase">
+              <h3 className="text-white font-black text-3xl md:text-4xl tracking-tight mb-1 uppercase">
                 PLANO COMPLETO
               </h3>
               <p className="text-[#F5A623] font-bold text-sm md:text-base mb-4">
@@ -1250,9 +1250,9 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                 referrerPolicy="no-referrer"
               />
 
-              <div className="flex flex-col items-center justify-center bg-[#F5F7F6] rounded-2xl py-6 border border-[#E5E7EB]">
+              <div className="flex flex-col items-center justify-center bg-[#1A1A1A] rounded-2xl py-6 border border-white/20">
                 <span className="text-[#EF4444] line-through text-lg font-bold mb-1">DE: R$297</span>
-                <span className="text-[#4B5563] text-sm font-medium uppercase tracking-wider mb-1">POR APENAS</span>
+                <span className="text-gray-300 text-sm font-medium uppercase tracking-wider mb-1">POR APENAS</span>
                 <div className="flex items-start text-[#F5A623] leading-none">
                   <span className="text-4xl font-bold mt-1 mr-1">R$</span>
                   <span className="text-8xl font-black tracking-tighter">37</span>
@@ -1271,14 +1271,14 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <CheckCircle2 size={20} className="text-[#1A9E8F] shrink-0 mt-0.5" />
-                    <span className="text-[#0D3B5E] font-bold text-sm md:text-base">
+                    <span className="text-white font-bold text-sm md:text-base">
                       {item}
                     </span>
                   </li>
                 ))}
               </ul>
 
-              <hr className="border-[#E5E7EB]" />
+              <hr className="border-white/20" />
 
               {/* Bottom Section - Yellow Checks */}
               <ul className="space-y-3">
@@ -1296,7 +1296,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <CheckCircle2 size={20} className="text-[#F5A623] shrink-0 mt-0.5" />
-                    <span className="text-[#0D3B5E] font-bold text-sm md:text-base">
+                    <span className="text-white font-bold text-sm md:text-base">
                       {item}
                     </span>
                   </li>
@@ -1311,17 +1311,17 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('Purchase', { value: 37.00, currency: 'BRL', content_name: 'Plano Completo' })}
-                className="w-full block text-center bg-[#1A9E8F] text-white py-5 rounded-2xl font-black text-lg md:text-xl uppercase shadow-[0_10px_30px_rgba(26,158,143,0.3)] hover:bg-[#158578] transition-all transform hover:scale-[1.02] mb-6"
+                className="w-full block text-center bg-[#1A9E8F] text-white py-5 rounded-2xl font-black text-lg md:text-xl uppercase shadow-[0_10px_30px_rgba(26,158,143,0.3)] hover:bg-[#158578] transition-all animate-cta-pulse mb-6"
               >
                 COMPRAR O COMPLETO E RECEBER AGORA!
               </a>
               
               <div className="text-center space-y-4">
-                <p className="text-xs text-[#4B5563] leading-tight">
+                <p className="text-xs text-gray-300 leading-tight">
                   ACESSO GARANTIDO E IMEDIATO NO E-MAIL CADASTRADO OU <span className="font-bold text-[#F5A623]">SEU DINHEIRO DE VOLTA!</span>
                 </p>
                 <p className="text-sm font-bold text-[#EF4444] animate-pulse">
-                  APROVEITE AGORA: ÚLTIMO DIA! <span className="font-medium text-[#4B5563]">Você não verá essa oportunidade em outro momento!</span>
+                  APROVEITE AGORA: ÚLTIMO DIA! <span className="font-medium text-gray-300">Você não verá essa oportunidade em outro momento!</span>
                 </p>
               </div>
             </div>
@@ -1524,13 +1524,13 @@ const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; on
           </div>
 
           {/* Exact copy of Plano Completo card */}
-          <div className="bg-white rounded-[2.5rem] border-[4px] border-[#F5A623] p-8 md:p-10 flex flex-col text-left relative shadow-[0_20px_50px_rgba(245,166,35,0.2)] z-10 w-full">
+          <div className="bg-black rounded-[2.5rem] border-[4px] border-white p-8 md:p-10 flex flex-col text-left relative shadow-[0_20px_50px_rgba(245,166,35,0.2)] z-10 w-full">
             <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#EF4444] text-white font-bold text-xs md:text-sm px-6 py-2 rounded-full uppercase tracking-wider shadow-md whitespace-nowrap flex items-center gap-2">
               🔥 MAIS VENDIDO
             </div>
 
             <div className="text-center mb-6 mt-2">
-              <h3 className="text-[#0D3B5E] font-black text-3xl md:text-4xl tracking-tight mb-1 uppercase">
+              <h3 className="text-white font-black text-3xl md:text-4xl tracking-tight mb-1 uppercase">
                 PLANO COMPLETO
               </h3>
               <p className="text-[#F5A623] font-bold text-sm md:text-base mb-4">
@@ -1548,9 +1548,9 @@ const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; on
                 referrerPolicy="no-referrer"
               />
 
-              <div className="flex flex-col items-center justify-center bg-[#F5F7F6] rounded-2xl py-6 border border-[#E5E7EB]">
+              <div className="flex flex-col items-center justify-center bg-[#1A1A1A] rounded-2xl py-6 border border-white/20">
                 <span className="text-[#EF4444] line-through text-lg font-bold mb-1">DE: R$297</span>
-                <span className="text-[#4B5563] text-sm font-medium uppercase tracking-wider mb-1">POR APENAS</span>
+                <span className="text-gray-300 text-sm font-medium uppercase tracking-wider mb-1">POR APENAS</span>
                 <div className="flex items-start text-[#F5A623] leading-none">
                   <span className="text-4xl font-bold mt-1 mr-1">R$</span>
                   {step === 1 ? (
@@ -1573,14 +1573,14 @@ const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; on
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <CheckCircle2 size={20} className="text-[#1A9E8F] shrink-0 mt-0.5" />
-                    <span className="text-[#0D3B5E] font-bold text-sm md:text-base">
+                    <span className="text-white font-bold text-sm md:text-base">
                       {item}
                     </span>
                   </li>
                 ))}
               </ul>
 
-              <hr className="border-[#E5E7EB]" />
+              <hr className="border-white/20" />
 
               {/* Bottom Section - Yellow Checks */}
               <ul className="space-y-3">
@@ -1598,7 +1598,7 @@ const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; on
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <CheckCircle2 size={20} className="text-[#F5A623] shrink-0 mt-0.5" />
-                    <span className="text-[#0D3B5E] font-bold text-sm md:text-base">
+                    <span className="text-white font-bold text-sm md:text-base">
                       {item}
                     </span>
                   </li>
@@ -1613,24 +1613,24 @@ const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; on
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('Purchase_Upsell', { value: step === 1 ? 27.00 : 19.90, currency: 'BRL', content_name: `Plano Completo Upsell Step ${step}` })}
-                className="w-full block text-center bg-[#1A9E8F] text-white py-5 rounded-2xl font-black text-lg md:text-xl uppercase shadow-[0_10px_30px_rgba(26,158,143,0.3)] hover:bg-[#158578] transition-all transform hover:scale-[1.02] mb-6"
+                className="w-full block text-center bg-[#1A9E8F] text-white py-5 rounded-2xl font-black text-lg md:text-xl uppercase shadow-[0_10px_30px_rgba(26,158,143,0.3)] hover:bg-[#158578] transition-all animate-cta-pulse mb-6"
               >
                 COMPRAR O COMPLETO E RECEBER AGORA!
               </a>
               
               <div className="text-center space-y-4 mb-6">
-                <p className="text-xs text-[#4B5563] leading-tight">
+                <p className="text-xs text-gray-300 leading-tight">
                   ACESSO GARANTIDO E IMEDIATO NO E-MAIL CADASTRADO OU <span className="font-bold text-[#F5A623]">SEU DINHEIRO DE VOLTA!</span>
                 </p>
                 <p className="text-sm font-bold text-[#EF4444] animate-pulse">
-                  APROVEITE AGORA: ÚLTIMO DIA! <span className="font-medium text-[#4B5563]">Você não verá essa oportunidade em outro momento!</span>
+                  APROVEITE AGORA: ÚLTIMO DIA! <span className="font-medium text-gray-300">Você não verá essa oportunidade em outro momento!</span>
                 </p>
               </div>
 
-              <div className="text-center border-t border-gray-200 pt-6">
+              <div className="text-center border-t border-white/20 pt-6">
                 <button 
                   onClick={handleDecline}
-                  className="text-[#4B5563] text-sm font-bold underline hover:text-[#0D3B5E] transition-colors"
+                  className="text-gray-400 text-sm font-bold underline hover:text-white transition-colors"
                 >
                   Não, quero continuar com o básico.
                 </button>
