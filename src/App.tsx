@@ -1097,7 +1097,7 @@ const BonusSection = () => {
                   <span className="font-bold">Mini Guia: Sono, Estresse e Gordura no Fígado</span>
                 </li>
               </ul>
-              <img src="https://i.ibb.co/TDC1Ps8n/bundle-7-bonus.png" alt="+ 7 Bonus" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
+              <img src="https://i.ibb.co/8L8HbdtH/7bonus-1.png" alt="+ 7 Bonus" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 147</span><br/>
@@ -1244,7 +1244,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
               </p>
 
               <img 
-                src="https://i.ibb.co/C5jhBbHT/bundle-compacto-total.png" 
+                src="https://i.ibb.co/7tgGXrVb/bundle-hero.png" 
                 alt="Bundle Protocolo Fígado Leve" 
                 className="w-full max-w-[450px] mx-auto mb-6 drop-shadow-2xl"
                 referrerPolicy="no-referrer"
@@ -1475,12 +1475,19 @@ const Footer = () => (
 
 const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; onClose: () => void; onContinueBasic: () => void }) => {
   const [step, setStep] = useState(1);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
       setStep(1);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [step, isOpen]);
 
   if (!isOpen) return null;
 
@@ -1494,7 +1501,10 @@ const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; on
 
   return (
     <AnimatePresence mode="wait">
-      <div className="fixed inset-0 z-[100] flex items-start md:items-center justify-center p-4 bg-black/95 backdrop-blur-sm overflow-y-auto no-scrollbar pt-8 md:pt-4">
+      <div 
+        ref={scrollRef}
+        className="fixed inset-0 z-[100] flex items-start md:items-center justify-center p-4 bg-black/95 backdrop-blur-sm overflow-y-auto no-scrollbar pt-8 md:pt-4"
+      >
         <motion.div 
           key={step}
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -1542,7 +1552,7 @@ const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; on
               </p>
 
               <img 
-                src="https://i.ibb.co/C5jhBbHT/bundle-compacto-total.png" 
+                src="https://i.ibb.co/7tgGXrVb/bundle-hero.png" 
                 alt="Bundle Protocolo Fígado Leve" 
                 className="w-full max-w-[450px] mx-auto mb-6 drop-shadow-2xl"
                 referrerPolicy="no-referrer"
