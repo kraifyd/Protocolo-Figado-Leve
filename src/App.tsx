@@ -766,18 +766,50 @@ const TargetAudienceSection = () => {
 
 const PreviewSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [showPlayButton, setShowPlayButton] = useState(false);
 
   useEffect(() => {
-    // Force play on mount to handle strict mobile browser autoplay policies
-    if (videoRef.current) {
-      videoRef.current.defaultMuted = true;
-      videoRef.current.muted = true;
-      videoRef.current.playsInline = true;
-      videoRef.current.play().catch(error => {
-        console.log("Autoplay prevented by browser:", error);
-      });
-    }
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Forçar atributos essenciais para mobile
+    video.defaultMuted = true;
+    video.muted = true;
+    video.playsInline = true;
+
+    const attemptPlay = async () => {
+      try {
+        await video.play();
+        setShowPlayButton(false);
+      } catch (error) {
+        console.log("Autoplay bloqueado pelo navegador (possível Modo de Pouca Energia):", error);
+        setShowPlayButton(true);
+      }
+    };
+
+    // Usar IntersectionObserver para dar play apenas quando o vídeo aparecer na tela
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          attemptPlay();
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.5 } // Dispara quando 50% do vídeo estiver visível
+    );
+
+    observer.observe(video);
+
+    return () => observer.disconnect();
   }, []);
+
+  const handleManualPlay = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setShowPlayButton(false);
+    }
+  };
 
   const features = [
     "Módulos explicativos",
@@ -807,18 +839,32 @@ const PreviewSection = () => {
         </div>
 
         {/* Video Player */}
-        <div className="relative w-full max-w-sm mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-[#0D3B5E] aspect-[9/16] flex items-center justify-center">
+        <div className="relative w-full max-w-sm mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-[#0D3B5E] aspect-[9/16] flex items-center justify-center group">
           <video 
             ref={videoRef}
-            src="https://res.cloudinary.com/dlfo0rdxp/video/upload/v1774483203/0319_1_1_gbacgc.mp4"
+            src="https://res.cloudinary.com/dlfo0rdxp/video/upload/v1774484193/0319_1_1_v5q5mi.mp4"
             className="absolute inset-0 w-full h-full object-cover"
             autoPlay
             muted
             loop
             playsInline
-            controls
+            controls={!showPlayButton} // Oculta os controles nativos se o botão gigante estiver visível
             preload="auto"
+            onPlay={() => setShowPlayButton(false)}
+            onPause={() => setShowPlayButton(true)}
           />
+          
+          {/* Overlay de Play (Aparece se o autoplay falhar, ex: Modo Pouca Energia) */}
+          {showPlayButton && (
+            <div 
+              className="absolute inset-0 flex items-center justify-center bg-black/40 z-10 cursor-pointer backdrop-blur-[2px]"
+              onClick={handleManualPlay}
+            >
+              <div className="bg-[#1A9E8F] w-20 h-20 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(26,158,143,0.6)] animate-pulse">
+                <PlayCircle className="w-12 h-12 text-white" strokeWidth={1.5} />
+              </div>
+            </div>
+          )}
         </div>
 
       </div>
