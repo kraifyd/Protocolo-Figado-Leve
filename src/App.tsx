@@ -984,7 +984,7 @@ const BonusSection = () => {
                 PLANO ALIMENTAR<br/>ANTI-INFLAMAÇÃO<br/>
                 <span className="text-[#1A9E8F]">30 DIAS GUIADOS</span>
               </h3>
-              <img src="https://i.ibb.co/fBRqhP4/bonus1.png" alt="Plano Alimentar Anti-Inflamação" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
+              <img src="https://i.ibb.co/W4GjzVXW/bonus1.png" alt="Plano Alimentar Anti-Inflamação" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
@@ -1013,7 +1013,7 @@ const BonusSection = () => {
                 GUIA DE<br/>INTERPRETAÇÃO DOS<br/>
                 <span className="text-[#1A9E8F]">EXAMES DO FÍGADO</span>
               </h3>
-              <img src="https://i.ibb.co/Ldc3DQhx/bonu2.png" alt="Guia de Exames do Fígado" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
+              <img src="https://i.ibb.co/tMZXDK3g/bonu2.png" alt="Guia de Exames do Fígado" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
@@ -1042,7 +1042,7 @@ const BonusSection = () => {
                 CARDÁPIO DE EMERGÊNCIA<br/>
                 <span className="text-[#1A9E8F]">7 DIAS DE DESINFLAMAÇÃO</span>
               </h3>
-              <img src="https://i.ibb.co/Z1XgMY3r/bonus3.png" alt="Cardápio de Emergência" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
+              <img src="https://i.ibb.co/PvVsJBPT/bonus3.png" alt="Cardápio de Emergência" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
