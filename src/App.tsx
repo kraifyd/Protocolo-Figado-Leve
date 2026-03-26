@@ -474,24 +474,31 @@ const NewTestimonialsSection = () => {
           {testimonials.map((t, i) => (
             <div 
               key={i} 
-              className={`reveal-element bg-white p-8 rounded-2xl shadow-sm border border-[#E5E7EB] relative text-left transition-all duration-1000 flex flex-col ${isVisible ? 'visible' : ''}`}
+              className={`reveal-element bg-[#0D3B5E] p-8 rounded-2xl shadow-sm relative text-left transition-all duration-1000 flex flex-col ${isVisible ? 'visible' : ''}`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <div className="flex items-center gap-4 mb-5">
-                <div className="w-12 h-12 rounded-full bg-[#1A9E8F] flex items-center justify-center shrink-0 overflow-hidden">
+              <div className="absolute top-6 right-6 text-[#1A9E8F] opacity-80">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 11H6C6 8.23858 8.23858 6 11 6V2C5.47715 2 1 6.47715 1 12V22H11V11ZM22 11H18C18 8.23858 20.2386 6 23 6V2C17.4772 2 13 6.47715 13 12V22H23V11Z" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              
+              <div className="flex items-center gap-4 mb-6 relative z-10">
+                <div className="w-14 h-14 rounded-full bg-[#1A9E8F] flex items-center justify-center shrink-0 overflow-hidden border-2 border-white/10">
                   <img src={t.image} alt={t.name} className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <h4 className="text-[#0D3B5E] font-bold text-base leading-none mb-1">{t.name}</h4>
-                  <p className="text-[#4B5563] text-xs font-medium">{t.info}</p>
+                  <h4 className="text-white font-black text-sm md:text-base leading-none mb-1.5 uppercase tracking-wide">{t.name}</h4>
+                  <p className="text-white/70 text-[10px] md:text-xs font-bold uppercase tracking-wider mb-2">{t.info}</p>
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={12} fill="#F5A623" className="text-[#F5A623]" />
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={14} fill="#F5A623" className="text-[#F5A623]" />
-                ))}
-              </div>
-              <p className="text-[#4B5563] text-sm md:text-base leading-relaxed">
+              
+              <p className="text-white text-sm md:text-base leading-relaxed font-bold relative z-10">
                 "{t.text}"
               </p>
             </div>
@@ -766,7 +773,6 @@ const TargetAudienceSection = () => {
 
 const PreviewSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [showPlayButton, setShowPlayButton] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -780,10 +786,8 @@ const PreviewSection = () => {
     const attemptPlay = async () => {
       try {
         await video.play();
-        setShowPlayButton(false);
       } catch (error) {
-        console.log("Autoplay bloqueado pelo navegador (possível Modo de Pouca Energia):", error);
-        setShowPlayButton(true);
+        console.log("Autoplay bloqueado pelo navegador:", error);
       }
     };
 
@@ -803,13 +807,6 @@ const PreviewSection = () => {
 
     return () => observer.disconnect();
   }, []);
-
-  const handleManualPlay = () => {
-    if (videoRef.current) {
-      videoRef.current.play();
-      setShowPlayButton(false);
-    }
-  };
 
   const features = [
     "Módulos explicativos",
@@ -839,32 +836,17 @@ const PreviewSection = () => {
         </div>
 
         {/* Video Player */}
-        <div className="relative w-full max-w-sm mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-[#0D3B5E] aspect-[9/16] flex items-center justify-center group">
+        <div className="relative w-full max-w-sm mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-black">
           <video 
             ref={videoRef}
-            src="https://res.cloudinary.com/dlfo0rdxp/video/upload/v1774484193/0319_1_1_v5q5mi.mp4"
-            className="absolute inset-0 w-full h-full object-cover"
+            src="https://file.garden/abrFdPrpWxJegn2H/0319%20(1)(1343).mp4"
+            className="w-full h-auto pointer-events-none -mt-[12%]"
             autoPlay
             muted
             loop
             playsInline
-            controls={!showPlayButton} // Oculta os controles nativos se o botão gigante estiver visível
             preload="auto"
-            onPlay={() => setShowPlayButton(false)}
-            onPause={() => setShowPlayButton(true)}
           />
-          
-          {/* Overlay de Play (Aparece se o autoplay falhar, ex: Modo Pouca Energia) */}
-          {showPlayButton && (
-            <div 
-              className="absolute inset-0 flex items-center justify-center bg-black/40 z-10 cursor-pointer backdrop-blur-[2px]"
-              onClick={handleManualPlay}
-            >
-              <div className="bg-[#1A9E8F] w-20 h-20 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(26,158,143,0.6)] animate-pulse">
-                <PlayCircle className="w-12 h-12 text-white" strokeWidth={1.5} />
-              </div>
-            </div>
-          )}
         </div>
 
       </div>
@@ -984,7 +966,7 @@ const BonusSection = () => {
                 PLANO ALIMENTAR<br/>ANTI-INFLAMAÇÃO<br/>
                 <span className="text-[#1A9E8F]">30 DIAS GUIADOS</span>
               </h3>
-              <img src="https://i.ibb.co/xSHskD7y/1.png" alt="Plano Alimentar Anti-Inflamação" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
+              <img src="https://i.ibb.co/xSHskD7y/1.png" alt="Plano Alimentar Anti-Inflamação" className="w-full h-auto my-4 object-contain" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
@@ -1013,7 +995,7 @@ const BonusSection = () => {
                 GUIA DE<br/>INTERPRETAÇÃO DOS<br/>
                 <span className="text-[#1A9E8F]">EXAMES DO FÍGADO</span>
               </h3>
-              <img src="https://i.ibb.co/chjsvRRx/2.png" alt="Guia de Exames do Fígado" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
+              <img src="https://i.ibb.co/chjsvRRx/2.png" alt="Guia de Exames do Fígado" className="w-full h-auto my-4 object-contain" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
@@ -1042,7 +1024,7 @@ const BonusSection = () => {
                 CARDÁPIO DE EMERGÊNCIA<br/>
                 <span className="text-[#1A9E8F]">7 DIAS DE DESINFLAMAÇÃO</span>
               </h3>
-              <img src="https://i.ibb.co/qLmfXN2d/3-removebg-preview.png" alt="Cardápio de Emergência" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
+              <img src="https://i.ibb.co/qLmfXN2d/3-removebg-preview.png" alt="Cardápio de Emergência" className="w-full h-auto my-4 object-contain" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
@@ -1097,7 +1079,7 @@ const BonusSection = () => {
                   <span className="font-bold">Mini Guia: Sono, Estresse e Gordura no Fígado</span>
                 </li>
               </ul>
-              <img src="https://i.ibb.co/8L8HbdtH/7bonus-1.png" alt="+ 7 Bonus" className="w-full h-auto my-0 object-contain scale-110 transform origin-center" />
+              <img src="https://i.ibb.co/8L8HbdtH/7bonus-1.png" alt="+ 7 Bonus" className="w-full h-auto my-4 object-contain" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 147</span><br/>
@@ -1246,7 +1228,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
               <img 
                 src="https://i.ibb.co/7tgGXrVb/bundle-hero.png" 
                 alt="Bundle Protocolo Fígado Leve" 
-                className="w-full max-w-[450px] mx-auto mb-6 drop-shadow-2xl"
+                className="w-full max-w-[550px] mx-auto mb-6 drop-shadow-2xl scale-105"
                 referrerPolicy="no-referrer"
               />
 
@@ -1554,7 +1536,7 @@ const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; on
               <img 
                 src="https://i.ibb.co/7tgGXrVb/bundle-hero.png" 
                 alt="Bundle Protocolo Fígado Leve" 
-                className="w-full max-w-[450px] mx-auto mb-6 drop-shadow-2xl"
+                className="w-full max-w-[550px] mx-auto mb-6 drop-shadow-2xl scale-105"
                 referrerPolicy="no-referrer"
               />
 
