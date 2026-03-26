@@ -1207,7 +1207,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
             <div className="mt-auto">
               <a 
                 id="checkout-essencial"
-                href="https://pay.wiapy.com/LFB0S4pTP1"
+                href="https://pay.wiapy.com/HrqBTS9Tk"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={onBasicClick}
@@ -1474,80 +1474,117 @@ const Footer = () => (
 );
 
 const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; onClose: () => void; onContinueBasic: () => void }) => {
+  const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    if (isOpen) {
+      setStep(1);
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
+  const handleDecline = () => {
+    if (step === 1) {
+      setStep(2);
+    } else {
+      onContinueBasic();
+    }
+  };
+
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-start md:items-center justify-center p-0.5 md:p-4 bg-black/95 backdrop-blur-sm overflow-y-auto no-scrollbar pt-0.5 md:pt-4">
+    <AnimatePresence mode="wait">
+      <div className="fixed inset-0 z-[100] flex items-start md:items-center justify-center p-4 bg-black/95 backdrop-blur-sm overflow-y-auto no-scrollbar pt-8 md:pt-4">
         <motion.div 
+          key={step}
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="bg-white w-full max-w-2xl rounded-[1rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl relative my-0.5 md:my-8"
+          className="w-full max-w-2xl relative my-4 md:my-8 flex flex-col items-center"
         >
           {/* Close Button */}
           <button 
             onClick={onClose}
-            className="absolute top-1 right-1 text-gray-400 hover:text-gray-600 z-20 p-2"
+            className="absolute -top-12 right-0 text-white hover:text-gray-300 z-20 p-2"
           >
-            <X size={24} />
+            <X size={32} />
           </button>
 
-          <div className="p-1.5 md:p-10 text-center">
-            <div className="flex justify-center -mb-10 md:mb-6">
-              <img 
-                src="https://i.ibb.co/mC2pM6hS/logo-removebg-preview.png" 
-                alt="Logo Fígado Leve" 
-                className="h-64 md:h-80 object-contain mt-[-10px]"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-
-            <h2 className="text-[#0D3B5E] text-sm md:text-2xl font-bold mb-1 md:mb-4 leading-tight px-1 -mt-10 md:mt-0">
-              Espera! Não tome essa decisão antes de conferir essa <span className="text-[#F5A623] font-bold uppercase">SUPER CONDIÇÃO ESPECIAL</span> que preparamos para você.
+          {/* Header Section */}
+          <div className="w-full text-center mb-10 flex flex-col items-center px-4">
+            <h2 className="text-[#E2FF00] text-2xl md:text-4xl font-black mb-8 uppercase tracking-wide">
+              {step === 1 ? 'ESPERA!' : 'ÚLTIMA CHANCE!'}
             </h2>
-            <p className="text-[#EF4444] font-black text-[7px] md:text-base mb-1.5 md:mb-8 uppercase tracking-widest">
+            <p className="text-white text-2xl md:text-4xl font-bold mb-10 leading-snug max-w-3xl">
+              Não tome essa decisão antes de conferir essa <span className="text-[#E2FF00]">SUPER CONDIÇÃO ESPECIAL</span> que preparamos para você.
+            </p>
+            <p className="text-[#E2FF00] font-black text-2xl md:text-4xl uppercase tracking-widest">
               (APENAS HOJE)
             </p>
+          </div>
 
-            <div className="bg-[#F5F7F6] rounded-lg md:rounded-3xl p-2 md:p-8 border-2 border-[#F5A623] relative mb-1.5 md:mb-8">
-              <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-[#EF4444] text-white font-bold text-[8px] md:text-xs px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-md whitespace-nowrap">
-                🔥 MAIS VENDIDO
-              </div>
+          {/* Exact copy of Plano Completo card */}
+          <div className="bg-white rounded-[2.5rem] border-[4px] border-[#F5A623] p-8 md:p-10 flex flex-col text-left relative shadow-[0_20px_50px_rgba(245,166,35,0.2)] z-10 w-full">
+            <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#EF4444] text-white font-bold text-xs md:text-sm px-6 py-2 rounded-full uppercase tracking-wider shadow-md whitespace-nowrap flex items-center gap-2">
+              🔥 MAIS VENDIDO
+            </div>
 
-              <h3 className="text-[#0D3B5E] font-black text-base md:text-3xl mb-0 uppercase">PLANO COMPLETO</h3>
-              <p className="text-[#F5A623] font-bold text-[8px] md:text-sm mb-1.5 md:mb-6">Protocolo Fígado Leve + 10 Bônus Especiais!</p>
-
-              <div className="flex flex-col items-center mb-1.5 md:mb-6">
-                <span className="text-[#EF4444] line-through text-xs md:text-lg font-bold mb-0">DE: R$297</span>
-                <span className="text-[#4B5563] text-[8px] md:text-xs font-medium uppercase tracking-wider mb-0">POR APENAS</span>
-                <div className="flex items-start text-[#F5A623] leading-none">
-                  <span className="text-lg md:text-3xl font-bold mt-1 mr-1">R$</span>
-                  <span className="text-5xl md:text-8xl font-black tracking-tighter">27</span>
-                </div>
-              </div>
-
-              <p className="text-[#F5A623] font-bold text-[9px] md:text-base mb-1.5 md:mb-6 px-1">
+            <div className="text-center mb-6 mt-2">
+              <h3 className="text-[#0D3B5E] font-black text-3xl md:text-4xl tracking-tight mb-1 uppercase">
+                PLANO COMPLETO
+              </h3>
+              <p className="text-[#F5A623] font-bold text-sm md:text-base mb-4">
+                Protocolo Fígado Leve + 10 Bônus Especiais!
+              </p>
+              
+              <p className="text-[#F5A623] font-bold text-base md:text-lg mb-6">
                 95% DAS PESSOAS OPTAM POR ESTA OFERTA!
               </p>
 
               <img 
                 src="https://i.ibb.co/C5jhBbHT/bundle-compacto-total.png" 
                 alt="Bundle Protocolo Fígado Leve" 
-                className="w-full max-w-[180px] md:max-w-[350px] mx-auto mb-1.5 md:mb-6 drop-shadow-xl"
+                className="w-full max-w-[450px] mx-auto mb-6 drop-shadow-2xl"
                 referrerPolicy="no-referrer"
               />
 
-              <p className="text-[#4B5563] text-[10px] md:text-base leading-relaxed mb-1.5 md:mb-8 font-medium px-1">
-                Por apenas <span className="font-bold">R$27</span> você vai receber acesso ao Protocolo Fígado Leve e mais de 10 materiais selecionados e exclusivos para desinflamar e cuidar do seu fígado de verdade!
-              </p>
+              <div className="flex flex-col items-center justify-center bg-[#F5F7F6] rounded-2xl py-6 border border-[#E5E7EB]">
+                <span className="text-[#EF4444] line-through text-lg font-bold mb-1">DE: R$297</span>
+                <span className="text-[#4B5563] text-sm font-medium uppercase tracking-wider mb-1">POR APENAS</span>
+                <div className="flex items-start text-[#F5A623] leading-none">
+                  <span className="text-4xl font-bold mt-1 mr-1">R$</span>
+                  {step === 1 ? (
+                    <span className="text-8xl font-black tracking-tighter">27</span>
+                  ) : (
+                    <span className="text-8xl font-black tracking-tighter">19<span className="text-5xl">,90</span></span>
+                  )}
+                </div>
+              </div>
+            </div>
 
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-0.5 md:gap-3 text-left mb-2 md:mb-8">
+            <div className="space-y-6 mb-8">
+              {/* Top Section - Green Checks */}
+              <ul className="space-y-3">
                 {[
                   "Protocolo Fígado Leve", 
                   "Pagamento Único", 
                   "30 dias de Garantia", 
-                  "Acesso Vitalício",
+                  "Acesso Vitalício"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle2 size={20} className="text-[#1A9E8F] shrink-0 mt-0.5" />
+                    <span className="text-[#0D3B5E] font-bold text-sm md:text-base">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <hr className="border-[#E5E7EB]" />
+
+              {/* Bottom Section - Yellow Checks */}
+              <ul className="space-y-3">
+                {[
                   "Plano Alimentar Anti-Inflamação 30 Dias Guiados",
                   "Guia Simplificado de Interpretação dos Exames do Fígado",
                   "Cardápio de Emergência 7 Dias de Desinflamação",
@@ -1559,40 +1596,45 @@ const UpsellModal = ({ isOpen, onClose, onContinueBasic }: { isOpen: boolean; on
                   "Áudios Curtos de Reprogramação Anti-Radicalismo",
                   "Mini Guia: Sono, Estresse e Gordura no Fígado"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-1">
-                    <Check size={10} className="text-[#1A9E8F] shrink-0 mt-0.5" strokeWidth={3} />
-                    <span className="text-[#0D3B5E] text-[8px] md:text-xs font-bold leading-tight">
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle2 size={20} className="text-[#F5A623] shrink-0 mt-0.5" />
+                    <span className="text-[#0D3B5E] font-bold text-sm md:text-base">
                       {item}
                     </span>
                   </li>
                 ))}
               </ul>
-
+            </div>
+            
+            <div className="mt-auto">
               <a 
-                href="https://pay.wiapy.com/2YN9oWQpwa"
+                id="checkout-completo-upsell"
+                href={step === 1 ? "https://pay.wiapy.com/iBpg-3qq7" : "https://pay.wiapy.com/75EIStgfs"}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackEvent('Purchase_Upsell', { value: 27.00, currency: 'BRL' })}
-                className="w-full block text-center bg-[#1A9E8F] text-white py-2 md:py-4 rounded-md md:rounded-2xl font-black text-xs md:text-lg uppercase shadow-lg hover:bg-[#158578] transition-all transform hover:scale-[1.02] mb-1.5 md:mb-6"
+                onClick={() => trackEvent('Purchase_Upsell', { value: step === 1 ? 27.00 : 19.90, currency: 'BRL', content_name: `Plano Completo Upsell Step ${step}` })}
+                className="w-full block text-center bg-[#1A9E8F] text-white py-5 rounded-2xl font-black text-lg md:text-xl uppercase shadow-[0_10px_30px_rgba(26,158,143,0.3)] hover:bg-[#158578] transition-all transform hover:scale-[1.02] mb-6"
               >
                 COMPRAR O COMPLETO E RECEBER AGORA!
               </a>
+              
+              <div className="text-center space-y-4 mb-6">
+                <p className="text-xs text-[#4B5563] leading-tight">
+                  ACESSO GARANTIDO E IMEDIATO NO E-MAIL CADASTRADO OU <span className="font-bold text-[#F5A623]">SEU DINHEIRO DE VOLTA!</span>
+                </p>
+                <p className="text-sm font-bold text-[#EF4444] animate-pulse">
+                  APROVEITE AGORA: ÚLTIMO DIA! <span className="font-medium text-[#4B5563]">Você não verá essa oportunidade em outro momento!</span>
+                </p>
+              </div>
 
-              <button 
-                onClick={onContinueBasic}
-                className="text-[#4B5563] text-[8px] md:text-sm font-bold underline hover:text-[#0D3B5E] transition-colors"
-              >
-                Não, quero continuar com o básico.
-              </button>
-            </div>
-
-            <div className="space-y-0.5 md:space-y-4">
-              <p className="text-[7px] md:text-xs text-[#4B5563] leading-tight px-2">
-                ACESSO GARANTIDO E IMEDIATO NO E-MAIL CADASTRADO OU <span className="font-bold text-[#F5A623]">SEU DINHEIRO DE VOLTA!</span>
-              </p>
-              <p className="text-[8px] md:text-sm font-bold text-[#EF4444] px-1">
-                APROVEITE AGORA: <span className="font-bold">ÚLTIMO DIA!</span> <span className="font-medium text-[#4B5563]">Você não verá essa oportunidade em outro momento!</span>
-              </p>
+              <div className="text-center border-t border-gray-200 pt-6">
+                <button 
+                  onClick={handleDecline}
+                  className="text-[#4B5563] text-sm font-bold underline hover:text-[#0D3B5E] transition-colors"
+                >
+                  Não, quero continuar com o básico.
+                </button>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -1614,7 +1656,7 @@ export default function App() {
 
   const handleContinueBasic = () => {
     setIsUpsellOpen(false);
-    window.open('https://pay.wiapy.com/LFB0S4pTP1', '_blank');
+    window.open('https://pay.wiapy.com/HrqBTS9Tk', '_blank');
     trackEvent('Purchase', { value: 10.00, currency: 'BRL', content_name: 'Plano Básico' });
   };
 
