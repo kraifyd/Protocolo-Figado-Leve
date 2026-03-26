@@ -1796,7 +1796,7 @@ export default function App() {
   const [isUpsellRoute, setIsUpsellRoute] = useState(false);
 
   useEffect(() => {
-    if (window.location.pathname === '/upsell') {
+    if (window.location.pathname === '/upsell' || window.location.hash === '#upsell') {
       setIsUpsellRoute(true);
     }
   }, []);
@@ -1804,7 +1804,7 @@ export default function App() {
   const handleBasicClick = (e: React.MouseEvent) => {
     e.preventDefault();
     trackEvent('Click_Basic_Checkout');
-    window.open('/upsell', '_blank');
+    window.open('/#upsell', '_blank');
   };
 
   useEffect(() => {
