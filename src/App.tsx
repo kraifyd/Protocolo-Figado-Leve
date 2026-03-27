@@ -1586,7 +1586,7 @@ const SupportSection = () => {
         </p>
 
         <a 
-          href="#"
+          href="https://wa.me/5519998425443?text=Ol%C3%A1%2C%20Dra.%20Marina%20Albuquerque!%20Estou%20entrando%20em%20contato%20para%20solicitar%20suporte.%0A%0ADescri%C3%A7%C3%A3o%20do%20problema%3A"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 px-8 rounded-xl font-bold text-base hover:bg-[#20BD5A] transition-colors"
@@ -1620,12 +1620,12 @@ const DisclaimerAndFooter = () => {
         </div>
 
         <div className="flex items-center justify-center gap-6 text-[#5A6B68] text-sm font-medium mb-8">
-          <a href="#" className="flex items-center gap-2 hover:text-[#0A3622] transition-colors">
+          <a href="https://wa.me/5519998425443?text=Ol%C3%A1%2C%20Dra.%20Marina%20Albuquerque!%20Estou%20entrando%20em%20contato%20para%20solicitar%20suporte.%0A%0ADescri%C3%A7%C3%A3o%20do%20problema%3A" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#0A3622] transition-colors">
             <MessageCircle size={18} />
-            Falar com suporte
+            Falar com suporte no WhatsApp
           </a>
           <span className="text-[#E5EBE8]">•</span>
-          <a href="#" className="flex items-center gap-2 hover:text-[#0A3622] transition-colors">
+          <a href="https://www.instagram.com/figado.leve" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#0A3622] transition-colors">
             <Instagram size={18} />
             Seguir no Instagram
           </a>
