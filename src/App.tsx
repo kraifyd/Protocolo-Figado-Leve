@@ -548,7 +548,7 @@ const WhatYouGetDivider = () => (
 const HowYouGetDivider = () => (
   <div className="w-full bg-[#0D3B5E] py-8 md:py-12 flex justify-center items-center">
     <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-center px-4">
-      COMO VOU RECEBER?
+      👇 COMO VOU RECEBER? 👇
     </h2>
   </div>
 );
@@ -559,7 +559,7 @@ const HowYouGetSteps = () => {
       icon: <Inbox className="w-6 h-6 md:w-8 md:h-8 text-[#0D3B5E]" strokeWidth={1.5} />,
       text: (
         <>
-          Após confirmação do pagamento, um acesso individual será enviado ao seu e-mail para você acessar o conteúdo. Verifique <strong className="font-bold text-[#0D3B5E]">CAIXA DE SPAM E LIXO ELETRÔNICO.</strong>
+          Após confirmação do pagamento, um acesso individual COM SENHA será enviado ao seu e-mail para você acessar O SEU APLICATIVO. Verifique <strong className="font-bold text-red-600">CAIXA DE SPAM E LIXO ELETRÔNICO.</strong>
         </>
       )
     },
@@ -567,7 +567,7 @@ const HowYouGetSteps = () => {
       icon: <Mail className="w-6 h-6 md:w-8 md:h-8 text-[#0D3B5E]" strokeWidth={1.5} />,
       text: (
         <>
-          O material é <strong className="font-bold text-[#0D3B5E]">DIGITAL</strong> e o acesso é feito pela plataforma. Você pode estudar nos seus dispositivos, como Computador, Tablet e Celular.
+          O material é <strong className="font-bold text-red-600">DIGITAL</strong> e o acesso é feito pela plataforma. Você pode estudar nos seus dispositivos, como Computador, Tablet e Celular.
         </>
       )
     },
@@ -575,7 +575,7 @@ const HowYouGetSteps = () => {
       icon: <Smartphone className="w-6 h-6 md:w-8 md:h-8 text-[#0D3B5E]" strokeWidth={1.5} />,
       text: (
         <>
-          <strong className="font-bold text-[#0D3B5E]">Pronto!</strong> Agora inicie sua Jornada de conhecimento rumo ao <strong className="font-bold text-[#0D3B5E]">Fígado Leve.</strong>
+          <strong className="font-bold text-red-600">Pronto!</strong> Agora inicie sua Jornada de conhecimento rumo ao <strong className="font-bold text-red-600">Fígado Leve.</strong>
         </>
       )
     }
@@ -788,70 +788,6 @@ const TargetAudienceSection = () => {
 };
 
 const PreviewSection = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Forçar atributos essenciais para mobile
-    video.defaultMuted = true;
-    video.muted = true;
-    video.playsInline = true;
-
-    const attemptPlay = async () => {
-      try {
-        await video.play();
-        setIsPlaying(true);
-      } catch (error) {
-        console.log("Autoplay bloqueado pelo navegador:", error);
-        setIsPlaying(false);
-      }
-    };
-
-    // Tentar tocar imediatamente
-    attemptPlay();
-
-    // Tentar tocar quando o usuário interagir com a página (ajuda com bloqueios de autoplay)
-    const handleInteraction = () => {
-      if (video.paused) {
-        attemptPlay();
-      }
-    };
-
-    document.addEventListener('touchstart', handleInteraction, { once: true });
-    document.addEventListener('click', handleInteraction, { once: true });
-    document.addEventListener('scroll', handleInteraction, { once: true });
-
-    return () => {
-      document.removeEventListener('touchstart', handleInteraction);
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('scroll', handleInteraction);
-    };
-  }, []);
-
-  const handleVideoClick = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play()
-          .then(() => setIsPlaying(true))
-          .catch(console.error);
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
-    }
-  };
-
-  const features = [
-    "Módulos explicativos",
-    "Vídeos resumidos",
-    "Conteúdos em áudio",
-    "Materiais visuais práticos"
-  ];
-
   return (
     <section className="py-16 md:py-24 px-6 bg-white">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
@@ -873,34 +809,17 @@ const PreviewSection = () => {
         </div>
 
         {/* Video Player */}
-        <div 
-          className="relative w-full max-w-sm mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-black cursor-pointer group"
-          onClick={handleVideoClick}
-        >
-          {!isPlaying && (
-            <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
-              <div className="w-16 h-16 bg-[#1A9E8F] rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
-                <div className="w-0 h-0 border-t-8 border-t-transparent border-l-[12px] border-l-white border-b-8 border-b-transparent ml-1"></div>
-              </div>
-            </div>
-          )}
-          <video 
-            ref={videoRef}
-            src="https://file.garden/abrFdPrpWxJegn2H/0319%20(1)(1343).mp4"
-            className="w-full h-auto -mt-[12%]"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            onPlay={() => setIsPlaying(true)}
-            onPause={() => setIsPlaying(false)}
-            onLoadedData={(e) => {
-              setIsLoaded(true);
-              e.currentTarget.play().catch(() => setIsPlaying(false));
-            }}
-            onCanPlay={(e) => e.currentTarget.play().catch(() => setIsPlaying(false))}
-          />
+        <div className="relative w-full max-w-[315px] mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-black">
+          <div style={{ padding: '216.66% 0 0 0', position: 'relative' }} className="-mt-[12%]">
+            <iframe 
+              src="https://player.vimeo.com/video/1179685930?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1" 
+              frameBorder="0" 
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+              referrerPolicy="strict-origin-when-cross-origin" 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} 
+              title="0319 (1)(1)"
+            ></iframe>
+          </div>
         </div>
 
       </div>
