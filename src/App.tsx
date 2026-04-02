@@ -46,6 +46,11 @@ declare global {
 // --- Tracking Helper ---
 
 const trackEvent = async (eventName: string, customData: any = {}) => {
+  // Safeguard: if customData is a React SyntheticEvent or a DOM Event, don't send it
+  if (customData && (customData.nativeEvent || customData instanceof Event)) {
+    customData = {};
+  }
+
   // Client-side Pixel
   if (window.fbq) {
     window.fbq('track', eventName, customData);

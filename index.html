@@ -27,6 +27,30 @@
       } catch (e) {
         console.error('Failed to make fetch writable:', e);
       }
+
+      // Patch JSON.stringify to handle circular references (e.g. from React Fiber nodes)
+      // which can cause tracking scripts like UTMify to crash when stringifying DOM elements.
+      const originalStringify = JSON.stringify;
+      JSON.stringify = function(value, replacer, space) {
+        try {
+          return originalStringify(value, replacer, space);
+        } catch (e) {
+          if (e instanceof TypeError && e.message.toLowerCase().includes('circular')) {
+            const cache = new Set();
+            return originalStringify(value, (key, val) => {
+              if (typeof val === 'object' && val !== null) {
+                if (cache.has(val)) return '[Circular]';
+                cache.add(val);
+              }
+              if (key.startsWith('__reactFiber$') || key.startsWith('__reactProps$')) {
+                return undefined; // Ignore React internal properties
+              }
+              return typeof replacer === 'function' ? replacer(key, val) : val;
+            }, space);
+          }
+          throw e;
+        }
+      };
     </script>
     <script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0&appId=1707703070196851"></script>
     <!-- Meta Pixel Code -->
@@ -43,7 +67,7 @@
     fbq('track', 'PageView');
     </script>
     <!-- End Meta Pixel Code -->
-    <!-- UTMify scripts commented out to prevent window.fetch override error in iframe
+    <!-- UTMify scripts -->
     <script
       src="https://cdn.utmify.com.br/scripts/utms/latest.js"
       data-utmify-prevent-xcod-sck
@@ -59,7 +83,6 @@
       a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
       document.head.appendChild(a);
     </script>
-    -->
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
