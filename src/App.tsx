@@ -312,7 +312,7 @@ const Identification = () => {
   ];
 
   return (
-    <section className="py-16 px-6 bg-[#0D3B5E] text-center">
+    <section className="py-12 md:py-24 px-6 bg-[#0D3B5E] text-center">
       <div className="max-w-5xl mx-auto">
         <div className="inline-block bg-[#1A9E8F] text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase mb-4 tracking-widest">
           VOCÊ SE IDENTIFICA?
@@ -384,7 +384,7 @@ const EditorialTrustSection = () => {
 
 const ExpertBioSection = () => {
   return (
-    <section className="relative py-20 px-6 bg-white overflow-hidden">
+    <section className="relative py-12 md:py-28 px-6 bg-white overflow-hidden">
       <div className="absolute top-0 right-0 w-[40%] md:w-[30%] opacity-100 pointer-events-none z-0">
         <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
           <path d="M400 0C400 220.914 220.914 400 0 400" stroke="#F5F7F6" strokeWidth="150" />
@@ -398,6 +398,8 @@ const ExpertBioSection = () => {
               <img 
                 src="https://i.ibb.co/FLQRRQpP/b60f228e-fddc-4c9e-94e9-e4c6272a10b5.jpg" 
                 alt="Dra. Marina Albuquerque" 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-auto block"
               />
             </div>
@@ -513,7 +515,7 @@ const NewTestimonialsSection = () => {
               
               <div className="flex items-center gap-4 mb-6 relative z-10">
                 <div className="w-14 h-14 rounded-full bg-[#1A9E8F] flex items-center justify-center shrink-0 overflow-hidden border-2 border-white/10">
-                  <img src={t.image} alt={t.name} className="w-full h-full object-cover" />
+                  <img src={t.image} alt={t.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h4 className="text-white font-black text-sm md:text-base leading-none mb-1.5 uppercase tracking-wide">{t.name}</h4>
@@ -582,7 +584,7 @@ const HowYouGetSteps = () => {
   ];
 
   return (
-    <section className="py-10 md:py-20 px-4 md:px-6 bg-white">
+    <section className="py-10 md:py-24 px-4 md:px-6 bg-white">
       <div className="max-w-3xl mx-auto">
         
         {/* Instant Access Badge */}
@@ -641,7 +643,7 @@ const DeliverablesBadge = () => {
   ];
 
   return (
-    <section className="pt-16 md:pt-24 pb-10 md:pb-12 px-4 md:px-6 bg-white relative">
+    <section className="pt-12 md:pt-32 pb-10 md:pb-24 px-4 md:px-6 bg-white relative">
       <div className="max-w-3xl mx-auto relative">
         {/* Floating Icon */}
         <div className="absolute -top-8 md:-top-10 left-1/2 -translate-x-1/2 z-10">
@@ -687,7 +689,7 @@ const SolutionSection = () => {
   ];
 
   return (
-    <section className="py-16 px-6 bg-[#F5F7F6] text-center">
+    <section className="py-12 md:py-28 px-6 bg-[#F5F7F6] text-center">
       <div className="max-w-5xl mx-auto">
         <div className="inline-block bg-[#F5A623] text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase mb-4 tracking-widest">
           A SOLUÇÃO DEFINITIVA
@@ -740,7 +742,7 @@ const TargetAudienceSection = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-[#F5F7F6]">
+    <section className="py-12 md:py-28 px-6 bg-[#F5F7F6]">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-[#0D3B5E] text-3xl md:text-4xl font-bold mb-4 tracking-tight leading-tight">
@@ -789,7 +791,7 @@ const TargetAudienceSection = () => {
 
 const PreviewSection = () => {
   return (
-    <section className="py-16 md:py-24 px-6 bg-white">
+    <section className="py-12 md:py-28 px-6 bg-white">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         
         {/* Header */}
@@ -797,6 +799,8 @@ const PreviewSection = () => {
           <img 
             src="https://i.ibb.co/3m8hT13J/logo-removebg-preview.png" 
             alt="Protocolo Fígado Leve Logo" 
+            loading="lazy"
+            decoding="async"
             className="h-48 md:h-60 -mt-8 md:-mt-12 -mb-8 md:-mb-12 object-contain"
             referrerPolicy="no-referrer"
           />
@@ -814,6 +818,7 @@ const PreviewSection = () => {
             <iframe 
               src="https://player.vimeo.com/video/1179685930?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1" 
               frameBorder="0" 
+              loading="lazy"
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
               referrerPolicy="strict-origin-when-cross-origin" 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} 
@@ -847,7 +852,7 @@ const BenefitsAndAvoidanceSection = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-[#0D3B5E]">
+    <section className="py-12 md:py-28 px-6 bg-[#0D3B5E]">
       <div className="max-w-4xl mx-auto">
         
         {/* Gains Block */}
@@ -913,7 +918,7 @@ const BonusSection = () => {
       </div>
 
       {/* Main Content */}
-      <section className="py-12 md:py-16 px-6 bg-white flex flex-col items-center text-center font-poppins">
+      <section className="py-12 md:py-24 px-6 bg-white flex flex-col items-center text-center font-poppins">
         
         <h2 className="text-xl md:text-2xl text-black font-medium mb-12 max-w-md leading-tight">
           Escolhendo o <strong className="font-black">COMBO<br/>COMPLETO</strong> você recebe<br/>
@@ -939,7 +944,7 @@ const BonusSection = () => {
                 PLANO ALIMENTAR<br/>ANTI-INFLAMAÇÃO<br/>
                 <span className="text-[#1A9E8F]">30 DIAS GUIADOS</span>
               </h3>
-              <img src="https://i.ibb.co/xSHskD7y/1.png" alt="Plano Alimentar Anti-Inflamação" className="w-full h-auto my-4 object-contain" />
+              <img src="https://i.ibb.co/xSHskD7y/1.png" alt="Plano Alimentar Anti-Inflamação" loading="lazy" decoding="async" className="w-full h-auto my-4 object-contain" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
@@ -968,7 +973,7 @@ const BonusSection = () => {
                 GUIA DE<br/>INTERPRETAÇÃO DOS<br/>
                 <span className="text-[#1A9E8F]">EXAMES DO FÍGADO</span>
               </h3>
-              <img src="https://i.ibb.co/chjsvRRx/2.png" alt="Guia de Exames do Fígado" className="w-full h-auto my-4 object-contain" />
+              <img src="https://i.ibb.co/chjsvRRx/2.png" alt="Guia de Exames do Fígado" loading="lazy" decoding="async" className="w-full h-auto my-4 object-contain" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
@@ -997,7 +1002,7 @@ const BonusSection = () => {
                 CARDÁPIO DE EMERGÊNCIA<br/>
                 <span className="text-[#1A9E8F]">7 DIAS DE DESINFLAMAÇÃO</span>
               </h3>
-              <img src="https://i.ibb.co/qLmfXN2d/3-removebg-preview.png" alt="Cardápio de Emergência" className="w-full h-auto my-4 object-contain" />
+              <img src="https://i.ibb.co/qLmfXN2d/3-removebg-preview.png" alt="Cardápio de Emergência" loading="lazy" decoding="async" className="w-full h-auto my-4 object-contain" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
@@ -1052,7 +1057,7 @@ const BonusSection = () => {
                   <span className="font-bold">Mini Guia: Sono, Estresse e Gordura no Fígado</span>
                 </li>
               </ul>
-              <img src="https://i.ibb.co/8L8HbdtH/7bonus-1.png" alt="+ 7 Bonus" className="w-full h-auto my-4 object-contain" />
+              <img src="https://i.ibb.co/8L8HbdtH/7bonus-1.png" alt="+ 7 Bonus" loading="lazy" decoding="async" className="w-full h-auto my-4 object-contain" />
               <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 147</span><br/>
@@ -1082,7 +1087,7 @@ const BonusSection = () => {
 
 const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }) => {
   return (
-    <section className="py-24 px-6 bg-[#8c8c8c] relative overflow-hidden font-poppins" id="offer">
+    <section className="py-14 md:py-32 px-6 bg-[#8c8c8c] relative overflow-hidden font-poppins" id="offer">
       <div className="max-w-6xl mx-auto text-center relative z-10">
         <div className="mb-12">
           <p className="text-white text-xl md:text-2xl mb-4">
@@ -1091,6 +1096,8 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
           <img 
             src="https://i.ibb.co/Qvn6L8DP/logo-figado-leve-texto-branco.png" 
             alt="Protocolo Fígado Leve Logo" 
+            loading="lazy"
+            decoding="async"
             className="h-48 md:h-60 mx-auto -mt-10 -mb-10 object-contain"
             referrerPolicy="no-referrer"
           />
@@ -1112,6 +1119,8 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
               <img 
                 src="https://i.ibb.co/v639D7ZD/mockup-estudio-infinito-premium.png" 
                 alt="Mockup Protocolo Fígado Leve" 
+                loading="lazy"
+                decoding="async"
                 className="w-full max-w-[200px] mx-auto mb-6 drop-shadow-xl"
                 referrerPolicy="no-referrer"
               />
@@ -1226,6 +1235,8 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
               <img 
                 src="https://i.ibb.co/7tgGXrVb/bundle-hero.png" 
                 alt="Bundle Protocolo Fígado Leve" 
+                loading="lazy"
+                decoding="async"
                 className="w-full max-w-[550px] mx-auto mb-6 drop-shadow-2xl scale-105"
                 referrerPolicy="no-referrer"
               />
@@ -1331,7 +1342,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
 
 const Guarantee = () => {
   return (
-    <section className="py-20 px-6 bg-[#F5F7F6] relative overflow-hidden">
+    <section className="py-12 md:py-28 px-6 bg-[#F5F7F6] relative overflow-hidden">
       <div className="max-w-[700px] mx-auto text-center relative z-10 flex flex-col items-center">
         <div className="mb-6">
           <div className="bg-[#E5EBE8] w-20 h-20 rounded-full flex items-center justify-center">
@@ -1390,7 +1401,7 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-[#FFFFFF] relative overflow-hidden font-poppins">
+    <section className="py-12 md:py-28 px-6 bg-[#FFFFFF] relative overflow-hidden font-poppins">
       <div className="max-w-[780px] mx-auto">
         <div className="text-center mb-12">
           <div className="inline-block bg-[#1A9E8F] text-white text-sm font-bold px-4 py-1.5 rounded uppercase tracking-wider mb-6">
@@ -1446,7 +1457,7 @@ const CTASection = ({
   onCompleteClick?: (e: React.MouseEvent) => void;
 }) => {
   return (
-    <section className="py-20 px-6 bg-[#FDFDFD] relative overflow-hidden font-poppins text-center">
+    <section className="py-12 md:py-28 px-6 bg-[#FDFDFD] relative overflow-hidden font-poppins text-center">
       <div className="max-w-[800px] mx-auto flex flex-col items-center">
         <div className="inline-flex items-center gap-2 bg-[#E63946] text-white text-xs font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
           <Clock size={14} />
@@ -1492,7 +1503,7 @@ const CTASection = ({
 
 const SupportSection = () => {
   return (
-    <section className="py-20 px-6 bg-[#F5F7F6] relative overflow-hidden font-poppins text-center border-t border-[#E5EBE8]">
+    <section className="py-12 md:py-28 px-6 bg-[#F5F7F6] relative overflow-hidden font-poppins text-center border-t border-[#E5EBE8]">
       <div className="max-w-[600px] mx-auto flex flex-col items-center">
         <div className="mb-6">
           <div className="bg-[#E5EBE8] w-16 h-16 rounded-full flex items-center justify-center">
@@ -1629,6 +1640,8 @@ const UpsellPage = () => {
                 <img 
                   src="https://i.ibb.co/7tgGXrVb/bundle-hero.png" 
                   alt="Bundle Protocolo Fígado Leve" 
+                  loading="lazy"
+                  decoding="async"
                   className="w-full max-w-[550px] mx-auto mb-6 drop-shadow-2xl scale-105"
                   referrerPolicy="no-referrer"
                 />
