@@ -1196,7 +1196,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
             <div className="mt-auto">
               <a 
                 id="checkout-essencial"
-                href="https://pay.wiapy.com/HrqBTS9Tk?payment_method=pix"
+                href="https://pay.wiapy.com/HrqBTS9Tk"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={onBasicClick}
@@ -1323,7 +1323,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
             <div className="mt-auto">
               <a 
                 id="checkout-completo"
-                href="https://pay.wiapy.com/2YN9oWQpwa?payment_method=pix"
+                href="https://pay.wiapy.com/2YN9oWQpwa"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('Purchase', { value: 37.00, currency: 'BRL', content_name: 'Plano Completo' })}
@@ -1600,7 +1600,7 @@ const UpsellPage = () => {
     if (step === 1) {
       setStep(2);
     } else {
-      window.location.href = 'https://pay.wiapy.com/HrqBTS9Tk?payment_method=pix';
+      window.location.href = 'https://pay.wiapy.com/HrqBTS9Tk';
       trackEvent('Purchase', { value: 10.00, currency: 'BRL', content_name: 'Plano Básico' });
     }
   };
@@ -1732,7 +1732,7 @@ const UpsellPage = () => {
               <div className="mt-auto">
                 <a 
                   id="checkout-completo-upsell"
-                  href={step === 1 ? "https://pay.wiapy.com/iBpg-3qq7?payment_method=pix" : "https://pay.wiapy.com/75EIStgfs?payment_method=pix"}
+                  href={step === 1 ? "https://pay.wiapy.com/iBpg-3qq7" : "https://pay.wiapy.com/75EIStgfs"}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent('Purchase_Upsell', { value: step === 1 ? 27.00 : 19.90, currency: 'BRL', content_name: `Plano Completo Upsell Step ${step}` })}
