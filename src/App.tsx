@@ -1182,7 +1182,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
             <div className="mt-auto">
               <a 
                 id="checkout-essencial"
-                href="https://pay.wiapy.com/HrqBTS9Tk"
+                href="/#upsell"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={onBasicClick}
@@ -1446,12 +1446,16 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
 const CTASection = ({ 
   onBasicClick,
   basicText = "Plano Básico — R$10",
+  basicLink = "#offer-basic",
+  basicTarget = "_self",
   completeText = "Plano Completo — R$37",
   completeLink = "#offer-complete",
   onCompleteClick
 }: { 
-  onBasicClick: (e: React.MouseEvent) => void;
+  onBasicClick?: (e: React.MouseEvent) => void;
   basicText?: string;
+  basicLink?: string;
+  basicTarget?: string;
   completeText?: string;
   completeLink?: string;
   onCompleteClick?: (e: React.MouseEvent) => void;
@@ -1478,7 +1482,9 @@ const CTASection = ({
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-[600px] mb-6">
           <a 
-            href="#offer-basic"
+            href={basicLink}
+            target={basicTarget}
+            rel={basicTarget === "_blank" ? "noopener noreferrer" : undefined}
             onClick={onBasicClick}
             className="w-full sm:w-1/2 bg-[#1A9E8F] text-white py-4 rounded-xl font-bold text-base hover:bg-[#148275] transition-colors"
           >
@@ -1787,9 +1793,7 @@ export default function App() {
   }, []);
 
   const handleBasicClick = (e: React.MouseEvent) => {
-    e.preventDefault();
     trackEvent('Click_Basic_Checkout');
-    window.open('/#upsell', '_blank');
   };
 
   useEffect(() => {
@@ -1832,7 +1836,11 @@ export default function App() {
         <PreviewSection />
         <Guarantee />
         <FAQ />
-        <CTASection onBasicClick={handleBasicClick} />
+        <CTASection 
+          onBasicClick={handleBasicClick} 
+          basicLink="/#upsell"
+          basicTarget="_blank"
+        />
         <SupportSection />
       </main>
 
