@@ -790,8 +790,6 @@ const TargetAudienceSection = () => {
 };
 
 const PreviewSection = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
   return (
     <section className="py-12 md:py-28 px-6 bg-white">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
@@ -815,27 +813,15 @@ const PreviewSection = () => {
         </div>
 
         {/* Video Player */}
-        <div 
-          className="relative w-full max-w-[315px] mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-black group cursor-pointer"
-          onClick={() => setIsPlaying(true)}
-        >
+        <div className="relative w-full max-w-[315px] mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-black">
           <div style={{ padding: '216.66% 0 0 0', position: 'relative' }} className="-mt-[12%]">
-            {!isPlaying && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-transparent transition-all duration-300">
-                <div className="w-20 h-20 bg-[#1A9E8F] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(26,158,143,0.6)] transform group-hover:scale-110 transition-transform duration-300">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-2">
-                    <path d="M5 3L19 12L5 21V3Z" fill="white" />
-                  </svg>
-                </div>
-              </div>
-            )}
             <iframe 
-              src={`https://player.vimeo.com/video/1179685930?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=${isPlaying ? '1' : '0'}`} 
+              src="https://player.vimeo.com/video/1179685930?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=0" 
               frameBorder="0" 
               loading="lazy"
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
               referrerPolicy="strict-origin-when-cross-origin" 
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: isPlaying ? 'auto' : 'none' }} 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} 
               title="0319 (1)(1)"
             ></iframe>
           </div>
