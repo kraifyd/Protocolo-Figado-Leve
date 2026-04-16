@@ -34,7 +34,15 @@ import {
   HelpCircle,
   MessageCircle,
   AlertTriangle,
-  Instagram
+  Instagram,
+  FileText,
+  TrendingUp,
+  Search,
+  Flame,
+  Utensils,
+  Heart,
+  Layers,
+  VolumeX
 } from 'lucide-react';
 
 declare global {
@@ -52,12 +60,19 @@ const trackEvent = async (eventName: string, customData: any = {}) => {
   }
 
   // Client-side Pixel
-  if (window.fbq) {
+  if (typeof window.fbq === 'function') {
     window.fbq('track', eventName, customData);
   }
 
   // Server-side CAPI
   try {
+    let userId = undefined;
+    try {
+      userId = localStorage.getItem('user_id') || undefined;
+    } catch (e) {
+      // Ignore
+    }
+
     await fetch('/api/event', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -69,7 +84,7 @@ const trackEvent = async (eventName: string, customData: any = {}) => {
         userData: {
           // In a real app, you'd collect email/phone if available
           // For now we send what we have
-          external_id: localStorage.getItem('user_id') || undefined
+          external_id: userId
         }
       })
     });
@@ -199,7 +214,7 @@ const TopBanner = () => (
 );
 
 const HeaderRating = () => (
-  <div className="flex justify-center pt-4 pb-0 px-4 bg-[#F5F7F6]">
+  <div className="flex justify-center pt-4 pb-0 px-4 bg-[#EFF6F5]">
     <img 
       src="https://i.ibb.co/hFJSqpMK/Chat-GPT-Image-17-de-fev-de-2026-21-17-25-1.png" 
       alt="Recomendado por +2.400 alunos" 
@@ -208,49 +223,171 @@ const HeaderRating = () => (
   </div>
 );
 
+const VSLPlayer = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [showOverlay, setShowOverlay] = useState(true);
+
+  const handleUnmute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      setIsMuted(false);
+      setShowOverlay(false);
+      videoRef.current.play().catch(() => {});
+    }
+  };
+
+  const handleContextMenu = (e: React.MouseEvent) => e.preventDefault();
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let animationFrameId: number;
+    let currentVisualProgress = 0;
+    
+    let inPlateau = false;
+    let plateauEndTime = 0;
+    
+    const updateProgress = () => {
+      if (!video) return;
+      const t_real = video.currentTime;
+      const d = video.duration;
+
+      if (!d || isNaN(d)) {
+         animationFrameId = requestAnimationFrame(updateProgress);
+         return;
+      }
+
+      if (t_real >= d * 0.9) {
+        const remainingTime = d - t_real;
+        const totalRemainingDuration = d * 0.1;
+        const catchupProgress = 1 - (remainingTime / totalRemainingDuration) * (1 - 0.95);
+        currentVisualProgress = Math.max(currentVisualProgress, catchupProgress);
+        currentVisualProgress = Math.min(currentVisualProgress, 0.999);
+      } else {
+        const now = Date.now();
+        if (!inPlateau && Math.random() < 0.0003) { 
+           inPlateau = true;
+           plateauEndTime = now + 200 + Math.random() * 800; 
+        }
+        
+        if (inPlateau && now >= plateauEndTime) {
+           inPlateau = false;
+        }
+
+        if (!inPlateau) {
+           const leadFactor = 1.15;
+           const targetProgress = Math.min((t_real * leadFactor) / d, 0.95);
+           currentVisualProgress += (targetProgress - currentVisualProgress) * 0.05;
+        }
+      }
+
+      setProgress(currentVisualProgress);
+      animationFrameId = requestAnimationFrame(updateProgress);
+    };
+    
+    animationFrameId = requestAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
+
+  useEffect(() => {
+     const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+           if (!videoRef.current) return;
+           if (entry.isIntersecting) {
+             videoRef.current.play().catch(() => {});
+           } else {
+             videoRef.current.pause();
+           }
+        });
+     }, {
+        threshold: 0.1 
+     });
+
+     if (videoRef.current) observer.observe(videoRef.current);
+     return () => observer.disconnect();
+  }, []);
+
+  return (
+     <div 
+       className="relative w-full max-w-3xl mx-auto rounded-[16px] overflow-hidden shadow-[0_20px_50px_rgba(13,59,94,0.15)] bg-black my-8 md:my-12 cursor-pointer select-none group border-4 border-white/50"
+       onClick={handleUnmute}
+     >
+        <video 
+          ref={videoRef}
+          src="https://file.garden/abrFdPrpWxJegn2H/744fef8a0c7778b7c19befbf01802290_1.mp4"
+          autoPlay
+          muted
+          playsInline
+          className="w-full h-auto block pointer-events-none" 
+          onContextMenu={handleContextMenu}
+        />
+
+        {showOverlay && (
+          <div 
+            className="absolute top-4 right-4 bg-brand text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full flex items-center gap-2 animate-pulse whitespace-nowrap shadow-lg transition-transform duration-300 hover:scale-105"
+            style={{ backgroundColor: 'var(--brand-color, #1A9E8F)' }}
+          >
+             <VolumeX size={16} className="md:w-[18px] md:h-[18px]" />
+             <span className="font-bold text-xs md:text-sm">Clique para ouvir</span>
+          </div>
+        )}
+
+        <div className="absolute bottom-0 left-0 w-full h-[6px] md:h-[8px] bg-black/40">
+           <div 
+             className="h-full relative"
+             style={{ 
+               width: `${progress * 100}%`,
+               transition: 'width 100ms cubic-bezier(.2,.9,.2,1)',
+               backgroundColor: 'var(--brand-color, #1A9E8F)'
+             }}
+           >
+             <div className="absolute right-0 top-0 h-full w-20 bg-gradient-to-r from-transparent to-white/30" />
+           </div>
+        </div>
+     </div>
+  );
+};
+
 const Hero = () => (
-  <section className="bg-[#F5F7F6] pt-6 pb-10 px-5 text-center">
+  <section className="bg-[#EFF6F5] pt-6 pb-10 px-5 text-center">
     <div className="max-w-5xl mx-auto">
-      <h1 className="text-3xl md:text-5xl font-bold leading-[1.15] mb-3 tracking-tighter text-[#0D3B5E]">
+      <h1 className="text-[26px] sm:text-3xl md:text-5xl font-bold leading-[1.15] mb-3 tracking-tighter text-[#0D3B5E]">
         A forma mais simples e prática de <br className="hidden md:block" />
         <span className="text-[#1A9E8F]">reduzir a gordura no fígado</span> <br className="hidden md:block" />
         sem <span className="text-[#1A9E8F]">dieta radical</span> e sem complicação
       </h1>
       
-      <p className="text-[#4B5563] mb-0 max-w-xl mx-auto text-sm md:text-lg leading-relaxed font-medium relative z-10">
+      <p className="text-[#4B5563] mb-6 max-w-xl mx-auto text-[15px] md:text-lg leading-relaxed font-medium relative z-10">
         Você vai ter acesso a um <strong className="text-[#0D3B5E] font-bold">passo a passo para reduzir a gordura no fígado</strong> de forma <strong className="text-[#0D3B5E] font-bold">fácil, simples e sem complicação</strong>.
       </p>
-      
-      <div className="w-full max-w-3xl mx-auto -mt-8 -mb-14 md:-mt-16 md:-mb-24 relative z-0 pointer-events-none">
-        <img 
-          src="https://i.ibb.co/v639D7ZD/mockup-estudio-infinito-premium.png" 
-          alt="Programa Fígado Leve" 
-          className="w-full h-auto block mx-auto drop-shadow-2xl hover:scale-105 transition-transform duration-500 pointer-events-auto px-5" 
-        />
-      </div>
 
-      <p className="text-[#0D3B5E] text-[10px] leading-[19px] font-medium mb-5 max-w-lg mx-auto relative z-10">
+      <VSLPlayer />
+
+      <p className="text-[#0D3B5E] text-xs md:text-sm leading-relaxed font-medium mb-5 max-w-lg mx-auto relative z-10 mt-6">
         Fortifique e cuide do seu <strong className="font-bold">fígado de verdade</strong> aprendendo tudo com o nosso <strong className="text-[#1A9E8F] font-bold">Guia Completo do Fígado Leve</strong>. <strong className="font-bold">Mesmo que você nunca tenha feito nada pelo seu fígado ou não saiba por onde começar.</strong>
       </p>
 
       <div className="flex flex-row justify-center items-center gap-3 md:gap-6 max-w-2xl mx-auto mb-6 mt-4">
-        <div className="flex flex-row items-center gap-1 px-0.5">
-          <MonitorPlay className="w-[8px] h-[8px] text-[#0D3B5E]" strokeWidth={2} />
-          <h3 className="text-[8px] font-bold text-[#0D3B5E] leading-tight whitespace-nowrap">
+        <div className="flex flex-row items-center gap-1.5 px-0.5">
+          <MonitorPlay className="w-3 h-3 md:w-4 md:h-4 text-[#0D3B5E]" strokeWidth={2} />
+          <h3 className="text-[10px] md:text-xs font-bold text-[#0D3B5E] leading-tight whitespace-nowrap">
             Acesso <span className="text-[#1A9E8F]">imediato</span>
           </h3>
         </div>
 
-        <div className="flex flex-row items-center gap-1 px-0.5">
-          <CalendarCheck className="w-[8px] h-[8px] text-[#0D3B5E]" strokeWidth={2} />
-          <h3 className="text-[8px] font-bold text-[#0D3B5E] leading-tight whitespace-nowrap">
+        <div className="flex flex-row items-center gap-1.5 px-0.5">
+          <CalendarCheck className="w-3 h-3 md:w-4 md:h-4 text-[#0D3B5E]" strokeWidth={2} />
+          <h3 className="text-[10px] md:text-xs font-bold text-[#0D3B5E] leading-tight whitespace-nowrap">
             Acesso <span className="text-[#1A9E8F]">vitalício</span>
           </h3>
         </div>
 
-        <div className="flex flex-row items-center gap-1 px-0.5">
-          <ShieldCheck className="w-[8px] h-[8px] text-[#0D3B5E]" strokeWidth={2} />
-          <h3 className="text-[8px] font-bold text-[#0D3B5E] leading-tight whitespace-nowrap">
+        <div className="flex flex-row items-center gap-1.5 px-0.5">
+          <ShieldCheck className="w-3 h-3 md:w-4 md:h-4 text-[#0D3B5E]" strokeWidth={2} />
+          <h3 className="text-[10px] md:text-xs font-bold text-[#0D3B5E] leading-tight whitespace-nowrap">
             <span className="text-[#1A9E8F]">30 dias</span> de garantia
           </h3>
         </div>
@@ -271,8 +408,8 @@ const Hero = () => (
         <div className="w-full max-w-[320px] h-[4px] bg-[#1A9E8F] shadow-[0_0_20px_rgba(26,158,143,0.6)] mb-2"></div>
         
         <div className="flex items-start justify-center text-[#1A9E8F] leading-none">
-          <span className="text-4xl md:text-5xl font-bold mt-4 md:mt-6 mr-1">R$</span>
-          <span className="text-[120px] md:text-[150px] font-black tracking-tighter leading-none">10</span>
+          <span className="text-3xl md:text-5xl font-bold mt-4 md:mt-6 mr-1">R$</span>
+          <span className="text-[100px] md:text-[150px] font-black tracking-tighter leading-none">10</span>
         </div>
       </div>
 
@@ -282,10 +419,10 @@ const Hero = () => (
           trackEvent('InitiateCheckout', { content_name: 'Hero CTA' });
           document.getElementById('bonus-section')?.scrollIntoView({ behavior: 'smooth' });
         }}
-        className="w-full max-w-md mx-auto bg-[#1A9E8F] hover:bg-[#1A9E8F] text-white font-bold py-4 px-6 rounded-xl shadow-[0_8px_0_#137A6E] transition-all active:translate-y-1 active:shadow-none flex items-center justify-center gap-3 uppercase text-sm md:text-base mb-3 animate-cta-pulse"
+        className="w-full max-w-md mx-auto bg-[#1A9E8F] hover:bg-[#1A9E8F] text-white font-bold py-4 px-4 sm:px-6 rounded-xl shadow-[0_8px_0_#137A6E] transition-all active:translate-y-1 active:shadow-none flex items-center justify-center gap-2 sm:gap-3 uppercase text-[13px] sm:text-sm md:text-base mb-3 animate-cta-pulse"
       >
         QUERO CUIDAR DO MEU FÍGADO AGORA!
-        <ArrowRight size={20} strokeWidth={3} />
+        <ArrowRight size={20} strokeWidth={3} className="shrink-0" />
       </button>
       <div className="flex items-center justify-center gap-2 text-xs text-[#4B5563] font-medium">
         <Lock size={14} className="text-[#1A9E8F]" />
@@ -296,43 +433,42 @@ const Hero = () => (
 );
 
 const Identification = () => {
-  const cards = [
-    {
-      title: "A gordura não diminui mesmo comendo bem?",
-      desc: "Falta um plano específico. Dietas genéricas não focam na desinflamação hepática."
-    },
-    {
-      title: "Vive cansado(a), inchado(a) e com digestão pesada?",
-      desc: "Alimentos inofensivos estão sobrecarregando seu fígado e roubando sua energia."
-    },
-    {
-      title: "Sente medo e dúvida sobre o que pode comer?",
-      desc: "O excesso de informações confunde. Você precisa de clareza sobre o que cura e o que piora."
-    }
+  const items = [
+    "A balança não move, mesmo você se esforçando — e você já não sabe mais o que fazer",
+    "Acorda cansado(a) todo dia, com o corpo inchado e sem energia para nada",
+    "Tem medo de comer errado e piorar o fígado sem nem perceber",
+    "Já seguiu dieta, protocolo, conselho — e nada funcionou de verdade",
+    "Se perde no excesso de informação e não sabe em quem confiar"
   ];
 
   return (
-    <section className="py-12 md:py-24 px-6 bg-[#0D3B5E] text-center">
-      <div className="max-w-5xl mx-auto">
-        <div className="inline-block bg-[#1A9E8F] text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase mb-4 tracking-widest">
-          VOCÊ SE IDENTIFICA?
-        </div>
-        
-        <h2 className="text-white text-2xl md:text-4xl font-bold mb-10 tracking-tight">
-          Alguma dessas situações parece familiar?
+    <section className="py-12 md:py-20 px-6 bg-[#F5F7F6] text-center font-poppins">
+      <div className="max-w-[680px] mx-auto">
+        <h2 className="text-[#0D3B5E] text-[22px] md:text-3xl font-bold mb-4 tracking-tight leading-tight">
+          Você se reconhece em alguma dessas situações?
         </h2>
+        <p className="text-[#4B5563] text-[15px] md:text-lg mb-10 leading-relaxed">
+          Se alguma dessas situações descreve você, o Protocolo Fígado Leve pode ser a solução.
+        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-12">
-          {cards.map((card, i) => (
-            <div key={i} className="bg-white p-6 rounded-[12px] shadow-sm border border-[#E5E7EB]">
-              <h3 className="text-[#0D3B5E] font-bold text-lg md:text-xl border-l-4 border-[#1A9E8F] pl-4 mb-3 leading-snug">
-                {card.title}
-              </h3>
-              <p className="text-[#4B5563] text-sm md:text-base leading-relaxed font-semibold">
-                {card.desc}
+        <div className="flex flex-col gap-4 mb-12 text-left">
+          {items.map((item, i) => (
+            <div key={i} className="bg-white p-4 md:p-5 rounded-[12px] border border-[#E5E7EB] flex items-center gap-4 shadow-sm">
+              <div className="shrink-0">
+                <XCircle size={28} className="text-[#EF4444]" strokeWidth={2} />
+              </div>
+              <p className="text-[#0D3B5E] text-sm md:text-base font-medium leading-snug">
+                {item}
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="text-center">
+          <p className="text-[#4B5563] text-lg md:text-xl mb-1">A boa notícia?</p>
+          <p className="text-[#1A9E8F] text-lg md:text-xl font-bold">
+            O Protocolo Fígado Leve foi criado exatamente para você.
+          </p>
         </div>
       </div>
     </section>
@@ -372,8 +508,8 @@ const EditorialTrustSection = () => {
           </span>
         </div>
         
-        <div className="max-w-3xl mx-auto pl-8 md:pl-12 border-l-[3px] border-[#1A9E8F] mb-10">
-          <h2 className="text-white text-3xl md:text-5xl font-semibold leading-[1.3] tracking-tight">
+        <div className="max-w-3xl mx-auto pl-6 md:pl-12 border-l-[3px] border-[#1A9E8F] mb-10">
+          <h2 className="text-white text-2xl md:text-4xl lg:text-5xl font-semibold leading-[1.3] tracking-tight">
             A esteatose hepática não dói no início mas ignorar os sinais pode <span className="text-[#1A9E8F] font-bold">custar caro</span> para a sua saúde.
           </h2>
         </div>
@@ -384,7 +520,7 @@ const EditorialTrustSection = () => {
 
 const ExpertBioSection = () => {
   return (
-    <section className="relative py-12 md:py-28 px-6 bg-white overflow-hidden">
+    <section className="relative py-12 md:py-28 px-6 bg-[#F5F7F6] overflow-hidden">
       <div className="absolute top-0 right-0 w-[40%] md:w-[30%] opacity-100 pointer-events-none z-0">
         <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
           <path d="M400 0C400 220.914 220.914 400 0 400" stroke="#F5F7F6" strokeWidth="150" />
@@ -392,9 +528,9 @@ const ExpertBioSection = () => {
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] gap-8 lg:gap-12 items-center">
           <div className="flex justify-center">
-            <div className="relative w-full max-w-[420px] bg-white rounded-[16px] shadow-[0_20px_60px_rgba(13,59,94,0.25)] overflow-hidden">
+            <div className="relative w-full max-w-[320px] md:max-w-[420px] bg-white rounded-[16px] shadow-[0_20px_60px_rgba(13,59,94,0.25)] overflow-hidden">
               <img 
                 src="https://i.ibb.co/FLQRRQpP/b60f228e-fddc-4c9e-94e9-e4c6272a10b5.jpg" 
                 alt="Dra. Marina Albuquerque" 
@@ -410,7 +546,7 @@ const ExpertBioSection = () => {
               <span className="inline-block text-[#1A9E8F] text-[10px] font-bold uppercase tracking-[0.2em] mb-3">
                 QUEM ESTÁ POR TRÁS DO MÉTODO
               </span>
-              <h2 className="text-[#0D3B5E] text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <h2 className="text-[#0D3B5E] text-3xl md:text-5xl font-bold leading-tight mb-4">
                 Dra. Marina Albuquerque
               </h2>
               <div className="w-[60px] h-[2px] bg-[#1A9E8F]"></div>
@@ -483,13 +619,13 @@ const NewTestimonialsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 px-6 bg-[#F5F7F6]">
+    <section ref={sectionRef} className="py-20 px-6 bg-[#EFF6F5]">
       <div className="max-w-6xl mx-auto text-center">
         <div className="inline-block bg-[#1A9E8F] text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-[0.2em] mb-6">
           Depoimentos reais
         </div>
         
-        <h2 className="text-[#0D3B5E] text-3xl md:text-5xl font-bold mb-4 tracking-tight leading-tight">
+        <h2 className="text-[#0D3B5E] text-[26px] md:text-5xl font-bold mb-4 tracking-tight leading-tight">
           Mais de 2.000 pessoas já começaram a reorganizar sua alimentação
         </h2>
 
@@ -500,11 +636,11 @@ const NewTestimonialsSection = () => {
           <span className="ml-2 text-sm font-bold text-[#0D3B5E]">4,9/5 de 2.464 usuários</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory hide-scrollbar md:grid md:grid-cols-3 gap-6 pb-4 -mx-6 px-6 md:mx-0 md:px-0">
           {testimonials.map((t, i) => (
             <div 
               key={i} 
-              className={`reveal-element bg-[#0D3B5E] p-8 rounded-2xl shadow-sm relative text-left transition-all duration-1000 flex flex-col ${isVisible ? 'visible' : ''}`}
+              className={`w-[85vw] md:w-auto shrink-0 snap-center reveal-element bg-[#0D3B5E] p-6 md:p-8 rounded-2xl shadow-sm relative text-left transition-all duration-1000 flex flex-col ${isVisible ? 'visible' : ''}`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               <div className="absolute top-6 right-6 text-[#1A9E8F] opacity-80">
@@ -540,16 +676,16 @@ const NewTestimonialsSection = () => {
 };
 
 const WhatYouGetDivider = () => (
-  <div className="w-full bg-[#0D3B5E] py-8 md:py-12 flex justify-center items-center">
-    <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-center px-4">
+  <div className="w-full bg-black py-8 md:py-12 flex justify-center items-center">
+    <h2 className="text-white text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-center px-4">
       O QUE VOU RECEBER?
     </h2>
   </div>
 );
 
 const HowYouGetDivider = () => (
-  <div className="w-full bg-[#0D3B5E] py-8 md:py-12 flex justify-center items-center">
-    <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-center px-4">
+  <div className="w-full bg-black py-8 md:py-12 flex justify-center items-center">
+    <h2 className="text-white text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-center px-4">
       👇 COMO VOU RECEBER? 👇
     </h2>
   </div>
@@ -584,12 +720,12 @@ const HowYouGetSteps = () => {
   ];
 
   return (
-    <section className="py-10 md:py-24 px-4 md:px-6 bg-white">
+    <section className="py-10 md:py-24 px-4 md:px-6 bg-[#EFF6F5]">
       <div className="max-w-3xl mx-auto">
         
         {/* Instant Access Badge */}
         <div className="flex justify-center mb-8 md:mb-12">
-          <div className="inline-flex items-center gap-2 bg-[#F5F7F6] text-[#F5A623] px-4 py-2 md:px-6 md:py-3 rounded-full font-medium text-sm md:text-lg shadow-sm border border-[#F5A623]/10">
+          <div className="inline-flex items-center gap-2 bg-white text-[#F5A623] px-4 py-2 md:px-6 md:py-3 rounded-full font-medium text-sm md:text-lg shadow-sm border border-[#F5A623]/10">
             <Clock className="w-4 h-4 md:w-5 md:h-5" />
             <span>Acesso Instantâneo</span>
           </div>
@@ -602,7 +738,7 @@ const HowYouGetSteps = () => {
               
               {/* Icon Container */}
               <div className="relative shrink-0">
-                <div className="bg-[#F5F7F6] w-14 h-14 md:w-20 md:h-20 rounded-2xl md:rounded-3xl flex items-center justify-center">
+                <div className="bg-white w-14 h-14 md:w-20 md:h-20 rounded-2xl md:rounded-3xl flex items-center justify-center">
                   {step.icon}
                 </div>
                 {/* Number Badge */}
@@ -613,7 +749,7 @@ const HowYouGetSteps = () => {
 
               {/* Text Content */}
               <div className="flex-1 pt-0 md:pt-1">
-                <p className="text-[#4B5563] text-[15px] md:text-lg leading-relaxed">
+                <p className="text-[#4B5563] text-sm md:text-lg leading-relaxed">
                   {step.text}
                 </p>
               </div>
@@ -643,7 +779,7 @@ const DeliverablesBadge = () => {
   ];
 
   return (
-    <section className="pt-12 md:pt-32 pb-10 md:pb-24 px-4 md:px-6 bg-white relative">
+    <section className="pt-16 md:pt-32 pb-10 md:pb-24 px-4 md:px-6 bg-[#F5F7F6] relative">
       <div className="max-w-3xl mx-auto relative">
         {/* Floating Icon */}
         <div className="absolute -top-8 md:-top-10 left-1/2 -translate-x-1/2 z-10">
@@ -653,14 +789,14 @@ const DeliverablesBadge = () => {
         </div>
 
         {/* Card */}
-        <div className="bg-[#F5F7F6] rounded-[24px] md:rounded-[32px] pt-12 md:pt-16 pb-8 md:pb-12 px-5 md:px-12 shadow-sm">
+        <div className="bg-white rounded-[24px] md:rounded-[32px] pt-12 md:pt-16 pb-8 md:pb-12 px-5 md:px-12 shadow-sm">
           <ul className="space-y-3 md:space-y-5">
             {items.map((item, index) => (
               <li key={index} className="flex items-start gap-3 md:gap-4">
                 <div className="bg-[#1A9E8F] rounded-full p-1 md:p-1.5 mt-0.5 md:mt-1 shrink-0">
                   <Check className="text-white w-3.5 h-3.5 md:w-4 md:h-4" strokeWidth={3} />
                 </div>
-                <span className="text-[#0D3B5E] font-medium text-[15px] md:text-lg leading-snug">
+                <span className="text-[#0D3B5E] font-medium text-sm md:text-lg leading-snug">
                   {item}
                 </span>
               </li>
@@ -673,50 +809,201 @@ const DeliverablesBadge = () => {
 };
 
 const SolutionSection = () => {
-  const solutions = [
+  const items = [
+    "Plano alimentar específico para desinflamar o fígado — sem dietas genéricas que não funcionam",
+    "Lista completa dos alimentos que curam e dos que pioram, sem achismo",
+    "Cardápios prontos para o dia a dia, sem sofrimento e sem abrir mão de tudo",
+    "Protocolo passo a passo com acompanhamento do início ao fim, sem se perder no caminho",
+    "Guia definitivo para nunca mais ter dúvida ou medo na hora de comer"
+  ];
+
+  return (
+    <section className="py-12 md:py-20 px-6 bg-[#EFF6F5] text-center font-poppins">
+      <div className="max-w-[680px] mx-auto">
+        <div className="inline-block bg-[#1A9E8F] text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase mb-4 tracking-widest">
+          A SOLUÇÃO DEFINITIVA
+        </div>
+        
+        <p className="text-[#4B5563] text-sm md:text-base mb-4 font-medium">
+          Você não precisa de dieta radical nem começar do zero.
+        </p>
+
+        <h2 className="text-[#0D3B5E] text-2xl md:text-3xl font-bold mb-4 tracking-tight">
+          O que você vai encontrar no <span className="text-[#1A9E8F]">Protocolo Fígado Leve</span>
+        </h2>
+        
+        <p className="text-[#4B5563] text-base md:text-lg mb-10">
+          Um método passo a passo para desinflamar o fígado, recuperar sua energia e finalmente ter clareza sobre o que colocar no prato.
+        </p>
+
+        <div className="bg-white rounded-[14px] border border-[#d1e8e5] p-6 md:p-8 text-left mb-8">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="bg-[#e6f6f4] p-3 rounded-full shrink-0">
+              <FileText className="text-[#1A9E8F] w-6 h-6" />
+            </div>
+            <h3 className="text-[#0D3B5E] font-bold text-xl">
+              O que você vai aprender:
+            </h3>
+          </div>
+          
+          <ul className="space-y-4">
+            {items.map((item, i) => (
+              <li key={i} className="flex items-start gap-3">
+                <CheckCircle2 className="text-[#1A9E8F] w-5 h-5 shrink-0 mt-0.5" />
+                <span className="text-[#4B5563] text-sm md:text-base leading-relaxed">
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="bg-[#0D3B5E] rounded-[14px] p-6 md:p-8 flex flex-col items-center text-center mb-8">
+          <TrendingUp className="text-[#1A9E8F] w-8 h-8 mb-3" strokeWidth={2.5} />
+          <div className="text-white font-bold text-base md:text-lg mb-3">
+            RESULTADO REAL DE QUEM SEGUIU:
+          </div>
+          <p className="text-[#9ca3af] text-sm md:text-base leading-relaxed mb-5">
+            "Pessoas que seguiram o protocolo relatam redução do inchaço logo nas primeiras semanas, mais disposição no dia a dia e exames que finalmente começam a normalizar."
+          </p>
+          <p className="text-[#1A9E8F] font-bold text-lg md:text-[20px] leading-snug">
+            = Menos dor. Mais leveza. Exames que finalmente melhoram.
+          </p>
+        </div>
+
+        <div className="flex items-center justify-center gap-2 text-[#4B5563] text-sm md:text-base font-semibold">
+          <span>Simples</span>
+          <ArrowRight className="text-[#1A9E8F] w-4 h-4" />
+          <span>Específico</span>
+          <ArrowRight className="text-[#1A9E8F] w-4 h-4" />
+          <span>Resultado real</span>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ModulesSection = () => {
+  const modules = [
     {
-      title: "Plano Hepático Específico",
-      desc: "Um método passo a passo focado 100% em desinflamar o fígado, sem dietas genéricas que não funcionam para você."
+      tag: "Módulo 1",
+      title: "Por que nada funcionou até agora",
+      icon: Search,
+      bullets: [
+        "Os erros silenciosos que continuam inflamando seu fígado",
+        "Por que dietas comuns falham mesmo quando você faz tudo certo",
+        "O que realmente impede seu corpo de responder"
+      ]
     },
     {
-      title: "Alimentação Energética",
-      desc: "Descubra os alimentos exatos que aliviam a digestão, desincham o corpo e devolvem sua disposição diária."
+      tag: "Módulo 2 · Reduzir",
+      title: "Desinflamação Inicial",
+      icon: Flame,
+      bullets: [
+        "Como reduzir a gordura no fígado sem radicalismo",
+        "Ajustes simples que já geram alívio nos primeiros dias",
+        "Os primeiros alimentos que você precisa ajustar agora"
+      ]
     },
     {
-      title: "Clareza Absoluta",
-      desc: "Um guia definitivo do que comer e do que evitar, acabando com o medo e a confusão na hora das refeições."
+      tag: "Módulo 3 · Reorganizar",
+      title: "Estratégia Alimentar",
+      icon: Utensils,
+      bullets: [
+        "Como montar refeições que ajudam o fígado a se recuperar",
+        "Combinações inteligentes que aceleram o processo",
+        "Lista prática de substituições para o dia a dia"
+      ]
+    },
+    {
+      tag: "Módulo 4 · Restaurar",
+      title: "Recuperação do Fígado",
+      icon: Heart,
+      bullets: [
+        "Como ativar o processo natural de regeneração do fígado",
+        "Hábitos que aceleram a recuperação sem esforço extremo",
+        "Sono, estresse e rotina: o impacto real na saúde hepática"
+      ]
     }
   ];
 
   return (
-    <section className="py-12 md:py-28 px-6 bg-[#F5F7F6] text-center">
-      <div className="max-w-5xl mx-auto">
-        <div className="inline-block bg-[#F5A623] text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase mb-4 tracking-widest">
-          A SOLUÇÃO DEFINITIVA
+    <section className="py-12 md:py-20 px-6 bg-[#F5F7F6] text-center font-poppins">
+      <div className="max-w-[720px] mx-auto">
+        <div className="inline-block bg-[#e6f6f4] text-[#0F6E56] border border-[#b2ddd8] text-[10px] font-bold px-4 py-1.5 rounded-full uppercase mb-4 tracking-widest">
+          ESPIE O QUE TEM DENTRO
         </div>
         
-        <h2 className="text-[#0D3B5E] text-2xl md:text-4xl font-bold mb-10 tracking-tight">
-          O que você vai encontrar no Protocolo Fígado Leve
+        <h2 className="text-[#0D3B5E] text-2xl md:text-3xl font-bold mb-4 tracking-tight">
+          Veja <span className="text-[#1A9E8F]">exatamente</span> o que você vai seguir
         </h2>
+        
+        <p className="text-[#4B5563] text-base md:text-lg mb-10">
+          Passo a passo completo, do primeiro ao último módulo — sem lacunas, sem dúvida.
+        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-12">
-          {solutions.map((item, i) => (
-            <div key={i} className="bg-white p-6 rounded-[12px] shadow-sm border border-[#1A9E8F]/20 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-[#1A9E8F]"></div>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-[#1A9E8F]/10 p-2 rounded-full shrink-0">
-                  <CheckCircle2 className="text-[#1A9E8F] w-6 h-6" />
-                </div>
-                <h3 className="text-[#0D3B5E] font-bold text-lg leading-snug">
-                  {item.title}
-                </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-6">
+          {modules.map((mod, i) => (
+            <div key={i} className="bg-white p-6 rounded-[14px] border border-[#d1e8e5]">
+              <div className="bg-[#e6f6f4] w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+                <mod.icon className="text-[#1A9E8F] w-6 h-6" />
               </div>
-              <p className="text-[#4B5563] text-sm md:text-base leading-relaxed">
-                {item.desc}
-              </p>
+              <div className="text-[#1A9E8F] text-xs font-bold uppercase tracking-wider mb-2">
+                {mod.tag}
+              </div>
+              <h3 className="text-[#0D3B5E] font-bold text-lg mb-4 leading-snug">
+                {mod.title}
+              </h3>
+              <ul className="space-y-3">
+                {mod.bullets.map((bullet, j) => (
+                  <li key={j} className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#1A9E8F] shrink-0 mt-2"></div>
+                    <span className="text-[#4B5563] text-sm leading-relaxed">
+                      {bullet}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
+
+          {/* Wide Card */}
+          <div className="bg-white p-6 md:p-8 rounded-[14px] border border-[#d1e8e5] md:col-span-2">
+            <div className="bg-[#e6f6f4] w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+              <Layers className="text-[#1A9E8F] w-6 h-6" />
+            </div>
+            <div className="text-[#1A9E8F] text-xs font-bold uppercase tracking-wider mb-2">
+              Módulo 5 · Integrar
+            </div>
+            <h3 className="text-[#0D3B5E] font-bold text-xl mb-6 leading-snug">
+              O Método 3R na sua vida
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#1A9E8F] shrink-0 mt-2"></div>
+                <span className="text-[#4B5563] text-sm leading-relaxed">
+                  Como manter os resultados sem voltar aos hábitos antigos
+                </span>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#1A9E8F] shrink-0 mt-2"></div>
+                <span className="text-[#4B5563] text-sm leading-relaxed">
+                  Rotina simples e sustentável para o dia a dia
+                </span>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#1A9E8F] shrink-0 mt-2"></div>
+                <span className="text-[#4B5563] text-sm leading-relaxed">
+                  Checklist prático para nunca mais se perder
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <p className="text-[#4B5563] text-sm md:text-base mt-8">
+          + Materiais práticos, guias e ferramentas para você aplicar tudo <span className="text-[#1A9E8F] font-bold">sem dificuldade</span>
+        </p>
       </div>
     </section>
   );
@@ -742,10 +1029,10 @@ const TargetAudienceSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-28 px-6 bg-[#F5F7F6]">
+    <section className="py-12 md:py-28 px-6 bg-[#EFF6F5]">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-[#0D3B5E] text-3xl md:text-4xl font-bold mb-4 tracking-tight leading-tight">
+          <h2 className="text-[#0D3B5E] text-2xl md:text-4xl font-bold mb-4 tracking-tight leading-tight">
             O Protocolo Fígado Leve não foi feito para qualquer pessoa…
           </h2>
           <p className="text-[#4B5563] text-base md:text-lg font-medium">
@@ -755,7 +1042,7 @@ const TargetAudienceSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Para quem não é */}
-          <div className="bg-white rounded-2xl p-8 shadow-sm border border-[#E5E7EB]">
+          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-[#E5E7EB]">
             <h3 className="text-[#0D3B5E] font-bold text-xl mb-6 text-center">Para quem não é</h3>
             <ul className="space-y-4">
               {notFor.map((item, i) => (
@@ -770,7 +1057,7 @@ const TargetAudienceSection = () => {
           </div>
 
           {/* Para quem é */}
-          <div className="bg-white rounded-2xl p-8 shadow-sm border border-[#E5E7EB]">
+          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-[#E5E7EB]">
             <h3 className="text-[#0D3B5E] font-bold text-xl mb-6 text-center">Mas esse método é para você se:</h3>
             <ul className="space-y-4">
               {isFor.map((item, i) => (
@@ -791,7 +1078,7 @@ const TargetAudienceSection = () => {
 
 const PreviewSection = () => {
   return (
-    <section className="py-12 md:py-28 px-6 bg-white">
+    <section className="py-12 md:py-28 px-6 bg-[#EFF6F5]">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         
         {/* Header */}
@@ -804,7 +1091,7 @@ const PreviewSection = () => {
             className="h-48 md:h-60 -mt-8 md:-mt-12 -mb-8 md:-mb-12 object-contain"
             referrerPolicy="no-referrer"
           />
-          <h2 className="text-[#0D3B5E] text-3xl md:text-4xl font-bold mb-4 md:mb-6 tracking-tight leading-tight">
+          <h2 className="text-[#0D3B5E] text-2xl md:text-4xl font-bold mb-4 md:mb-6 tracking-tight leading-tight">
             Veja como funciona o Protocolo Fígado Leve por dentro
           </h2>
           <p className="text-[#1A9E8F] font-bold text-xs md:text-sm uppercase tracking-widest max-w-2xl mx-auto">
@@ -852,22 +1139,22 @@ const BenefitsAndAvoidanceSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-28 px-6 bg-[#0D3B5E]">
+    <section className="py-12 md:py-28 px-6 bg-[#F5F7F6]">
       <div className="max-w-4xl mx-auto">
         
         {/* Gains Block */}
         <div className="mb-16">
-          <h2 className="text-white text-3xl md:text-4xl font-bold mb-10 text-center tracking-tight leading-tight">
+          <h2 className="text-[#0D3B5E] text-2xl md:text-4xl font-bold mb-10 text-center tracking-tight leading-tight">
             O que você vai conquistar com o Protocolo Fígado Leve
           </h2>
-          <div className="bg-[#0D3B5E]/50 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-10 shadow-lg">
+          <div className="bg-white border border-[#d1e8e5] rounded-[14px] p-6 md:p-10 shadow-sm">
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {gains.map((item, i) => (
                 <li key={i} className="flex items-start gap-4">
-                  <div className="bg-[#1A9E8F]/20 rounded-full p-1.5 mt-0.5 shrink-0">
+                  <div className="bg-[#e6f6f4] rounded-full p-1.5 mt-0.5 shrink-0">
                     <Check className="text-[#1A9E8F] w-5 h-5" strokeWidth={3} />
                   </div>
-                  <span className="text-white/90 font-medium text-base leading-snug">{item}</span>
+                  <span className="text-[#4B5563] font-medium text-base leading-snug">{item}</span>
                 </li>
               ))}
             </ul>
@@ -876,26 +1163,26 @@ const BenefitsAndAvoidanceSection = () => {
 
         {/* Divider */}
         <div className="flex justify-center items-center mb-16 opacity-50">
-          <div className="w-16 h-[1px] bg-white/30"></div>
-          <div className="mx-4 text-white/50">
+          <div className="w-16 h-[1px] bg-[#0D3B5E]/30"></div>
+          <div className="mx-4 text-[#0D3B5E]/50">
             <ShieldCheck size={24} />
           </div>
-          <div className="w-16 h-[1px] bg-white/30"></div>
+          <div className="w-16 h-[1px] bg-[#0D3B5E]/30"></div>
         </div>
 
         {/* Losses Block */}
         <div>
-          <h2 className="text-white text-3xl md:text-4xl font-bold mb-10 text-center tracking-tight leading-tight">
+          <h2 className="text-[#0D3B5E] text-2xl md:text-4xl font-bold mb-10 text-center tracking-tight leading-tight">
             O que você vai evitar com o Protocolo Fígado Leve
           </h2>
-          <div className="bg-[#0D3B5E]/50 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-10 shadow-lg">
+          <div className="bg-white border border-[#d1e8e5] rounded-[14px] p-6 md:p-10 shadow-sm">
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {losses.map((item, i) => (
                 <li key={i} className="flex items-start gap-4">
-                  <div className="bg-[#EF4444]/20 rounded-full p-1.5 mt-0.5 shrink-0">
+                  <div className="bg-[#fee2e2] rounded-full p-1.5 mt-0.5 shrink-0">
                     <X className="text-[#EF4444] w-5 h-5" strokeWidth={3} />
                   </div>
-                  <span className="text-white/90 font-medium text-base leading-snug">{item}</span>
+                  <span className="text-[#4B5563] font-medium text-base leading-snug">{item}</span>
                 </li>
               ))}
             </ul>
@@ -911,14 +1198,14 @@ const BonusSection = () => {
   return (
     <div id="bonus-section" className="flex flex-col w-full font-poppins">
       {/* Black Header */}
-      <div className="bg-[#0D3B5E] text-white py-8 px-6 text-center">
+      <div className="bg-black text-white py-8 px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight leading-tight">
           👀 Antes de você<br />continuar...
         </h2>
       </div>
 
       {/* Main Content */}
-      <section className="py-12 md:py-24 px-6 bg-white flex flex-col items-center text-center font-poppins">
+      <section className="py-12 md:py-24 px-6 bg-[#F5F7F6] flex flex-col items-center text-center font-poppins">
         
         <h2 className="text-xl md:text-2xl text-black font-medium mb-12 max-w-md leading-tight">
           Escolhendo o <strong className="font-black">COMBO<br/>COMPLETO</strong> você recebe<br/>
@@ -940,7 +1227,7 @@ const BonusSection = () => {
               <div className="w-0.5 h-6 bg-black"></div>
             </div>
             <div className="bg-white border-2 border-dashed border-black rounded-[2rem] px-4 py-5 w-full text-center z-10 -mt-1">
-              <h3 className="text-[28px] md:text-[34px] font-black uppercase mb-1 leading-[1.1] text-black">
+              <h3 className="text-[24px] sm:text-[28px] md:text-[34px] font-black uppercase mb-1 leading-[1.1] text-black">
                 PLANO ALIMENTAR<br/>ANTI-INFLAMAÇÃO<br/>
                 <span className="text-[#1A9E8F]">30 DIAS GUIADOS</span>
               </h3>
@@ -969,7 +1256,7 @@ const BonusSection = () => {
               <div className="w-0.5 h-6 bg-black"></div>
             </div>
             <div className="bg-white border-2 border-dashed border-black rounded-[2rem] px-4 py-5 w-full text-center z-10 -mt-1">
-              <h3 className="text-[28px] md:text-[34px] font-black uppercase mb-1 leading-[1.1] text-black">
+              <h3 className="text-[24px] sm:text-[28px] md:text-[34px] font-black uppercase mb-1 leading-[1.1] text-black">
                 GUIA DE<br/>INTERPRETAÇÃO DOS<br/>
                 <span className="text-[#1A9E8F]">EXAMES DO FÍGADO</span>
               </h3>
@@ -998,7 +1285,7 @@ const BonusSection = () => {
               <div className="w-0.5 h-6 bg-black"></div>
             </div>
             <div className="bg-white border-2 border-dashed border-black rounded-[2rem] px-4 py-5 w-full text-center z-10 -mt-1">
-              <h3 className="text-[28px] md:text-[34px] font-black uppercase mb-1 leading-[1.1] text-black">
+              <h3 className="text-[24px] sm:text-[28px] md:text-[34px] font-black uppercase mb-1 leading-[1.1] text-black">
                 CARDÁPIO DE EMERGÊNCIA<br/>
                 <span className="text-[#1A9E8F]">7 DIAS DE DESINFLAMAÇÃO</span>
               </h3>
@@ -1101,7 +1388,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
             className="h-48 md:h-60 mx-auto -mt-10 -mb-10 object-contain"
             referrerPolicy="no-referrer"
           />
-          <h2 className="text-white text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+          <h2 className="text-white text-2xl sm:text-3xl md:text-5xl font-bold mb-6 tracking-tight">
             + 10 BÔNUS ESPECIAIS!
           </h2>
           <p className="text-white/80 font-medium text-base md:text-lg">
@@ -1141,7 +1428,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                 
                 <div className="flex items-start justify-center text-[#1A9E8F] leading-none">
                   <span className="text-3xl md:text-4xl font-bold mt-2 md:mt-3 mr-1">R$</span>
-                  <span className="text-[80px] md:text-[100px] font-black tracking-tighter leading-none">10</span>
+                  <span className="text-[70px] md:text-[100px] font-black tracking-tighter leading-none">10</span>
                 </div>
               </div>
             </div>
@@ -1257,7 +1544,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
                 
                 <div className="flex items-start justify-center text-white leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">
                   <span className="text-3xl md:text-4xl font-bold mt-2 md:mt-3 mr-1">R$</span>
-                  <span className="text-[80px] md:text-[120px] font-black tracking-tighter leading-none">37</span>
+                  <span className="text-[70px] md:text-[120px] font-black tracking-tighter leading-none">37</span>
                 </div>
               </div>
             </div>
@@ -1309,7 +1596,7 @@ const Offer = ({ onBasicClick }: { onBasicClick: (e: React.MouseEvent) => void }
             <div className="mt-auto">
               <a 
                 id="checkout-completo"
-                href="https://pay.wiapy.com/2YN9oWQpwa"
+                href="https://pay.wiapy.com/2YN9oWQpwa?payment_method=pix"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('Purchase', { value: 37.00, currency: 'BRL', content_name: 'Plano Completo' })}
@@ -1350,14 +1637,12 @@ const Guarantee = () => {
           </div>
         </div>
 
-        <h2 className="text-[#0A3622] text-3xl md:text-[32px] font-bold mb-6 tracking-tight">
+        <h2 className="text-[#0A3622] text-2xl md:text-[32px] font-bold mb-6 tracking-tight">
           Garantia Incondicional de 7 Dias
         </h2>
 
         <p className="text-[#5A6B68] text-[17px] leading-relaxed mb-8 font-medium">
-          Se por qualquer motivo você não ficar satisfeito com o material, basta enviar um e-<br className="hidden md:block" />
-          mail em até 7 dias após a compra e devolvemos <span className="font-bold text-[#0A3622]">100% do seu dinheiro</span>. Sem<br className="hidden md:block" />
-          perguntas, sem burocracia.
+          Se por qualquer motivo você não ficar satisfeito com o material, basta enviar um e-mail em até 7 dias após a compra e devolvemos <span className="font-bold text-[#0A3622]">100% do seu dinheiro</span>. Sem perguntas, sem burocracia.
         </p>
 
         <div className="flex items-center justify-center gap-4 text-[#3A6B68] font-medium text-sm">
@@ -1401,13 +1686,13 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-12 md:py-28 px-6 bg-[#FFFFFF] relative overflow-hidden font-poppins">
+    <section className="py-12 md:py-28 px-6 bg-[#EFF6F5] relative overflow-hidden font-poppins">
       <div className="max-w-[780px] mx-auto">
         <div className="text-center mb-12">
           <div className="inline-block bg-[#1A9E8F] text-white text-sm font-bold px-4 py-1.5 rounded uppercase tracking-wider mb-6">
             TIRE SUAS DÚVIDAS
           </div>
-          <h2 className="text-[#0D3B5E] text-3xl md:text-4xl font-bold mb-4">Perguntas Frequentes</h2>
+          <h2 className="text-[#0D3B5E] text-2xl md:text-4xl font-bold mb-4">Perguntas Frequentes</h2>
           <p className="text-gray-500 font-normal text-base md:text-lg">Respondemos as dúvidas mais comuns de quem está considerando começar.</p>
         </div>
 
@@ -1461,18 +1746,18 @@ const CTASection = ({
   onCompleteClick?: (e: React.MouseEvent) => void;
 }) => {
   return (
-    <section className="py-12 md:py-28 px-6 bg-[#FDFDFD] relative overflow-hidden font-poppins text-center">
+    <section className="py-12 md:py-28 px-6 bg-[#F5F7F6] relative overflow-hidden font-poppins text-center">
       <div className="max-w-[800px] mx-auto flex flex-col items-center">
         <div className="inline-flex items-center gap-2 bg-[#E63946] text-white text-xs font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
           <Clock size={14} />
           <span>ÚLTIMA CHANCE</span>
         </div>
 
-        <h2 className="text-[#0D3B5E] text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight">
+        <h2 className="text-[#0D3B5E] text-2xl md:text-4xl font-bold mb-2 tracking-tight leading-tight">
           Não deixe o problema evoluir.
         </h2>
         
-        <h3 className="text-[#1A9E8F] text-2xl md:text-3xl font-bold italic mb-6">
+        <h3 className="text-[#1A9E8F] text-xl md:text-3xl font-bold italic mb-6">
           Comece hoje.
         </h3>
 
@@ -1486,7 +1771,7 @@ const CTASection = ({
             target={basicTarget}
             rel={basicTarget === "_blank" ? "noopener noreferrer" : undefined}
             onClick={onBasicClick}
-            className="w-full sm:w-1/2 bg-[#1A9E8F] text-white py-4 rounded-xl font-bold text-base hover:bg-[#148275] transition-colors"
+            className="w-full sm:w-1/2 bg-[#1A9E8F] text-white py-4 rounded-xl font-bold text-base hover:bg-[#148275] transition-colors flex items-center justify-center text-center"
           >
             {basicText}
           </a>
@@ -1509,7 +1794,7 @@ const CTASection = ({
 
 const SupportSection = () => {
   return (
-    <section className="py-12 md:py-28 px-6 bg-[#F5F7F6] relative overflow-hidden font-poppins text-center border-t border-[#E5EBE8]">
+    <section className="py-12 md:py-28 px-6 bg-[#EFF6F5] relative overflow-hidden font-poppins text-center border-t border-[#E5EBE8]">
       <div className="max-w-[600px] mx-auto flex flex-col items-center">
         <div className="mb-6">
           <div className="bg-[#E5EBE8] w-16 h-16 rounded-full flex items-center justify-center">
@@ -1517,7 +1802,7 @@ const SupportSection = () => {
           </div>
         </div>
 
-        <h2 className="text-[#0A3622] text-3xl font-bold mb-4 tracking-tight">
+        <h2 className="text-[#0A3622] text-2xl md:text-3xl font-bold mb-4 tracking-tight">
           Ainda tem dúvidas?
         </h2>
 
@@ -1542,10 +1827,10 @@ const SupportSection = () => {
 
 const DisclaimerAndFooter = () => {
   return (
-    <footer className="bg-white py-12 px-6 font-poppins border-t border-[#E5EBE8]">
+    <footer className="bg-[#F5F7F6] py-12 px-6 font-poppins border-t border-[#E5EBE8]">
       <div className="max-w-[800px] mx-auto flex flex-col items-center">
         
-        <div className="bg-[#F0F4F2] rounded-xl p-6 md:p-8 w-full mb-8 flex flex-col sm:flex-row gap-4">
+        <div className="bg-[#F0F4F2] rounded-xl p-5 md:p-8 w-full mb-8 flex flex-col sm:flex-row gap-4">
           <div className="shrink-0 mt-1">
             <AlertTriangle size={24} className="text-[#5A6B68]" />
           </div>
@@ -1592,13 +1877,13 @@ const UpsellPage = () => {
     if (step === 1) {
       setStep(2);
     } else {
-      window.location.href = 'https://pay.wiapy.com/HrqBTS9Tk';
+      window.location.href = 'https://pay.wiapy.com/HrqBTS9Tk?payment_method=pix';
       trackEvent('Purchase', { value: 10.00, currency: 'BRL', content_name: 'Plano Básico' });
     }
   };
 
   return (
-    <div className="min-h-screen bg-white selection:bg-[#1A9E8F]/10 antialiased overflow-x-hidden no-scrollbar font-poppins">
+    <div className="min-h-screen bg-[#EFF6F5] selection:bg-[#1A9E8F]/10 antialiased overflow-x-hidden no-scrollbar font-poppins">
       <div 
         ref={scrollRef}
         className="w-full flex items-start justify-center p-4 bg-black/95 pt-8 md:pt-12 pb-16"
@@ -1614,19 +1899,19 @@ const UpsellPage = () => {
           >
             {/* Header Section */}
             <div className="w-full text-center mb-10 flex flex-col items-center px-4">
-              <h2 className="text-[#E2FF00] text-2xl md:text-4xl font-black mb-8 uppercase tracking-wide">
+              <h2 className="text-[#E2FF00] text-xl sm:text-2xl md:text-4xl font-black mb-8 uppercase tracking-wide">
                 {step === 1 ? 'ESPERA!' : 'ÚLTIMA CHANCE!'}
               </h2>
-              <p className="text-white text-2xl md:text-4xl font-bold mb-10 leading-snug max-w-3xl">
+              <p className="text-white text-xl sm:text-2xl md:text-4xl font-bold mb-10 leading-snug max-w-3xl">
                 Não tome essa decisão antes de conferir essa <span className="text-[#E2FF00]">SUPER CONDIÇÃO ESPECIAL</span> que preparamos para você.
               </p>
-              <p className="text-[#E2FF00] font-black text-2xl md:text-4xl uppercase tracking-widest">
+              <p className="text-[#E2FF00] font-black text-xl sm:text-2xl md:text-4xl uppercase tracking-widest">
                 (APENAS HOJE)
               </p>
             </div>
 
             {/* Exact copy of Plano Completo card */}
-            <div className="bg-black rounded-[2.5rem] border-[4px] border-white p-8 md:p-10 flex flex-col text-left relative shadow-[0_20px_50px_rgba(245,166,35,0.2)] z-10 w-full">
+            <div className="bg-black rounded-[2.5rem] border-[4px] border-white p-6 md:p-10 flex flex-col text-left relative shadow-[0_20px_50px_rgba(245,166,35,0.2)] z-10 w-full">
               <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#EF4444] text-white font-bold text-xs md:text-sm px-6 py-2 rounded-full uppercase tracking-wider shadow-md whitespace-nowrap flex items-center gap-2">
                 🔥 MAIS VENDIDO
               </div>
@@ -1669,9 +1954,9 @@ const UpsellPage = () => {
                   <div className="flex items-start justify-center text-white leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">
                     <span className="text-3xl md:text-4xl font-bold mt-2 md:mt-3 mr-1">R$</span>
                     {step === 1 ? (
-                      <span className="text-[80px] md:text-[120px] font-black tracking-tighter leading-none">27</span>
+                      <span className="text-[70px] md:text-[120px] font-black tracking-tighter leading-none">27</span>
                     ) : (
-                      <span className="text-[80px] md:text-[120px] font-black tracking-tighter leading-none">19<span className="text-5xl md:text-7xl">,90</span></span>
+                      <span className="text-[60px] md:text-[120px] font-black tracking-tighter leading-none">19<span className="text-4xl md:text-7xl">,90</span></span>
                     )}
                   </div>
                 </div>
@@ -1724,7 +2009,7 @@ const UpsellPage = () => {
               <div className="mt-auto">
                 <a 
                   id="checkout-completo-upsell"
-                  href={step === 1 ? "https://pay.wiapy.com/iBpg-3qq7" : "https://pay.wiapy.com/75EIStgfs"}
+                  href={step === 1 ? "https://pay.wiapy.com/iBpg-3qq7?payment_method=pix" : "https://pay.wiapy.com/75EIStgfs?payment_method=pix"}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent('Purchase_Upsell', { value: step === 1 ? 27.00 : 19.90, currency: 'BRL', content_name: `Plano Completo Upsell Step ${step}` })}
@@ -1751,7 +2036,7 @@ const UpsellPage = () => {
                 <div className="text-center border-t border-white/20 pt-6">
                   <button 
                     onClick={handleDecline}
-                    className="text-gray-400 text-sm font-bold underline hover:text-white transition-colors"
+                    className="text-gray-400 text-sm md:text-base font-bold underline hover:text-white transition-colors py-3 px-4"
                   >
                     Não, quero continuar com o básico.
                   </button>
@@ -1797,8 +2082,12 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('user_id')) {
-      localStorage.setItem('user_id', 'user_' + Math.random().toString(36).substring(2, 15));
+    try {
+      if (!localStorage.getItem('user_id')) {
+        localStorage.setItem('user_id', 'user_' + Math.random().toString(36).substring(2, 15));
+      }
+    } catch (e) {
+      console.warn('localStorage is not available');
     }
   }, []);
 
@@ -1807,7 +2096,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white selection:bg-[#1A9E8F]/10 antialiased overflow-x-hidden no-scrollbar font-poppins">
+    <div className="min-h-screen bg-[#EFF6F5] selection:bg-[#1A9E8F]/10 antialiased overflow-x-hidden no-scrollbar font-poppins">
       <NotificationPopup />
       <TopBanner />
       <HeaderRating />
@@ -1820,6 +2109,7 @@ export default function App() {
         <HowYouGetSteps />
         <Identification />
         <SolutionSection />
+        <ModulesSection />
         <PreviewSection />
         <BenefitsAndAvoidanceSection />
         <TargetAudienceSection />
