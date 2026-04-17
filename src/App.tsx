@@ -2058,9 +2058,9 @@ export default function App() {
         <HowYouGetSteps />
         <Identification />
         <PreviewDivider />
+        <PreviewSection />
         <SolutionSection />
         <ModulesSection />
-        <PreviewSection />
         <BenefitsAndAvoidanceSection />
         <TargetAudienceSection />
         <BonusSection />
