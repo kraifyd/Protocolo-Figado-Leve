@@ -492,31 +492,29 @@ const ExpertBioSection = () => {
         </div>
 
         {/* Right Side: Image */}
-        <div className="w-full md:w-[55%] lg:w-[55%] md:absolute md:right-0 md:bottom-0 md:top-0 flex items-end justify-center md:justify-end z-10 md:z-0 mt-6 md:mt-0 relative h-[450px] sm:h-[550px] md:h-full">
-          <div 
-            className="relative w-full h-full flex items-end justify-center md:justify-end max-w-[700px] mx-auto md:mr-0 pl-10 md:pl-0"
-            style={{ 
-              maskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%), linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%), linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
-              maskComposite: 'intersect',
-              WebkitMaskComposite: 'source-in'
-            }}
+        <div className="w-full md:w-[50%] lg:w-[45%] md:absolute md:right-0 md:top-0 md:bottom-0 flex items-center justify-center md:items-end md:justify-end z-10 md:z-0 mt-6 md:mt-0 relative h-auto md:h-full pb-0 md:pb-0 pointer-events-none">
+          <div className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] lg:w-[800px] lg:h-[800px] aspect-square mx-auto md:mr-[-10%] lg:mr-[-15%] flex items-end justify-center pointer-events-none"
+               style={{
+                 maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+                 WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+                 maskComposite: 'intersect',
+                 WebkitMaskComposite: 'source-in'
+               }}
           >
-            
             <img 
               src="https://i.ibb.co/nM4RQvT1/unnamed.png" 
               alt="Dra. Marina Albuquerque" 
               loading="lazy"
               decoding="async"
-              className="w-auto h-[100%] md:h-[110%] object-contain object-bottom md:object-right-bottom mix-blend-luminosity grayscale contrast-[1.1] brightness-[1.1] opacity-100 select-none pointer-events-none md:translate-y-[2%]"
+              className="w-full h-full object-cover object-[center_20%] select-none pointer-events-none mix-blend-luminosity grayscale contrast-[1.15] brightness-[1.05]"
             />
-            
             {/* Subtle color overlay to enforce blue duotone matching the reference */}
-            <div className="absolute inset-0 bg-[#316A9B] mix-blend-color opacity-100 pointer-events-none"></div>
-            
+            <div className="absolute inset-0 bg-[#316A9B] mix-blend-color opacity-100 pointer-events-none rounded-full blur-2xl scale-110"></div>
             {/* Extra multiply overlay to darken shadows slightly like the reference */}
-            <div className="absolute inset-0 bg-[#1C4162] mix-blend-multiply opacity-25 pointer-events-none"></div>
-
+            <div className="absolute inset-0 bg-[#1C4162] mix-blend-multiply opacity-50 pointer-events-none"></div>
+            
+            {/* Edge shadows to enhance the side fade */}
+            <div className="absolute inset-0 shadow-[inset_0_0_80px_rgba(40,96,143,1)] pointer-events-none rounded-[15%]"></div>
           </div>
         </div>
 
@@ -775,39 +773,38 @@ const SolutionSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-20 px-6 bg-[#EFF6F5] text-center font-poppins">
-      <div className="max-w-[680px] mx-auto">
-        <div className="inline-block bg-[#1A9E8F] text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase mb-4 tracking-widest">
+    <section className="py-12 md:py-20 px-6 bg-[#FAFAFA] text-center font-poppins">
+      <div className="max-w-[700px] mx-auto">
+        <div className="inline-block bg-[#e6f6f4] text-[#1A9E8F] text-[11px] md:text-xs font-bold px-4 py-1.5 rounded-full mb-5 transition-all">
           A SOLUÇÃO DEFINITIVA
         </div>
         
-        <p className="text-[#4B5563] text-sm md:text-base mb-4 font-medium">
-          Você não precisa de dieta radical nem começar do zero.
-        </p>
-
-        <h2 className="text-[#0D3B5E] text-2xl md:text-3xl font-bold mb-4 tracking-tight">
+        <h2 className="text-[#0D3B5E] text-[22px] md:text-[32px] md:leading-tight font-bold mb-4 tracking-tight">
           O que você vai encontrar no <span className="text-[#1A9E8F]">Protocolo Fígado Leve</span>
         </h2>
         
-        <p className="text-[#4B5563] text-base md:text-lg mb-10">
+        <p className="text-[#4B5563] text-sm md:text-base font-medium mb-1">
+          Você não precisa de dieta radical nem começar do zero.
+        </p>
+        <p className="text-[#4B5563] text-[15px] md:text-[17px] mb-8 leading-relaxed max-w-2xl mx-auto">
           Um método passo a passo para desinflamar o fígado, recuperar sua energia e finalmente ter clareza sobre o que colocar no prato.
         </p>
 
-        <div className="bg-white rounded-[14px] border border-[#d1e8e5] p-6 md:p-8 text-left mb-8">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="bg-[#e6f6f4] p-3 rounded-full shrink-0">
-              <FileText className="text-[#1A9E8F] w-6 h-6" />
+        <div className="bg-white rounded-[24px] border border-[#0D3B5E]/80 p-6 md:p-8 text-left mb-6 shadow-sm">
+          <div className="flex flex-row items-center gap-3 mb-6">
+            <div className="shrink-0 flex items-center justify-center">
+              <FileText className="text-[#0D3B5E] w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
             </div>
-            <h3 className="text-[#0D3B5E] font-bold text-xl">
+            <h3 className="text-[#0D3B5E] font-bold text-lg md:text-xl">
               O que você vai aprender:
             </h3>
           </div>
           
-          <ul className="space-y-4">
+          <ul className="space-y-3.5">
             {items.map((item, i) => (
               <li key={i} className="flex items-start gap-3">
-                <CheckCircle2 className="text-[#1A9E8F] w-5 h-5 shrink-0 mt-0.5" />
-                <span className="text-[#4B5563] text-sm md:text-base leading-relaxed">
+                <CheckCircle2 className="text-[#1A9E8F] w-5 h-5 shrink-0 mt-[2px]" strokeWidth={2} />
+                <span className="text-[#4B5563] text-sm md:text-[15px] leading-relaxed">
                   {item}
                 </span>
               </li>
@@ -815,24 +812,27 @@ const SolutionSection = () => {
           </ul>
         </div>
 
-        <div className="bg-[#0D3B5E] rounded-[14px] p-6 md:p-8 flex flex-col items-center text-center mb-8">
-          <TrendingUp className="text-[#1A9E8F] w-8 h-8 mb-3" strokeWidth={2.5} />
-          <div className="text-white font-bold text-base md:text-lg mb-3">
+        <div className="bg-white rounded-[24px] border border-[#1A9E8F]/40 p-6 md:p-8 flex flex-col items-center text-center mb-8 shadow-sm">
+          <TrendingUp className="text-[#1A9E8F] w-7 h-7 md:w-8 md:h-8 mb-4" strokeWidth={2.5} />
+          
+          <div className="text-[#0D3B5E] font-bold text-base md:text-lg mb-3">
             RESULTADO REAL DE QUEM SEGUIU:
           </div>
-          <p className="text-[#9ca3af] text-sm md:text-base leading-relaxed mb-5">
+          
+          <p className="text-[#4B5563] text-sm md:text-[15px] leading-relaxed mb-5 max-w-xl">
             "Pessoas que seguiram o protocolo relatam redução do inchaço logo nas primeiras semanas, mais disposição no dia a dia e exames que finalmente começam a normalizar."
           </p>
-          <p className="text-[#1A9E8F] font-bold text-lg md:text-[20px] leading-snug">
+          
+          <p className="text-[#1A9E8F] font-bold text-lg md:text-[22px] leading-snug">
             = Menos dor. Mais leveza. Exames que finalmente melhoram.
           </p>
         </div>
 
-        <div className="flex items-center justify-center gap-2 text-[#4B5563] text-sm md:text-base font-semibold">
+        <div className="flex items-center justify-center gap-2 md:gap-3 text-[#1A9E8F] text-[13px] md:text-[15px] font-semibold">
           <span>Simples</span>
-          <ArrowRight className="text-[#1A9E8F] w-4 h-4" />
+          <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-[#1A9E8F]" strokeWidth={2} />
           <span>Específico</span>
-          <ArrowRight className="text-[#1A9E8F] w-4 h-4" />
+          <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-[#1A9E8F]" strokeWidth={2} />
           <span>Resultado real</span>
         </div>
       </div>
@@ -986,47 +986,53 @@ const TargetAudienceSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-28 px-6 bg-[#EFF6F5]">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-[#0D3B5E] text-2xl md:text-4xl font-bold mb-4 tracking-tight leading-tight">
-            O Protocolo Fígado Leve não foi feito para qualquer pessoa…
+    <section className="py-12 md:py-20 px-6 bg-[#FAFAFA]">
+      <div className="max-w-[760px] mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-[#0F172A] text-2xl md:text-[28px] font-bold mb-2 tracking-tight">
+            Para quem é (e para quem <span className="text-[#EF4444]">não é</span>)
           </h2>
-          <p className="text-[#4B5563] text-base md:text-lg font-medium">
-            Ele foi criado para quem quer resultado real, sem radicalismo.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Para quem não é */}
-          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-[#E5E7EB]">
-            <h3 className="text-[#0D3B5E] font-bold text-xl mb-6 text-center">Para quem não é</h3>
-            <ul className="space-y-4">
-              {notFor.map((item, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          {/* Para quem é */}
+          <div className="bg-white rounded-[20px] p-6 md:p-7 border-[2px] border-[#03A629] shadow-[0_8px_30px_rgba(3,166,41,0.08)]">
+            <h3 className="text-[#0F172A] font-bold text-[15px] md:text-base mb-6 flex items-center gap-2">
+              <div className="bg-[#03A629] w-7 h-7 rounded-full flex items-center justify-center shrink-0">
+                <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              Este guia É para você se:
+            </h3>
+            <ul className="space-y-3.5">
+              {isFor.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="bg-[#EF4444]/10 rounded-full p-1 mt-0.5 shrink-0">
-                    <X className="text-[#EF4444] w-4 h-4" strokeWidth={3} />
-                  </div>
-                  <span className="text-[#4B5563] font-medium text-[15px] leading-snug">{item}</span>
+                  <CheckCircle2 className="text-[#03A629] w-5 h-5 shrink-0 mt-[2px]" strokeWidth={2} />
+                  <span className="text-[#334155] font-medium text-[13px] md:text-[14px] leading-snug">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Para quem é */}
-          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-[#E5E7EB]">
-            <h3 className="text-[#0D3B5E] font-bold text-xl mb-6 text-center">Mas esse método é para você se:</h3>
-            <ul className="space-y-4">
-              {isFor.map((item, i) => (
+          {/* Para quem não é */}
+          <div className="bg-white rounded-[20px] p-6 md:p-7 border border-[#334155] shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+            <h3 className="text-[#0F172A] font-bold text-[15px] md:text-base mb-6 flex items-center gap-2">
+              <div className="bg-[#E2E8F0] w-7 h-7 rounded-full flex items-center justify-center shrink-0">
+                <svg className="w-4 h-4 text-[#64748B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              Este guia NÃO é para você se:
+            </h3>
+            <ul className="space-y-3.5">
+              {notFor.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="bg-[#1A9E8F]/10 rounded-full p-1 mt-0.5 shrink-0">
-                    <Check className="text-[#1A9E8F] w-4 h-4" strokeWidth={3} />
+                  <div className="mt-[2px] shrink-0 w-5 h-5 rounded-full border border-[#64748B] flex items-center justify-center">
+                    <div className="w-[5px] h-[5px] rounded-full bg-[#64748B]"></div>
                   </div>
-                  <span className="text-[#4B5563] font-medium text-[15px] leading-snug">{item}</span>
+                  <span className="text-[#334155] font-medium text-[13px] md:text-[14px] leading-snug">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
+
         </div>
       </div>
     </section>
@@ -1088,56 +1094,51 @@ const BenefitsAndAvoidanceSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-28 px-6 bg-[#F5F7F6]">
-      <div className="max-w-4xl mx-auto">
-        
-        {/* Gains Block */}
-        <div className="mb-16">
-          <h2 className="text-[#0D3B5E] text-2xl md:text-4xl font-bold mb-10 text-center tracking-tight leading-tight">
-            O que você vai conquistar com o Protocolo Fígado Leve
+    <section className="pt-12 md:pt-20 pb-4 px-6 bg-white">
+      <div className="max-w-[760px] mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-[#0F172A] text-2xl md:text-[28px] font-bold mb-2 tracking-tight">
+            O que você vai conquistar (e evitar)
           </h2>
-          <div className="bg-white border border-[#d1e8e5] rounded-[14px] p-6 md:p-10 shadow-sm">
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          {/* Gains Block */}
+          <div className="bg-white rounded-[20px] p-6 md:p-7 border border-[#bbf7d0] shadow-[0_8px_30px_rgba(3,166,41,0.05)]">
+            <h3 className="text-[#03A629] font-semibold text-[15px] mb-6 flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 shrink-0" strokeWidth={2} />
+              Você vai conquistar:
+            </h3>
+            <ul className="space-y-4">
               {gains.map((item, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <div className="bg-[#e6f6f4] rounded-full p-1.5 mt-0.5 shrink-0">
-                    <Check className="text-[#1A9E8F] w-5 h-5" strokeWidth={3} />
-                  </div>
-                  <span className="text-[#4B5563] font-medium text-base leading-snug">{item}</span>
+                <li key={i} className="flex items-start gap-3">
+                  <CheckCircle2 className="text-[#03A629] w-4 h-4 shrink-0 mt-[3px]" strokeWidth={2.5} />
+                  <span className="text-[#334155] font-medium text-[13px] md:text-[14px] leading-snug">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
-        </div>
 
-        {/* Divider */}
-        <div className="flex justify-center items-center mb-16 opacity-50">
-          <div className="w-16 h-[1px] bg-[#0D3B5E]/30"></div>
-          <div className="mx-4 text-[#0D3B5E]/50">
-            <ShieldCheck size={24} />
-          </div>
-          <div className="w-16 h-[1px] bg-[#0D3B5E]/30"></div>
-        </div>
-
-        {/* Losses Block */}
-        <div>
-          <h2 className="text-[#0D3B5E] text-2xl md:text-4xl font-bold mb-10 text-center tracking-tight leading-tight">
-            O que você vai evitar com o Protocolo Fígado Leve
-          </h2>
-          <div className="bg-white border border-[#d1e8e5] rounded-[14px] p-6 md:p-10 shadow-sm">
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Losses Block */}
+          <div className="bg-white rounded-[20px] p-6 md:p-7 border border-[#fecaca] shadow-[0_8px_30px_rgba(239,68,68,0.05)]">
+            <h3 className="text-[#EF4444] font-semibold text-[15px] mb-6 flex items-center gap-2">
+              <div className="shrink-0 w-5 h-5 rounded-full border-[1.5px] border-[#EF4444] flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#EF4444]"></div>
+              </div>
+              Você vai evitar:
+            </h3>
+            <ul className="space-y-4">
               {losses.map((item, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <div className="bg-[#fee2e2] rounded-full p-1.5 mt-0.5 shrink-0">
-                    <X className="text-[#EF4444] w-5 h-5" strokeWidth={3} />
+                <li key={i} className="flex items-start gap-3">
+                  <div className="mt-[3px] shrink-0 w-4 h-4 rounded-full border-[1.5px] border-[#EF4444] flex items-center justify-center">
+                    <div className="w-[4px] h-[4px] rounded-full bg-[#EF4444]"></div>
                   </div>
-                  <span className="text-[#4B5563] font-medium text-base leading-snug">{item}</span>
+                  <span className="text-[#334155] font-medium text-[13px] md:text-[14px] leading-snug">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
-
       </div>
     </section>
   );
@@ -1156,166 +1157,182 @@ const BonusSection = () => {
       {/* Main Content */}
       <section className="py-12 md:py-24 px-6 bg-[#F5F7F6] flex flex-col items-center text-center font-poppins">
         
-        <h2 className="text-xl md:text-2xl text-black font-medium mb-12 max-w-md leading-tight">
+        <h2 className="text-[17px] md:text-xl text-black font-medium mb-12 md:mb-16 max-w-lg leading-tight uppercase font-poppins tracking-widest">
           Escolhendo o <strong className="font-black">COMBO<br/>COMPLETO</strong> você recebe<br/>
-          de <strong className="text-red-600 font-black">BÔNUS</strong> todos esses <strong className="font-black">MATERIAIS</strong>:<br/>
-          <span className="text-2xl mt-2 inline-block">👇</span>
+          de <strong className="text-red-600 font-black">BÔNUS</strong> todos esses <strong className="font-black">MATERIAIS</strong>:
+          <span className="text-2xl mt-4 block">👇</span>
         </h2>
 
-        <div className="w-full max-w-sm space-y-8 flex flex-col items-center">
+        <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-y-[4.5rem] md:gap-y-[5.5rem] md:gap-x-10 lg:gap-x-12 justify-items-center">
           
           {/* Bonus 1 */}
-          <div className="relative w-full flex flex-col items-center">
-            <div className="bg-[#007A33] text-white font-black text-2xl px-8 py-2 rounded-full flex items-center gap-2 z-10 shadow-md">
-              <span>🎁</span>
-              <span>BÔNUS 1</span>
-              <span>🎁</span>
+          <div className="relative w-full max-w-sm">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-max max-w-[95%]">
+               <div className="bg-[#1A9E8F] text-white font-black text-[22px] md:text-[28px] px-8 md:px-10 py-2.5 rounded-[40px] flex items-center justify-center gap-3 shadow-lg">
+                  <img src="https://em-content.zobj.net/source/apple/354/wrapped-gift_1f381.png" alt="Presente" className="w-[30px] h-[30px] md:w-[38px] md:h-[38px] drop-shadow-md" />
+                  <span className="tracking-tight whitespace-nowrap mt-1">BÔNUS 1</span>
+                  <img src="https://em-content.zobj.net/source/apple/354/wrapped-gift_1f381.png" alt="Presente" className="w-[30px] h-[30px] md:w-[38px] md:h-[38px] drop-shadow-md" />
+               </div>
             </div>
-            <div className="flex justify-between w-32 -mt-1 z-0">
-              <div className="w-0.5 h-6 bg-black"></div>
-              <div className="w-0.5 h-6 bg-black"></div>
-            </div>
-            <div className="bg-white border-2 border-dashed border-black rounded-[2rem] px-4 py-5 w-full text-center z-10 -mt-1">
-              <h3 className="text-[24px] sm:text-[28px] md:text-[34px] font-black uppercase mb-1 leading-[1.1] text-black">
+            
+            <div className="bg-white border-[2.5px] border-dashed border-[#0F172A] rounded-[32px] px-5 pb-6 pt-12 w-full text-center z-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] relative flex flex-col items-center">
+              <h3 className="text-[22px] md:text-[25px] font-black uppercase mb-2 leading-[1.1] text-black w-full px-2">
                 PLANO ALIMENTAR<br/>ANTI-INFLAMAÇÃO<br/>
                 <span className="text-[#1A9E8F]">30 DIAS GUIADOS</span>
               </h3>
-              <img src="https://i.ibb.co/xSHskD7y/1.png" alt="Plano Alimentar Anti-Inflamação" loading="lazy" decoding="async" className="w-full h-auto my-4 object-contain" />
-              <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
+              
+              <img src="https://i.ibb.co/xSHskD7y/1.png" alt="Plano Alimentar Anti-Inflamação" loading="lazy" decoding="async" className="w-[75%] md:w-[85%] max-w-[240px] h-auto object-contain hover:-translate-y-1 transition-transform duration-300 -mt-2 mb-1" />
+              
+              <div className="text-[17px] md:text-[19px] font-bold mb-2 leading-tight w-full">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
                 <span className="text-black">HOJE: </span>
-                <span className="text-[#00C853]">GRÁTIS!</span>
+                <span className="text-[#00C853] font-black text-2xl md:text-[26px]">GRÁTIS!</span>
               </div>
-              <p className="text-xs md:text-sm text-black leading-snug font-medium px-1">
+              
+              <div className="w-full h-[1px] border-t-2 border-dashed border-gray-200 my-4"></div>
+
+              <p className="text-[13px] md:text-[14px] text-black leading-snug font-medium px-2 w-full">
                 Um plano alimentar <strong className="font-bold">prático e direto ao ponto</strong> que te guia dia a dia para <strong className="font-bold text-[#1A9E8F]">reduzir a inflamação do fígado</strong> de forma <strong className="font-bold">simples, segura e sem radicalismo</strong>.
               </p>
             </div>
           </div>
 
           {/* Bonus 2 */}
-          <div className="relative w-full flex flex-col items-center">
-            <div className="bg-[#007A33] text-white font-black text-2xl px-8 py-2 rounded-full flex items-center gap-2 z-10 shadow-md">
-              <span>🎁</span>
-              <span>BÔNUS 2</span>
-              <span>🎁</span>
+          <div className="relative w-full max-w-sm">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-max max-w-[95%]">
+               <div className="bg-[#1A9E8F] text-white font-black text-[22px] md:text-[28px] px-8 md:px-10 py-2.5 rounded-[40px] flex items-center justify-center gap-3 shadow-lg">
+                  <img src="https://em-content.zobj.net/source/apple/354/wrapped-gift_1f381.png" alt="Presente" className="w-[30px] h-[30px] md:w-[38px] md:h-[38px] drop-shadow-md" />
+                  <span className="tracking-tight whitespace-nowrap mt-1">BÔNUS 2</span>
+                  <img src="https://em-content.zobj.net/source/apple/354/wrapped-gift_1f381.png" alt="Presente" className="w-[30px] h-[30px] md:w-[38px] md:h-[38px] drop-shadow-md" />
+               </div>
             </div>
-            <div className="flex justify-between w-32 -mt-1 z-0">
-              <div className="w-0.5 h-6 bg-black"></div>
-              <div className="w-0.5 h-6 bg-black"></div>
-            </div>
-            <div className="bg-white border-2 border-dashed border-black rounded-[2rem] px-4 py-5 w-full text-center z-10 -mt-1">
-              <h3 className="text-[24px] sm:text-[28px] md:text-[34px] font-black uppercase mb-1 leading-[1.1] text-black">
+            
+            <div className="bg-white border-[2.5px] border-dashed border-[#0F172A] rounded-[32px] px-5 pb-6 pt-12 w-full text-center z-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] relative flex flex-col items-center">
+              <h3 className="text-[22px] md:text-[25px] font-black uppercase mb-2 leading-[1.1] text-black w-full px-2">
                 GUIA DE<br/>INTERPRETAÇÃO DOS<br/>
                 <span className="text-[#1A9E8F]">EXAMES DO FÍGADO</span>
               </h3>
-              <img src="https://i.ibb.co/chjsvRRx/2.png" alt="Guia de Exames do Fígado" loading="lazy" decoding="async" className="w-full h-auto my-4 object-contain" />
-              <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
+              
+              <img src="https://i.ibb.co/chjsvRRx/2.png" alt="Guia de Exames do Fígado" loading="lazy" decoding="async" className="w-[75%] md:w-[85%] max-w-[240px] h-auto object-contain hover:-translate-y-1 transition-transform duration-300 -mt-2 mb-1" />
+              
+              <div className="text-[17px] md:text-[19px] font-bold mb-2 leading-tight w-full">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
                 <span className="text-black">HOJE: </span>
-                <span className="text-[#00C853]">GRÁTIS!</span>
+                <span className="text-[#00C853] font-black text-2xl md:text-[26px]">GRÁTIS!</span>
               </div>
-              <p className="text-xs md:text-sm text-black leading-snug font-medium px-1">
+              
+              <div className="w-full h-[1px] border-t-2 border-dashed border-gray-200 my-4"></div>
+
+              <p className="text-[13px] md:text-[14px] text-black leading-snug font-medium px-2 w-full">
                 Um guia detalhado e direto ao ponto com tudo que você precisa saber para <strong className="font-bold text-[#1A9E8F]">entender seus exames do fígado</strong> — <strong className="font-bold text-black">sem precisar de médico para traduzir cada resultado.</strong>
               </p>
             </div>
           </div>
 
           {/* Bonus 3 */}
-          <div className="relative w-full flex flex-col items-center">
-            <div className="bg-[#007A33] text-white font-black text-2xl px-8 py-2 rounded-full flex items-center gap-2 z-10 shadow-md">
-              <span>🎁</span>
-              <span>BÔNUS 3</span>
-              <span>🎁</span>
+          <div className="relative w-full max-w-sm">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-max max-w-[95%]">
+               <div className="bg-[#1A9E8F] text-white font-black text-[22px] md:text-[28px] px-8 md:px-10 py-2.5 rounded-[40px] flex items-center justify-center gap-3 shadow-lg">
+                  <img src="https://em-content.zobj.net/source/apple/354/wrapped-gift_1f381.png" alt="Presente" className="w-[30px] h-[30px] md:w-[38px] md:h-[38px] drop-shadow-md" />
+                  <span className="tracking-tight whitespace-nowrap mt-1">BÔNUS 3</span>
+                  <img src="https://em-content.zobj.net/source/apple/354/wrapped-gift_1f381.png" alt="Presente" className="w-[30px] h-[30px] md:w-[38px] md:h-[38px] drop-shadow-md" />
+               </div>
             </div>
-            <div className="flex justify-between w-32 -mt-1 z-0">
-              <div className="w-0.5 h-6 bg-black"></div>
-              <div className="w-0.5 h-6 bg-black"></div>
-            </div>
-            <div className="bg-white border-2 border-dashed border-black rounded-[2rem] px-4 py-5 w-full text-center z-10 -mt-1">
-              <h3 className="text-[24px] sm:text-[28px] md:text-[34px] font-black uppercase mb-1 leading-[1.1] text-black">
+            
+            <div className="bg-white border-[2.5px] border-dashed border-[#0F172A] rounded-[32px] px-5 pb-6 pt-12 w-full text-center z-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] relative flex flex-col items-center">
+              <h3 className="text-[22px] md:text-[25px] font-black uppercase mb-2 leading-[1.1] text-black w-full px-2">
                 CARDÁPIO DE EMERGÊNCIA<br/>
                 <span className="text-[#1A9E8F]">7 DIAS DE DESINFLAMAÇÃO</span>
               </h3>
-              <img src="https://i.ibb.co/qLmfXN2d/3-removebg-preview.png" alt="Cardápio de Emergência" loading="lazy" decoding="async" className="w-full h-auto my-4 object-contain" />
-              <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
+              
+              <img src="https://i.ibb.co/qLmfXN2d/3-removebg-preview.png" alt="Cardápio de Emergência" loading="lazy" decoding="async" className="w-[75%] md:w-[85%] max-w-[240px] h-auto object-contain hover:-translate-y-1 transition-transform duration-300 -mt-2 mb-1" />
+              
+              <div className="text-[17px] md:text-[19px] font-bold mb-2 leading-tight w-full">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 47</span><br/>
                 <span className="text-black">HOJE: </span>
-                <span className="text-[#00C853]">GRÁTIS!</span>
+                <span className="text-[#00C853] font-black text-2xl md:text-[26px]">GRÁTIS!</span>
               </div>
-              <p className="text-xs md:text-sm text-black leading-snug font-medium px-1">
+              
+              <div className="w-full h-[1px] border-t-2 border-dashed border-gray-200 my-4"></div>
+
+              <p className="text-[13px] md:text-[14px] text-black leading-snug font-medium px-2 w-full">
                 Um guia detalhado com <strong className="font-bold text-[#1A9E8F]">7 dias de cardápio prontos</strong> para você começar a <strong className="font-bold text-[#1A9E8F]">desinflamar o fígado imediatamente</strong> — <strong className="font-bold text-black">sem precisar pensar, só seguir.</strong>
               </p>
             </div>
           </div>
 
-          {/* Bonus 4 (+ 7 Bonus) */}
-          <div className="relative w-full flex flex-col items-center">
-            <div className="bg-[#6200EA] text-white font-black text-2xl px-6 py-2 rounded-full flex items-center gap-2 z-10 shadow-md">
-              <span>🎁</span>
-              <span>+ 7 BÔNUS</span>
-              <span>🎁</span>
+          {/* Bonus 4 */}
+          <div className="relative w-full max-w-sm">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-max max-w-[95%]">
+               <div className="bg-[#1A9E8F] text-white font-black text-[22px] md:text-[28px] px-8 md:px-10 py-2.5 rounded-[40px] flex items-center justify-center gap-3 shadow-lg">
+                  <img src="https://em-content.zobj.net/source/apple/354/wrapped-gift_1f381.png" alt="Presente" className="w-[30px] h-[30px] md:w-[38px] md:h-[38px] drop-shadow-md" />
+                  <span className="tracking-tight whitespace-nowrap mt-1">+ 7 BÔNUS</span>
+                  <img src="https://em-content.zobj.net/source/apple/354/wrapped-gift_1f381.png" alt="Presente" className="w-[30px] h-[30px] md:w-[38px] md:h-[38px] drop-shadow-md" />
+               </div>
             </div>
-            <div className="flex justify-between w-32 -mt-1 z-0">
-              <div className="w-0.5 h-6 bg-black"></div>
-              <div className="w-0.5 h-6 bg-black"></div>
-            </div>
-            <div className="bg-white border-2 border-dashed border-black rounded-[2rem] px-4 py-5 w-full text-center z-10 -mt-1">
-              <ul className="text-left text-[11px] font-bold text-black space-y-2 mb-4 px-2">
-                <li className="flex items-start gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="#00C853" stroke="white" />
-                  <span className="font-bold">Lista Inteligente de Substituições Alimentares</span>
+            
+            <div className="bg-white border-[2.5px] border-dashed border-[#0F172A] rounded-[32px] px-5 pb-6 pt-[3.5rem] w-full text-center z-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] relative flex flex-col items-center">
+              <ul className="text-left text-[11px] font-bold text-black space-y-[7px] mb-4 px-2 w-full mx-auto">
+                <li className="flex items-start gap-[6px]">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-[1px]" fill="#00C853" stroke="white" />
+                  <span className="font-bold leading-tight">Lista Inteligente de Substituições Alimentares</span>
                 </li>
-                <li className="flex items-start gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="#00C853" stroke="white" />
-                  <span className="font-bold">Guia dos 15 Alimentos que Mais Inflamam o Fígado</span>
+                <li className="flex items-start gap-[6px]">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-[1px]" fill="#00C853" stroke="white" />
+                  <span className="font-bold leading-tight">Guia dos 15 Alimentos que Mais Inflamam o Fígado</span>
                 </li>
-                <li className="flex items-start gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="#00C853" stroke="white" />
-                  <span className="font-bold">Tabela Visual de Combinações Alimentares Anti-Inflamação</span>
+                <li className="flex items-start gap-[6px]">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-[1px]" fill="#00C853" stroke="white" />
+                  <span className="font-bold leading-tight">Tabela Visual de Combinações Alimentares Anti-Inflamação</span>
                 </li>
-                <li className="flex items-start gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="#00C853" stroke="white" />
-                  <span className="font-bold">Checklist Diário do Método 3R</span>
+                <li className="flex items-start gap-[6px]">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-[1px]" fill="#00C853" stroke="white" />
+                  <span className="font-bold leading-tight">Checklist Diário do Método 3R</span>
                 </li>
-                <li className="flex items-start gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="#00C853" stroke="white" />
-                  <span className="font-bold">Planner Semanal do Fígado Leve</span>
+                <li className="flex items-start gap-[6px]">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-[1px]" fill="#00C853" stroke="white" />
+                  <span className="font-bold leading-tight">Planner Semanal do Fígado Leve</span>
                 </li>
-                <li className="flex items-start gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="#00C853" stroke="white" />
-                  <span className="font-bold">Áudios Curtos de Reprogramação Anti-Radicalismo</span>
+                <li className="flex items-start gap-[6px]">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-[1px]" fill="#00C853" stroke="white" />
+                  <span className="font-bold leading-tight">Áudios Curtos de Reprogramação Anti-Radicalismo</span>
                 </li>
-                <li className="flex items-start gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="#00C853" stroke="white" />
-                  <span className="font-bold">Mini Guia: Sono, Estresse e Gordura no Fígado</span>
+                <li className="flex items-start gap-[6px]">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-[1px]" fill="#00C853" stroke="white" />
+                  <span className="font-bold leading-tight">Mini Guia: Sono, Estresse e Gordura no Fígado</span>
                 </li>
               </ul>
-              <img src="https://i.ibb.co/8L8HbdtH/7bonus-1.png" alt="+ 7 Bonus" loading="lazy" decoding="async" className="w-full h-auto my-4 object-contain" />
-              <div className="text-base md:text-lg font-bold mb-2 leading-tight mt-0">
+              
+              <img src="https://i.ibb.co/8L8HbdtH/7bonus-1.png" alt="+ 7 Bonus" loading="lazy" decoding="async" className="w-[75%] md:w-[85%] max-w-[240px] h-auto object-contain hover:-translate-y-1 transition-transform duration-300 -mt-2 mb-1" />
+              
+              <div className="text-[17px] md:text-[19px] font-bold mb-2 leading-tight w-full">
                 <span className="text-black">DE: </span>
                 <span className="text-red-600 line-through">R$ 147</span><br/>
                 <span className="text-black">HOJE: </span>
-                <span className="text-[#00C853]">GRÁTIS!</span>
+                <span className="text-[#00C853] font-black text-2xl md:text-[26px]">GRÁTIS!</span>
               </div>
-              <p className="text-xs md:text-sm text-black leading-snug font-medium px-1">
+              
+              <div className="w-full h-[1px] border-t-2 border-dashed border-gray-200 my-4"></div>
+
+              <p className="text-[13px] md:text-[14px] text-black leading-snug font-medium px-2 w-full">
                 Esses materiais foram cuidadosamente criados para te dar <strong className="font-bold text-black">tudo que você precisa</strong> para desinflamar o fígado de verdade — <strong className="font-bold text-[#1A9E8F]">sem achismo, sem radicalismo, sem complicação.</strong>
               </p>
             </div>
           </div>
 
-          {/* Combo Completo Confirmation */}
-          <div className="mt-12 text-center px-4">
-            <span className="text-3xl block mb-2">👆</span>
-            <p className="text-xl md:text-2xl font-medium text-black leading-tight max-w-2xl mx-auto">
-              Escolhendo o <strong className="font-black">COMBO COMPLETO</strong> você tem <br className="md:hidden" />
-              <span className="text-red-600 font-black">ACESSO À TODOS</span> os materiais <strong className="font-black">ACIMA!</strong>
-            </p>
-          </div>
-
         </div>
+
+        {/* Combo Completo Confirmation */}
+        <div className="mt-16 text-center px-4 max-w-lg mx-auto border-[2.5px] border-[#0F172A] rounded-2xl p-4 bg-white shadow-sm flex items-center justify-center gap-4">
+          <img src="https://em-content.zobj.net/source/apple/354/wrapped-gift_1f381.png" alt="Presente" className="w-8 h-8 drop-shadow-sm shrink-0" />
+          <p className="text-[14px] md:text-[15px] font-medium text-black leading-tight text-center">
+            Escolhendo o <strong className="font-black">COMBO COMPLETO</strong> você tem <span className="text-[#00C853] font-black tracking-wide">ACESSO À TODOS</span> os materiais <strong className="font-black">ACIMA!</strong>
+          </p>
+        </div>
+
       </section>
     </div>
   );
@@ -1695,46 +1712,69 @@ const CTASection = ({
   onCompleteClick?: (e: React.MouseEvent) => void;
 }) => {
   return (
-    <section className="py-12 md:py-28 px-6 bg-[#F5F7F6] relative overflow-hidden font-poppins text-center">
-      <div className="max-w-[800px] mx-auto flex flex-col items-center">
-        <div className="inline-flex items-center gap-2 bg-[#E63946] text-white text-xs font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
-          <Clock size={14} />
-          <span>ÚLTIMA CHANCE</span>
-        </div>
-
-        <h2 className="text-[#0D3B5E] text-2xl md:text-4xl font-bold mb-2 tracking-tight leading-tight">
-          Não deixe o problema evoluir.
-        </h2>
+    <section className="py-12 md:py-24 px-4 md:px-6 bg-[#E8EEF2] relative overflow-hidden font-poppins text-center">
+      <div className="max-w-[850px] mx-auto flex flex-col items-center">
         
-        <h3 className="text-[#1A9E8F] text-xl md:text-3xl font-bold italic mb-6">
-          Comece hoje.
-        </h3>
+        <h2 className="text-[#2B3643] text-[26px] md:text-[34px] font-bold mb-10 tracking-[-0.03em] leading-tight max-w-[500px]">
+          Agora, você tem duas opções
+        </h2>
 
-        <p className="text-[#4B5563] text-base md:text-lg leading-relaxed mb-10 max-w-[700px]">
-          Acesse agora o Fígado Leve e tenha finalmente a direção que faltava para cuidar do seu fígado com segurança, clareza e sem radicalismo.
-        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full mb-12">
+          {/* Option 1 */}
+          <div className="bg-[#FFF1EF] rounded-[16px] border border-[#f5b8b5] border-b-[4px] border-b-[#E53935] p-6 lg:p-8 text-left flex flex-col items-start shadow-sm transition-all hover:translate-y-[-2px]">
+            <div className="flex items-center gap-3 md:gap-4 mb-4">
+              <div className="bg-white rounded-full flex items-center justify-center p-1 md:p-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] shrink-0">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-[#E64B44] rounded-full flex items-center justify-center">
+                  <X size={26} strokeWidth={4} className="text-white" />
+                </div>
+              </div>
+              <h3 className="text-[#C81E18] text-[22px] md:text-[26px] font-bold tracking-tight">Opção 1</h3>
+            </div>
+            <p className="text-[#2B3643] text-[15px] md:text-[16px] leading-[1.5] font-medium">
+              Continuar sem saber o que comer, acordando cansada, com o fígado inflamado, tentando dietas genéricas que não funcionam para o fígado e vendo o quadro piorar com o tempo.
+            </p>
+          </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-[600px] mb-6">
+          {/* Option 2 */}
+          <div className="bg-[#EEF9F0] rounded-[16px] border border-[#aaeac3] border-b-[4px] border-b-[#03A629] p-6 lg:p-8 text-left flex flex-col items-start shadow-sm transition-all hover:translate-y-[-2px]">
+            <div className="flex items-center gap-3 md:gap-4 mb-4">
+              <div className="bg-white rounded-full flex items-center justify-center p-1 md:p-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] shrink-0">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-[#02B35B] rounded-full flex items-center justify-center">
+                  <Check size={26} strokeWidth={4} className="text-white" />
+                </div>
+              </div>
+              <h3 className="text-[#0E8A42] text-[22px] md:text-[26px] font-bold tracking-tight">Opção 2</h3>
+            </div>
+            <p className="text-[#2B3643] text-[15px] md:text-[16px] leading-[1.5] font-medium">
+              Acessar o Protocolo Fígado Leve hoje, seguir um método passo a passo feito especialmente para desinflamar o fígado, sem radicalismo, e finalmente ver resultado nos seus exames.
+            </p>
+          </div>
+        </div>
+
+        <div className="mb-10 px-4">
+          <p className="text-[#2B3643] text-[20px] md:text-[26px] font-bold leading-[1.3] mb-6 tracking-tight">
+            Eu sei, e você também sabe... A opção 2 é a mais inteligente e é a que você mais precisa.
+          </p>
+          <p className="text-[#176FA7] text-[17px] md:text-[22px] font-bold leading-[1.4] tracking-tight">
+            A opção 2 é a mais inteligente e é a que você mais precisa, então clica no botão abaixo e garanta seu acesso agora!
+          </p>
+        </div>
+
+        <div className="flex items-center justify-center w-full max-w-[600px] mb-6">
           <a 
-            href={basicLink}
-            target={basicTarget}
-            rel={basicTarget === "_blank" ? "noopener noreferrer" : undefined}
-            onClick={onBasicClick}
-            className="w-full sm:w-1/2 bg-[#1A9E8F] text-white py-4 rounded-xl font-bold text-base hover:bg-[#148275] transition-colors flex items-center justify-center text-center"
+            href="#offer"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="w-full bg-[#03A629] text-white py-5 rounded-xl font-bold text-lg md:text-xl uppercase hover:bg-[#028f23] transition-all flex items-center justify-center shadow-[0_8px_20px_rgba(3,166,41,0.25)] animate-cta-pulse"
           >
-            {basicText}
-          </a>
-          <a 
-            href={completeLink}
-            onClick={onCompleteClick}
-            className="w-full sm:w-1/2 bg-[#F59E0B] text-white py-4 rounded-xl font-bold text-base hover:bg-[#D97706] transition-colors flex items-center justify-center gap-2"
-          >
-            {completeText} <ArrowRight size={18} />
+            QUERO CUIDAR DO MEU FÍGADO AGORA
           </a>
         </div>
 
-        <div className="text-[#4B5563] text-xs font-medium">
-          Acesso imediato • Garantia de 7 dias • Pagamento 100% seguro
+        <div className="text-[#6B7280] text-[13px] font-medium flex items-center justify-center gap-1.5 opacity-80">
+          <ShieldCheck size={16} /> Acesso imediato • Garantia de 7 dias • 100% Seguro
         </div>
       </div>
     </section>
@@ -1809,6 +1849,44 @@ const DisclaimerAndFooter = () => {
         <div className="text-[#8A9B98] text-xs text-center">
           © 2026 Protocolo Figado Leve. Todos os direitos reservados.
         </div>
+      </div>
+    </footer>
+  );
+};
+
+const SimpleFooter = () => {
+  return (
+    <footer className="bg-[#316A9B] py-12 px-6 font-poppins text-center text-white">
+      <div className="max-w-[800px] mx-auto flex flex-col items-center">
+        
+        <div className="mb-6 flex flex-col items-center justify-center">
+          <p className="text-[13px] md:text-[15px] font-medium tracking-[0.2em] uppercase opacity-90 mb-1">
+            PROTOCOLO
+          </p>
+          <div className="flex items-center gap-2">
+            <h2 className="text-[28px] md:text-[38px] font-black tracking-[-0.02em] leading-none uppercase">
+              FÍGADO LEVE
+            </h2>
+          </div>
+        </div>
+
+        <p className="text-[16px] md:text-[20px] font-medium mb-1 mt-2">
+          Tem dúvidas? Entre em contato:
+        </p>
+        <a 
+          href="mailto:deskxsolutions@gmail.com" 
+          className="text-[16px] md:text-[20px] font-normal underline hover:text-[#56C0FA] transition-colors mb-12 block"
+        >
+          deskxsolutions@gmail.com
+        </a>
+
+        <p className="text-[11px] md:text-[13px] leading-[1.6] opacity-90 mb-8 max-w-[750px] font-normal">
+          Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook. Depois que você sair do Facebook, a responsabilidade não é deles e sim do nosso site. A compra desse material não garante nenhum tipo de resultado. Fazemos todos os esforços para indicar claramente e mostrar todas as provas do produto e usamos resultados reais de alunos.
+        </p>
+
+        <p className="text-[12px] md:text-[15px] font-medium">
+          Copyright © 2026 Todos os Direitos Reservados.
+        </p>
       </div>
     </footer>
   );
@@ -2060,18 +2138,12 @@ export default function App() {
         <PreviewDivider />
         <PreviewSection />
         <SolutionSection />
-        <ModulesSection />
         <BenefitsAndAvoidanceSection />
         <TargetAudienceSection />
         <BonusSection />
-        <HowYouGetDivider />
-        <HowYouGetSteps />
         <ExpertBioSection />
-        <NewTestimonialsSection />
         <Offer onBasicClick={handleBasicClick} />
-        <HowYouGetDivider />
-        <HowYouGetSteps />
-        <BenefitsAndAvoidanceSection />
+        <PreviewDivider />
         <PreviewSection />
         <Guarantee />
         <FAQ />
@@ -2080,10 +2152,8 @@ export default function App() {
           basicLink="/#upsell"
           basicTarget="_blank"
         />
-        <SupportSection />
+        <SimpleFooter />
       </main>
-
-      <DisclaimerAndFooter />
     </div>
   );
 }
