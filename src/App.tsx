@@ -206,11 +206,14 @@ const NotificationPopup = () => {
 };
 
 const TopBanner = () => (
-  <div className="bg-[#0D3B5E] text-white py-2.5 px-4 text-center text-[10px] font-bold flex items-center justify-center gap-2 uppercase tracking-tight">
-    <Zap size={12} className="text-[#F5A623] fill-[#F5A623]" />
-    <span>SE SEU EXAME APONTOU GORDURA NO FÍGADO, ESSA PÁGINA É PARA VOCÊ</span>
-    <Zap size={12} className="text-[#F5A623] fill-[#F5A623]" />
-  </div>
+  <>
+    <div className="fixed top-0 left-0 w-full z-[100] bg-[#0D3B5E] text-white py-2.5 px-4 text-center text-[10px] font-bold flex items-center justify-center gap-2 uppercase tracking-tight">
+      <Zap size={12} className="text-[#F5A623] fill-[#F5A623]" />
+      <span>SE SEU EXAME APONTOU GORDURA NO FÍGADO, ESSA PÁGINA É PARA VOCÊ</span>
+      <Zap size={12} className="text-[#F5A623] fill-[#F5A623]" />
+    </div>
+    <div className="h-[34px] w-full pointer-events-none" aria-hidden="true" />
+  </>
 );
 
 const HeaderRating = () => (
@@ -223,7 +226,11 @@ const HeaderRating = () => (
   </div>
 );
 
-const VSLPlayer = () => {
+const VSLPlayer = ({ 
+  videoSrc = "https://file.garden/abrFdPrpWxJegn2H/744fef8a0c7778b7c19befbf01802290_1.mp4",
+  className = "relative w-full max-w-3xl mx-auto rounded-[16px] overflow-hidden shadow-[0_20px_50px_rgba(13,59,94,0.15)] bg-black my-8 md:my-12 cursor-pointer select-none group border-4 border-white/50",
+  videoClassName = ""
+}: { videoSrc?: string, className?: string, videoClassName?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -312,16 +319,16 @@ const VSLPlayer = () => {
 
   return (
      <div 
-       className="relative w-full max-w-3xl mx-auto rounded-[16px] overflow-hidden shadow-[0_20px_50px_rgba(13,59,94,0.15)] bg-black my-8 md:my-12 cursor-pointer select-none group border-4 border-white/50"
+       className={className}
        onClick={handleUnmute}
      >
         <video 
           ref={videoRef}
-          src="https://file.garden/abrFdPrpWxJegn2H/744fef8a0c7778b7c19befbf01802290_1.mp4"
+          src={videoSrc}
           autoPlay
           muted
           playsInline
-          className="w-full h-auto block pointer-events-none" 
+          className={`w-full h-auto block pointer-events-none ${videoClassName}`}
           onContextMenu={handleContextMenu}
         />
 
@@ -359,10 +366,6 @@ const Hero = () => (
         <span className="text-[#1A9E8F]">reduzir a gordura no fígado</span> <br className="hidden md:block" />
         sem <span className="text-[#1A9E8F]">dieta radical</span> e sem complicação
       </h1>
-      
-      <p className="text-[#4B5563] mb-6 max-w-xl mx-auto text-[15px] md:text-lg leading-relaxed font-medium relative z-10">
-        Você vai ter acesso a um <strong className="text-[#0D3B5E] font-bold">passo a passo para reduzir a gordura no fígado</strong> de forma <strong className="text-[#0D3B5E] font-bold">fácil, simples e sem complicação</strong>.
-      </p>
 
       <VSLPlayer />
 
@@ -370,30 +373,19 @@ const Hero = () => (
         Fortifique e cuide do seu <strong className="font-bold">fígado de verdade</strong> aprendendo tudo com o nosso <strong className="text-[#1A9E8F] font-bold">Guia Completo do Fígado Leve</strong>. <strong className="font-bold">Mesmo que você nunca tenha feito nada pelo seu fígado ou não saiba por onde começar.</strong>
       </p>
 
-      <div className="flex flex-row justify-center items-center gap-3 md:gap-6 max-w-2xl mx-auto mb-6 mt-4">
-        <div className="flex flex-row items-center gap-1.5 px-0.5">
-          <MonitorPlay className="w-3 h-3 md:w-4 md:h-4 text-[#0D3B5E]" strokeWidth={2} />
-          <h3 className="text-[10px] md:text-xs font-bold text-[#0D3B5E] leading-tight whitespace-nowrap">
-            Acesso <span className="text-[#1A9E8F]">imediato</span>
-          </h3>
-        </div>
+      <button 
+        id="cta-hero"
+        onClick={() => {
+          trackEvent('InitiateCheckout', { content_name: 'Hero CTA' });
+          document.getElementById('bonus-section')?.scrollIntoView({ behavior: 'smooth' });
+        }}
+        className="w-full max-w-md mx-auto bg-[#1A9E8F] hover:bg-[#1A9E8F] text-white font-bold py-4 px-4 sm:px-6 rounded-xl shadow-[0_8px_0_#137A6E] transition-all active:translate-y-1 active:shadow-none flex items-center justify-center gap-2 sm:gap-3 uppercase text-[13px] sm:text-sm md:text-base mb-3 mt-8 animate-cta-pulse"
+      >
+        QUERO CUIDAR DO MEU FÍGADO AGORA!
+        <ArrowRight size={20} strokeWidth={3} className="shrink-0" />
+      </button>
 
-        <div className="flex flex-row items-center gap-1.5 px-0.5">
-          <CalendarCheck className="w-3 h-3 md:w-4 md:h-4 text-[#0D3B5E]" strokeWidth={2} />
-          <h3 className="text-[10px] md:text-xs font-bold text-[#0D3B5E] leading-tight whitespace-nowrap">
-            Acesso <span className="text-[#1A9E8F]">vitalício</span>
-          </h3>
-        </div>
-
-        <div className="flex flex-row items-center gap-1.5 px-0.5">
-          <ShieldCheck className="w-3 h-3 md:w-4 md:h-4 text-[#0D3B5E]" strokeWidth={2} />
-          <h3 className="text-[10px] md:text-xs font-bold text-[#0D3B5E] leading-tight whitespace-nowrap">
-            <span className="text-[#1A9E8F]">30 dias</span> de garantia
-          </h3>
-        </div>
-      </div>
-
-      <div className="mb-8 flex flex-col items-center">
+      <div className="mb-8 mt-6 flex flex-col items-center">
         <div className="flex items-center justify-center gap-2 text-3xl md:text-4xl font-bold mb-1">
           <span className="text-black">DE</span>
           <span className="text-red-600 relative">
@@ -412,22 +404,7 @@ const Hero = () => (
           <span className="text-[100px] md:text-[150px] font-black tracking-tighter leading-none">10</span>
         </div>
       </div>
-
-      <button 
-        id="cta-hero"
-        onClick={() => {
-          trackEvent('InitiateCheckout', { content_name: 'Hero CTA' });
-          document.getElementById('bonus-section')?.scrollIntoView({ behavior: 'smooth' });
-        }}
-        className="w-full max-w-md mx-auto bg-[#1A9E8F] hover:bg-[#1A9E8F] text-white font-bold py-4 px-4 sm:px-6 rounded-xl shadow-[0_8px_0_#137A6E] transition-all active:translate-y-1 active:shadow-none flex items-center justify-center gap-2 sm:gap-3 uppercase text-[13px] sm:text-sm md:text-base mb-3 animate-cta-pulse"
-      >
-        QUERO CUIDAR DO MEU FÍGADO AGORA!
-        <ArrowRight size={20} strokeWidth={3} className="shrink-0" />
-      </button>
-      <div className="flex items-center justify-center gap-2 text-xs text-[#4B5563] font-medium">
-        <Lock size={14} className="text-[#1A9E8F]" />
-        acesso imediato + garantia de 30 dias
-      </div>
+      
     </div>
   </section>
 );
@@ -451,67 +428,24 @@ const Identification = () => {
           Se alguma dessas situações descreve você, o Protocolo Fígado Leve pode ser a solução.
         </p>
 
-        <div className="flex flex-col gap-4 mb-12 text-left">
+        <div className="flex flex-col gap-3 mb-10 md:mb-12 text-left">
           {items.map((item, i) => (
-            <div key={i} className="bg-white p-4 md:p-5 rounded-[12px] border border-[#E5E7EB] flex items-center gap-4 shadow-sm">
-              <div className="shrink-0">
-                <XCircle size={28} className="text-[#EF4444]" strokeWidth={2} />
+            <div key={i} className="bg-white px-5 py-3.5 md:px-8 md:py-4 rounded-full border border-[#E5E7EB] flex items-center gap-4 shadow-sm">
+              <div className="shrink-0 flex items-center justify-center">
+                <XCircle size={22} className="text-[#EF4444]" strokeWidth={2.5} />
               </div>
-              <p className="text-[#0D3B5E] text-sm md:text-base font-medium leading-snug">
+              <p className="text-[#0D3B5E] text-[13px] md:text-[15px] font-medium leading-snug">
                 {item}
               </p>
             </div>
           ))}
         </div>
 
-        <div className="text-center">
-          <p className="text-[#4B5563] text-lg md:text-xl mb-1">A boa notícia?</p>
-          <p className="text-[#1A9E8F] text-lg md:text-xl font-bold">
-            O Protocolo Fígado Leve foi criado exatamente para você.
+        <div className="text-center mt-8">
+          <p className="text-[#4B5563] text-base md:text-[19px] mb-1 inline-block">
+            <span className="font-medium mr-1.5">A boa notícia?</span>
+            <span className="text-[#1A9E8F] font-bold">O Protocolo Fígado Leve foi criado exatamente para você.</span>
           </p>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const EditorialTrustSection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <section 
-      ref={sectionRef} 
-      className={`relative py-20 px-6 bg-[#0D3B5E] noise-bg-cta overflow-hidden reveal-element ${isVisible ? 'visible' : ''}`}
-    >
-      <div className="max-w-4xl mx-auto relative z-10">
-        <div className="flex justify-center mb-10">
-          <span className="bg-[#EF4444] text-white text-[10px] font-bold px-4 py-1.5 rounded-none uppercase tracking-[0.2em]">
-            ATENÇÃO
-          </span>
-        </div>
-        
-        <div className="max-w-3xl mx-auto pl-6 md:pl-12 border-l-[3px] border-[#1A9E8F] mb-10">
-          <h2 className="text-white text-2xl md:text-4xl lg:text-5xl font-semibold leading-[1.3] tracking-tight">
-            A esteatose hepática não dói no início mas ignorar os sinais pode <span className="text-[#1A9E8F] font-bold">custar caro</span> para a sua saúde.
-          </h2>
         </div>
       </div>
     </section>
@@ -520,57 +454,72 @@ const EditorialTrustSection = () => {
 
 const ExpertBioSection = () => {
   return (
-    <section className="relative py-12 md:py-28 px-6 bg-[#F5F7F6] overflow-hidden">
-      <div className="absolute top-0 right-0 w-[40%] md:w-[30%] opacity-100 pointer-events-none z-0">
-        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
-          <path d="M400 0C400 220.914 220.914 400 0 400" stroke="#F5F7F6" strokeWidth="150" />
-        </svg>
-      </div>
+    <section className="relative pt-10 md:pt-0 bg-[#28608F] overflow-hidden font-poppins selection:bg-[#5DC2F0]/30 z-10">
+      
+      {/* Radial glow behind the expert */}
+      <div className="absolute bottom-0 right-1/2 translate-x-1/2 md:translate-x-0 md:right-0 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-[#4385B5]/60 blur-[100px] rounded-full pointer-events-none z-0"></div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] gap-8 lg:gap-12 items-center">
-          <div className="flex justify-center">
-            <div className="relative w-full max-w-[320px] md:max-w-[420px] bg-white rounded-[16px] shadow-[0_20px_60px_rgba(13,59,94,0.25)] overflow-hidden">
-              <img 
-                src="https://i.ibb.co/FLQRRQpP/b60f228e-fddc-4c9e-94e9-e4c6272a10b5.jpg" 
-                alt="Dra. Marina Albuquerque" 
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto block"
-              />
-            </div>
+      {/* Decorative gradient overlay to darken the left side behind text slightly on desktop */}
+      <div className="absolute inset-x-0 top-0 h-[60%] bg-gradient-to-b from-[#26537C] to-transparent md:hidden z-10 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-[#21496D] via-[#28608F]/80 to-transparent z-10 hidden md:block w-[70%] pointer-events-none"></div>
+      
+      <div className="max-w-[1240px] mx-auto px-6 md:px-12 relative w-full h-full z-20 flex flex-col md:flex-row items-center md:items-stretch min-h-[600px] lg:min-h-[700px]">
+        
+        {/* Left Side: Text */}
+        <div className="w-full md:w-[60%] lg:w-[50%] text-center md:text-left pt-6 pb-2 md:py-20 lg:py-28 flex flex-col justify-center items-center md:items-start z-20">
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="text-[#56C0FA] text-[24px] sm:text-[28px] md:text-[32px] font-medium tracking-tight mb-2">
+              Dra. Marina Albuquerque
+            </h3>
+            <h2 className="text-white text-[23px] sm:text-[28px] md:text-[34px] font-medium leading-[1.3] tracking-tight mb-8 md:mb-10 max-w-[340px] sm:max-w-md lg:max-w-[480px]">
+              É a criadora do <strong className="font-bold">Método Fígado Leve</strong>
+            </h2>
           </div>
 
-          <div className="space-y-6">
-            <div>
-              <span className="inline-block text-[#1A9E8F] text-[10px] font-bold uppercase tracking-[0.2em] mb-3">
-                QUEM ESTÁ POR TRÁS DO MÉTODO
-              </span>
-              <h2 className="text-[#0D3B5E] text-3xl md:text-5xl font-bold leading-tight mb-4">
-                Dra. Marina Albuquerque
-              </h2>
-              <div className="w-[60px] h-[2px] bg-[#1A9E8F]"></div>
-            </div>
-
-            <p className="text-[#4B5563] text-sm md:text-base leading-relaxed">
-              <strong className="text-[#0D3B5E] font-bold">Nutricionista Clínica</strong> • <strong className="text-[#0D3B5E] font-bold">Especialista em Saúde Hepática</strong> • <strong className="text-[#0D3B5E] font-bold">12 anos de experiência</strong>
+          <div className="space-y-6 md:space-y-6 text-white text-[16px] sm:text-[17px] md:text-[18px] leading-[1.4] font-normal max-w-[350px] sm:max-w-md lg:max-w-[520px]">
+            <p>
+              Sou especialista em saúde hepática, nutricionista clínica e atendo pacientes há mais de 12 anos.
+            </p>
+            
+            <p>
+              As minhas abordagens revolucionaram a forma de tratar a gordura no fígado no Brasil, devolvendo a saúde e a disposição para centenas de pessoas.
             </p>
 
-            <div className="space-y-6 text-[#4B5563] text-base md:text-lg leading-relaxed">
-              <p>
-                Atendendo centenas de pacientes, percebi que todo mundo saía do consultório com o diagnóstico na mão… <strong className="font-bold text-[#1A9E8F]">mas sem saber o que fazer.</strong>
-              </p>
-              
-              <p>
-                Tentavam sozinhos. Erravam. Desistiam. <strong className="font-bold text-[#1A9E8F]">E voltavam com o fígado pior.</strong>
-              </p>
-
-              <p>
-                Foi aí que criei o <strong className="font-bold text-[#1A9E8F]">Fígado Leve</strong> — um método claro, simples e aplicável na vida real.
-              </p>
-            </div>
+            <p>
+              Agora, chegou a sua vez de copiar e colar esse passo a passo para reduzir a gordura no fígado sem dietas radicais.
+            </p>
           </div>
         </div>
+
+        {/* Right Side: Image */}
+        <div className="w-full md:w-[55%] lg:w-[55%] md:absolute md:right-0 md:bottom-0 md:top-0 flex items-end justify-center md:justify-end z-10 md:z-0 mt-6 md:mt-0 relative h-[450px] sm:h-[550px] md:h-full">
+          <div 
+            className="relative w-full h-full flex items-end justify-center md:justify-end max-w-[700px] mx-auto md:mr-0 pl-10 md:pl-0"
+            style={{ 
+              maskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%), linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%), linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
+              maskComposite: 'intersect',
+              WebkitMaskComposite: 'source-in'
+            }}
+          >
+            
+            <img 
+              src="https://i.ibb.co/nM4RQvT1/unnamed.png" 
+              alt="Dra. Marina Albuquerque" 
+              loading="lazy"
+              decoding="async"
+              className="w-auto h-[100%] md:h-[110%] object-contain object-bottom md:object-right-bottom mix-blend-luminosity grayscale contrast-[1.1] brightness-[1.1] opacity-100 select-none pointer-events-none md:translate-y-[2%]"
+            />
+            
+            {/* Subtle color overlay to enforce blue duotone matching the reference */}
+            <div className="absolute inset-0 bg-[#316A9B] mix-blend-color opacity-100 pointer-events-none"></div>
+            
+            {/* Extra multiply overlay to darken shadows slightly like the reference */}
+            <div className="absolute inset-0 bg-[#1C4162] mix-blend-multiply opacity-25 pointer-events-none"></div>
+
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -675,6 +624,14 @@ const NewTestimonialsSection = () => {
   );
 };
 
+const PreviewDivider = () => (
+  <div className="w-full bg-black py-8 md:py-12 flex justify-center items-center">
+    <h2 className="text-white text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-center px-4">
+      VEJA UMA PRÉVIA
+    </h2>
+  </div>
+);
+
 const WhatYouGetDivider = () => (
   <div className="w-full bg-black py-8 md:py-12 flex justify-center items-center">
     <h2 className="text-white text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-center px-4">
@@ -694,7 +651,7 @@ const HowYouGetDivider = () => (
 const HowYouGetSteps = () => {
   const steps = [
     {
-      icon: <Inbox className="w-6 h-6 md:w-8 md:h-8 text-[#0D3B5E]" strokeWidth={1.5} />,
+      icon: <Inbox className="w-6 h-6 md:w-7 md:h-7 text-[#0D3B5E]" strokeWidth={1.5} />,
       text: (
         <>
           Após confirmação do pagamento, um acesso individual COM SENHA será enviado ao seu e-mail para você acessar O SEU APLICATIVO. Verifique <strong className="font-bold text-red-600">CAIXA DE SPAM E LIXO ELETRÔNICO.</strong>
@@ -702,7 +659,7 @@ const HowYouGetSteps = () => {
       )
     },
     {
-      icon: <Mail className="w-6 h-6 md:w-8 md:h-8 text-[#0D3B5E]" strokeWidth={1.5} />,
+      icon: <Mail className="w-6 h-6 md:w-7 md:h-7 text-[#0D3B5E]" strokeWidth={1.5} />,
       text: (
         <>
           O material é <strong className="font-bold text-red-600">DIGITAL</strong> e o acesso é feito pela plataforma. Você pode estudar nos seus dispositivos, como Computador, Tablet e Celular.
@@ -710,7 +667,7 @@ const HowYouGetSteps = () => {
       )
     },
     {
-      icon: <Smartphone className="w-6 h-6 md:w-8 md:h-8 text-[#0D3B5E]" strokeWidth={1.5} />,
+      icon: <Smartphone className="w-6 h-6 md:w-7 md:h-7 text-[#0D3B5E]" strokeWidth={1.5} />,
       text: (
         <>
           <strong className="font-bold text-red-600">Pronto!</strong> Agora inicie sua Jornada de conhecimento rumo ao <strong className="font-bold text-red-600">Fígado Leve.</strong>
@@ -732,24 +689,24 @@ const HowYouGetSteps = () => {
         </div>
 
         {/* Steps List */}
-        <div className="space-y-6 md:space-y-10">
+        <div className="space-y-4 md:space-y-6">
           {steps.map((step, index) => (
-            <div key={index} className="flex flex-row items-start gap-4 md:gap-8 text-left">
+            <div key={index} className="flex flex-row items-center gap-4 md:gap-6 text-left bg-white border border-[#CBD5E1] shadow-[0_4px_10px_rgba(0,0,0,0.03)] rounded-[20px] p-5 md:p-6">
               
               {/* Icon Container */}
               <div className="relative shrink-0">
-                <div className="bg-white w-14 h-14 md:w-20 md:h-20 rounded-2xl md:rounded-3xl flex items-center justify-center">
+                <div className="bg-white w-12 h-12 md:w-16 md:h-16 rounded-[14px] border border-[#CBD5E1] flex items-center justify-center">
                   {step.icon}
                 </div>
                 {/* Number Badge */}
-                <div className="absolute -bottom-1 -right-1 md:-bottom-2 md:-right-2 bg-[#0D3B5E] text-white w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center font-bold text-xs md:text-sm border-2 md:border-4 border-white">
+                <div className="absolute -bottom-2 -right-2 bg-[#0D3B5E] text-white w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center font-bold text-[11px] md:text-xs border-2 border-white">
                   {index + 1}
                 </div>
               </div>
 
               {/* Text Content */}
-              <div className="flex-1 pt-0 md:pt-1">
-                <p className="text-[#4B5563] text-sm md:text-lg leading-relaxed">
+              <div className="flex-1">
+                <p className="text-[#4B5563] text-[14px] md:text-[16px] leading-relaxed">
                   {step.text}
                 </p>
               </div>
@@ -1100,19 +1057,11 @@ const PreviewSection = () => {
         </div>
 
         {/* Video Player */}
-        <div className="relative w-full max-w-[315px] mx-auto mb-16 md:mb-20 overflow-hidden rounded-2xl shadow-xl bg-black">
-          <div style={{ padding: '216.66% 0 0 0', position: 'relative' }} className="-mt-[12%]">
-            <iframe 
-              src="https://player.vimeo.com/video/1179685930?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=0" 
-              frameBorder="0" 
-              loading="lazy"
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
-              referrerPolicy="strict-origin-when-cross-origin" 
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} 
-              title="0319 (1)(1)"
-            ></iframe>
-          </div>
-        </div>
+        <VSLPlayer 
+          videoSrc="https://file.garden/abrFdPrpWxJegn2H/0319%20(1)(1343).mp4"
+          className="relative w-full max-w-[315px] mx-auto rounded-[16px] overflow-hidden shadow-[0_20px_50px_rgba(13,59,94,0.15)] bg-black mb-16 md:mb-20 cursor-pointer select-none group border-4 border-white/50"
+          videoClassName="-mt-[12%]"
+        />
 
       </div>
     </section>
@@ -2108,6 +2057,7 @@ export default function App() {
         <HowYouGetDivider />
         <HowYouGetSteps />
         <Identification />
+        <PreviewDivider />
         <SolutionSection />
         <ModulesSection />
         <PreviewSection />
@@ -2116,7 +2066,6 @@ export default function App() {
         <BonusSection />
         <HowYouGetDivider />
         <HowYouGetSteps />
-        <EditorialTrustSection />
         <ExpertBioSection />
         <NewTestimonialsSection />
         <Offer onBasicClick={handleBasicClick} />
